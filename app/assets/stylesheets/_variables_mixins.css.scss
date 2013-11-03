@@ -1,0 +1,34 @@
+$lightblue: #87BCD6;
+$blue: #1F5874;
+$darkblue: #1b2640;
+
+$lightgray: #EEEBE8;
+$medgray: #D7CFC2;
+$gray: #C9C0B4;
+$darkgray: #746E68;
+
+$orange: #E0881B;
+$tan: #E5AA60;
+
+$red: #CD3804;
+
+@mixin smallfont {
+  font-size: 12px;
+}
+
+@mixin roundcorners {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+@mixin shadow {
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+@mixin cursor {
+  cursor: pointer;
+  cursor: hand;
+}

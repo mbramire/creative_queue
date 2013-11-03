@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CreativeQueue</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico' %>
+  <link href='http://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <% flash.each do |key, value| %>
+    <section class="alert-box hide">
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    </section>
+  <% end %>
+  <%= render 'layouts/header' %>
+  <%= yield %>
+  <% if Rails.env.development? %>
+<!--     <section class="debug">
+      <%#= debug(params) %>
+    </section> -->
+  <% end %>
+</body>
+</html>

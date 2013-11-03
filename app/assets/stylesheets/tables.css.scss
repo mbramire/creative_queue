@@ -1,0 +1,44 @@
+@import "variables_mixins";
+
+table {
+  @include roundcorners;
+  margin: 20px 0 30px;
+  width: 100%;
+  text-align: left;
+  
+  tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  th, td{
+    padding: 15px;
+  }
+  
+  th {
+    background: $darkblue;
+    color: white;
+  }
+}
+
+.artist-tbl {
+
+  .small-avatar {
+    position: relative;
+    top: 8px;
+  }
+
+  td {
+    padding: 5px 15px 20px;
+  }
+}
+
+.jb-acct-icon {
+  position: relative;
+  top: 2px;
+}
+
+.highlight {
+  a {
+    color: $orange;
+  }
+}

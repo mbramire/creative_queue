@@ -1,0 +1,68 @@
+<h2 class="pad-top-large">Contact Information</h2>
+<div class="row pad-top pad-bottom-large">
+  <div class="four-col">  
+    <%= f.label :contact_name, "Contact Name" %>
+    <%= f.text_field :contact_name %>
+  </div>
+  <div class="four-col">
+    <%= f.label :contact_email, "Contact Email" %>
+    <%= f.text_field :contact_email %>
+  </div>
+  <div class="four-col">
+    <%= f.label :contact_phone, "Contact Phone" %>
+    <%= f.text_field :contact_phone %>
+  </div>
+</div>
+<h2>Virtual Details</h2>
+<div class="row pad-top pad-bottom-large">
+  <div class="four-col">
+    <%= f.label :quote_number %>
+    <%= f.text_field :quote_number %>
+  </div>
+  <div class="four-col">
+    <%= f.label :company %>
+    <%= f.text_field :company %>
+  </div>
+  <div class="four-col">
+    <%= f.label :quantity, "Quantities" %>
+    <%= f.text_field :quantity %>
+  </div>
+  <div class="four-col">
+    <%= f.label :budget, "Budget Per Book (NET)" %>
+    <%= f.text_field :budget %>
+  </div>
+</div>
+<h2>Artwork</h2>
+<div class="row pad-top pad-bottom">
+  <div class="four-col">
+    <%= f.label :art, "Select Art File" %>
+    <%= f.file_field :art %>
+  </div>
+  <div class="four-col">
+    <%= f.label :art_url, "url for artwork" %>
+    <%= f.text_field :art_url %>
+  </div>
+  <div class="four-col">
+    <%= f.label :due_date %><br>
+    <%= f.date_select :due_date, { use_short_month: :true, default: 5.days.from_now } %> 
+  </div>
+  <div class="four-col">
+    <%= f.label :artist_id, "Artist" %><br>
+    <% if current_user.admin %>
+      <% 
+        options = Artist.in_queue?.collect {|p| [ p.name, p.id ] } 
+        options.unshift ["auto-assign", 0]
+      %>
+      <%= f.select :artist_id, options %> 
+    <% else %>
+      <%= current_user.name %>
+      <%= f.hidden_field :artist_id, value: "#{current_user.id}" %>
+    <% end %>
+  </div>
+</div>
+<div class="row pad-bottom-large">
+  <div class="four-col">
+    <%= f.label :comments %>
+    <%= f.text_area :comments %>
+  </div>
+</div>

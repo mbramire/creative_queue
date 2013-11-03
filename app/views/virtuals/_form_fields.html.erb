@@ -1,0 +1,20 @@
+<% email_addresses = f.object.errors.any? ? params[:recipients] : @virtual_request.contact_email %>
+
+<div class="row pad-bottom-large pad-top">
+  <div class="three-col">
+    <%= f.label :artist_comments %>
+    <%= f.text_area :artist_comments, class: "extend-field" %>
+  </div>
+  <div class="three-col">
+    <%= f.label :recipients, "Recipients - separate with ," %>
+    <%= f.text_area :recipients, value: email_addresses , class: "extend-field"  %>
+  </div>
+  <div class="three-col">
+    <%= f.label :document, "Upload Virtual" %>
+    <%= f.file_field :document %>
+  </div>
+</div>
+<%= f.hidden_field :artist_id, value: current_user.id %>
+<%= f.hidden_field :virtual_request_id, value: @virtual_request.id %>
+<%= f.submit "Save", class: "button margin-right" %> 
+<%= link_to "Go Back", virtual_request_path(@virtual_request), class: "button margin-right" %>

@@ -1,0 +1,40 @@
+<div class="virtual-box">
+  <div class="row">
+    <div class="two-col">
+      <h2><%= @virtual_request.company %> - <%= v.version %>.0</h2>  
+      <em>recipients</em>
+      <p class="comments">
+        <%= v.recipients %>
+      </p>
+      <p class="pad-top">
+        <em>distributor comments</em>
+        <p class="comments">
+          <% if v.user_comments.nil? %>
+            <em class="alert-text">none</em>
+          <% else %>
+            <%= v.user_comments %>
+          <% end %>
+        </p>
+      </p>
+      <%= link_to "Edit version #{v.version}.0", edit_virtual_request_virtual_path(@virtual_request, v), class: "button margin-right margin-top" %>
+      <%= link_to "Email", root_path, class: "email-btn" %>            
+    </div>
+    <div class="two-col pdf-box">
+      <%= link_to image_tag("icons/large-pdf.png"), v.document.url, class: "pull-left margin-right pdf-button" %>
+      <p class="pad-top">
+        <em>completed on</em> <%= v.completed_date %></br> 
+        <em>by </em><%= v.artist.name %></br>
+      </p>
+      <p style="padding-top: 30px">
+        <em>artist comments</em>
+        <p class="comments">
+          <% if v.artist_comments.empty? %>
+            <em class="alert-text">none</em>
+          <% else %>
+            <%= v.artist_comments %>
+          <% end %>
+        </p>
+      </p>
+    </div>
+  </div>
+</div>

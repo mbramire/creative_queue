@@ -1,0 +1,45 @@
+@import "variables_mixins";
+
+body {
+  font-family: 'Alef', sans-serif;
+  color: $darkgray;
+  font-size: 13px;
+  background: image-url('backgrounds/groovepaper.png') repeat;
+}
+
+ul {
+  line-height: 30px;
+}
+
+h1 {
+  color: $darkblue;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+h2 {
+  @extend h1;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  @extend h1;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.comments {
+  line-height: 14px;
+  font-size: 11px;
+  margin-top: 5px;
+
+  li & {
+    margin-top: 0;
+  }
+}
+
+em {
+  color: $blue;
+  font-weight: bold;
+}

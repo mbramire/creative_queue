@@ -1,0 +1,59 @@
+@import "variables_mixins";
+
+.profile{
+  float: left;
+  background: image-url("backgrounds/profile_bg.png") repeat;
+  color: white;
+  font-size: 12px;
+  @include shadow;
+  @include cursor;
+  
+  div {
+    height: 150px;
+    width: 150px;
+    float: left;
+    overflow: hidden;
+    border-right: 2px solid $orange;
+    
+    img {
+      height: 150px;
+    }
+  }
+
+  ul:hover {
+    background: rgba(255, 255, 255, 0.2)
+  }
+  
+  ul {
+    height: 150px;
+    padding: 45px 30px 0;
+    float: left;
+    line-height: 18px;
+    color: white;
+    
+    li:first-child {
+      font-weight: bold;
+      color: $lightblue;
+      font-size: 15px;
+    }
+  }
+}
+
+.small-avatar {
+  height: 25px;
+  width: 25px;
+  position: relative;
+  top: 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.profile-list {
+  color: $darkblue;
+  font-weight: bold;
+}
+
+.asleep-icon {
+  padding-left: 5px;
+}

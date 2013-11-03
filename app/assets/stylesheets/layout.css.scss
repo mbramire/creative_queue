@@ -1,0 +1,146 @@
+@import "variables_mixins";
+
+* {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box
+}
+
+/* Simple Grid */
+
+.flex-box {
+  margin: 40px 40px;
+  padding: 30px;
+}
+
+.white-box {
+  width: 980px;
+  margin: 60px auto;
+  padding: 30px;
+  background: white;
+  border: 1px solid $gray;
+  @include shadow;
+  @include roundcorners;
+
+  &.sign-in {
+    width: 240px;
+    margin-top: 100px;
+
+    img {
+      margin-left: 35px;
+    }
+  }
+}
+
+.border-right {
+  border-right: 1px solid $gray;
+}
+
+.row {
+  width: 100%;
+
+  .two-col {
+    float: left;
+    width: 50%;
+  }
+
+  .three-col {
+    float: left;
+    width: 33%;
+  }
+
+  .four-col {
+    float: left;
+    width: 25%;
+  }
+
+  .three-col-span-two {
+    float: left;
+    width: 66%;
+  }
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.divider {
+  height: 35px;
+  width: 100%;
+  background: image-url('chrome/divider.png') repeat-x;
+}
+
+/* surgical classes */
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.margin-bottom {
+  margin-bottom: 15px;
+}
+
+.margin-bottom-large {
+  margin-bottom: 40px;
+}
+
+.margin-top {
+  margin-top: 15px;
+}
+
+.margin-top-large {
+  margin-top: 40px;
+}
+
+.margin-left {
+  margin-left: 15px;
+}
+
+.margin-right {
+  margin-right: 15px;
+}
+
+.pad-all {
+  padding: 25px;
+}
+
+.pad-top {
+  padding-top: 15px;
+}
+
+.pad-top-large {
+  padding-top: 40px;
+}
+
+.pad-bottom {
+  padding-bottom: 15px;
+}
+
+.pad-bottom-large {
+  padding-bottom: 40px;
+}
+
+.pad-right {
+  padding-right: 15px;
+}
+
+.pad-right-med {
+  padding-right: 25px;
+}
+
+.pad-left {
+  padding-left: 15px;
+}
+
+.hide {
+  display: none;
+}

@@ -1,0 +1,13 @@
+<tr>
+  <td>
+    <%= image_tag artist.avatar_image, class: "small-avatar" %>
+    <%= link_to artist.name, artist_path(artist), class: "pad-left" %>
+    <% if !artist.in_queue %>
+      <%= image_tag "icons/asleep-blue.png", class: "asleep-icon", alt: "Not in queue" %>
+    <% end %>
+  </td>
+  <td><%= artist.email %></td>
+  <td><%= artist.in_queue ? "Yes" : "-" %></td>
+  <td><%= artist.admin ? "Yes" : "-" %></td>
+</tr>
+

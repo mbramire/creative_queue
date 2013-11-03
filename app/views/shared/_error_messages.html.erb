@@ -1,0 +1,15 @@
+<% if object.errors.any? %>
+  <section class="alert-box hide">
+    <div class="alert alert-error">
+      <span style="font-weight: bold;">The form contains <%= pluralize(object.errors.count, "error") %>:</span>
+      <% object.errors.full_messages.each do |msg| %>
+        <% if object.errors.full_messages.count != 1 && msg != object.errors.full_messages.last %>
+          <%= msg.downcase + "," %>
+        <% else %>
+          <%= msg.downcase + "." %>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+

@@ -1,0 +1,15 @@
+<div class="flex-box">
+  <h1>Artists</h1>
+  <table class="artist-tbl">
+    <tr>
+      <th>Name</th>
+      <th>email</th>
+      <th>In Queue</th>
+      <th>Admin?</th>
+    </tr>
+    <%= render @users %>
+  </table>
+  <% if current_user.admin %>
+    <%= link_to "New Artist", new_artist_path, class: "button margin-right" %>
+  <% end %>
+</div>
