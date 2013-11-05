@@ -47,12 +47,12 @@
     <%= f.date_select :due_date, { use_short_month: :true, default: 5.days.from_now } %> 
   </div>
   <div class="four-col">
-    <%= f.label :artist_id, "Artist" %><br>
+    <%= f.label :creative_user_id, "Artist" %><br>
     <% 
-      options = Artist.in_queue?.collect {|p| [ p.name, p.id ] } 
+      options = CreativeUser.in_queue?.collect {|p| [ p.name, p.id ] } 
       options.unshift ["auto-assign", 0]
     %>
-    <%= f.select :artist_id, options %> 
+    <%= f.select :creative_user_id, options %> 
   </div>
 </div>
 <div class="row pad-bottom-large">

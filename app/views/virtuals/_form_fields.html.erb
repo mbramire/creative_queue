@@ -14,7 +14,7 @@
     <%= f.file_field :document %>
   </div>
 </div>
-<%= f.hidden_field :artist_id, value: current_user.id %>
+<%= f.hidden_field :creative_user_id, value: current_user.id %>
 <%= f.hidden_field :virtual_request_id, value: @virtual_request.id %>
 <%= f.submit "Save", class: "button margin-right" %> 
 <%= link_to "Go Back", virtual_request_path(@virtual_request), class: "button margin-right" %>

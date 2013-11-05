@@ -15,11 +15,11 @@
       </ul>
       <h2 class="pad-top-large">Virtual Info</h2>
       <ul class="margin-bottom">
-        <li><em>artist</em>
-          <% if @virtual_request.artist.nil? %>
+        <li><em>Artist</em>
+          <% if @virtual_request.creative_user.nil? %>
             <em class="alert-text">unassigned</em>
           <% else %>
-            <%= @virtual_request.artist.name %>
+            <%= @virtual_request.creative_user.name %>
           <% end %>
         </li>
         <li><em>virtual no.</em> <%= @virtual_request.id %></li>
@@ -69,7 +69,7 @@
         <%= link_to "Create Virtual", new_virtual_request_virtual_path(virtual_request_id: @virtual_request.id), class: "new-virtual-button" %>
       <% else %>
         <p class="virtual-notice">Move this virtual request to your queue to start working on it.</br> 
-          Keep in mind that it will be removed from <%= @virtual_request.artist.name %>'s queue.</p>
+          Keep in mind that it will be removed from <%= @virtual_request.creative_user.name %>'s queue.</p>
       <% end %>
     </div>
 </div>

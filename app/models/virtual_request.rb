@@ -11,11 +11,11 @@ class VirtualRequest < ActiveRecord::Base
   validates_presence_of :budget
   validates_presence_of :company
   validates_presence_of :due_date
-  validates_presence_of :artist_id
+  validates_presence_of :creative_user_id
 
   validates_presence_of :art, :unless => :art_url?, :message => "url or art file must be provided"
 
-  belongs_to :artist
+  belongs_to :creative_user
   belongs_to :user
 
   has_many :virtuals
@@ -37,9 +37,9 @@ class VirtualRequest < ActiveRecord::Base
   end
 
   def auto_assign!
-    if self.artist_id == 0
-      artists = Artist.in_queue?.collect {|p| [ p.id, p.virtual_requests.count ] } 
-      self.artist_id = artists.sort { |a,b| a[1] <=> b[1] }.first[0]
+    if self.creative_user_id == 0
+      artists = CreativeUser.in_queue?.collect {|p| [ p.id, p.virtual_requests.count ] } 
+      self.creative_user_id = artists.sort { |a,b| a[1] <=> b[1] }.first[0]
       self.save
     end
   end

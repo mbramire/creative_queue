@@ -1,6 +1,6 @@
 class Virtual < ActiveRecord::Base
   belongs_to :virtual_request
-  belongs_to :artist  
+  belongs_to :creative_user 
 
   before_validation do
     emails = self.recipients.downcase.split(/[\s,]+/)

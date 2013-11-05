@@ -5,7 +5,7 @@ CreativeQueue::Application.routes.draw do
   # You can have the root of your site routed with "root"
 root 'home#index'
 
-resources :artists do
+resources :creative_users do
   member do
     get 'update_password'
   end

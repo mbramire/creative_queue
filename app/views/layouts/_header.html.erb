@@ -1,9 +1,9 @@
 <% if current_user %>
   <section class="profile clickable">
     <div>
-        <%= link_to image_tag(current_user.avatar_image), artist_path(current_user) %>
+        <%= link_to image_tag(current_user.avatar_image), creative_user_path(current_user) %>
     </div>
-    <%= link_to artist_path(current_user) do %>
+    <%= link_to creative_user_path(current_user) do %>
       <ul>
         <li> 
           <%= current_user.name %>
@@ -24,8 +24,8 @@
       <%= link_to virtual_requests_path do %>
         <li class="<%= @nav[0] == 'virtuals' ? "selected" : "" %>">virtuals</li>
       <% end %>
-      <%= link_to artists_path do %>
-        <li class="<%= @nav[0] == 'artists' ? "selected" : "" %>">artists</li>
+      <%= link_to creative_users_path do %>
+        <li class="<%= @nav[0] == 'creative_users' ? "selected" : "" %>">users</li>
       <% end %>
       <%= link_to session_path(current_user), method: "delete" do %>
         <li>log out</li>

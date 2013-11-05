@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131031200207) do
+ActiveRecord::Schema.define(version: 20131105191825) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",                      null: false
@@ -53,22 +53,6 @@ ActiveRecord::Schema.define(version: 20131031200207) do
     t.string   "author"
     t.datetime "published_at"
   end
-
-  create_table "artists", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.string   "remember_token"
-    t.boolean  "admin"
-    t.string   "avatar"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "in_queue",        default: true
-    t.string   "title",           default: "Greenhorn"
-  end
-
-  add_index "artists", ["email"], name: "index_artists_on_email", unique: true, using: :btree
-  add_index "artists", ["remember_token"], name: "index_artists_on_remember_token", using: :btree
 
   create_table "artworks", force: true do |t|
     t.integer  "customer_number"
@@ -305,6 +289,22 @@ ActiveRecord::Schema.define(version: 20131031200207) do
     t.string   "swatch"
     t.string   "texture"
   end
+
+  create_table "creative_users", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.string   "remember_token"
+    t.boolean  "admin"
+    t.string   "avatar"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "in_queue",        default: true
+    t.string   "title",           default: "Greenhorn"
+  end
+
+  add_index "creative_users", ["email"], name: "index_creative_users_on_email", unique: true, using: :btree
+  add_index "creative_users", ["remember_token"], name: "index_creative_users_on_remember_token", using: :btree
 
   create_table "customer_contacts", force: true do |t|
     t.integer  "distributor_id"
@@ -937,7 +937,7 @@ ActiveRecord::Schema.define(version: 20131031200207) do
     t.integer  "art_file_size"
     t.string   "art_content_type"
     t.string   "company"
-    t.integer  "artist_id"
+    t.integer  "creative_user_id"
     t.datetime "due_date"
     t.string   "art_url"
     t.boolean  "priority"
@@ -955,13 +955,13 @@ ActiveRecord::Schema.define(version: 20131031200207) do
     t.string   "recipients"
     t.boolean  "sent"
     t.integer  "virtual_request_id"
-    t.integer  "artist_id"
+    t.integer  "creative_user_id"
     t.integer  "version",            default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "virtuals", ["artist_id"], name: "index_virtuals_on_artist_id", using: :btree
+  add_index "virtuals", ["creative_user_id"], name: "index_virtuals_on_creative_user_id", using: :btree
   add_index "virtuals", ["virtual_request_id"], name: "index_virtuals_on_virtual_request_id", using: :btree
 
 end
