@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Homepage" do
-  let(:artist) { FactoryGirl.create(:artist) }
+  let(:creative_user) { FactoryGirl.create(:creative_user) }
   before { visit root_path }
 
   context "when not signed in" do
@@ -12,28 +12,28 @@ describe "Homepage" do
 
   context "when signed in" do
     before do
-      @other_artist = FactoryGirl.create(:artist)
-      @virtual1 = FactoryGirl.create(:virtual_request, artist: artist)
-      @virtual2 = FactoryGirl.create(:virtual_request, artist: artist)
-      10.times { FactoryGirl.create(:virtual_request, artist: @other_artist) }
-      sign_in(artist)
+      @other_creative_user = FactoryGirl.create(:creative_user)
+      @virtual1 = FactoryGirl.create(:virtual_request, creative_user: creative_user)
+      @virtual2 = FactoryGirl.create(:virtual_request, creative_user: creative_user)
+      10.times { FactoryGirl.create(:virtual_request, creative_user: @other_creative_user) }
+      sign_in(creative_user)
     end
 
     it "should show queue" do
-      expect(page).to have_content("Welcome to Creative Queue #{artist.first_name}") 
+      expect(page).to have_content("Welcome to Creative Queue #{creative_user.first_name}") 
     end
 
-    it "should show artists virtuals" do
+    it "should show creative_users virtuals" do
       expect(page).to have_content(@virtual1.company)
     end
 
     it "should show current virtual count" do
-      expect(page).to have_content("My Queue (#{artist.virtual_requests.count})")
+      expect(page).to have_content("My Queue (#{creative_user.virtual_requests.count})")
     end
 
-    it "should show other artists stats" do
-      expect(page).to have_content(@other_artist.name)
-      expect(page).to have_selector("td" , "#{@other_artist.virtual_requests.count}")
+    it "should show other creative_users stats" do
+      expect(page).to have_content(@other_creative_user.name)
+      expect(page).to have_selector("td" , "#{@other_creative_user.virtual_requests.count}")
     end
 
     it "should flag revision request in queue"

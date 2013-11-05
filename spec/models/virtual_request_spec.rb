@@ -12,7 +12,7 @@ describe VirtualRequest do
   it { should respond_to(:comments) }
   it { should respond_to(:art) }
   it { should respond_to(:company) }
-  it { should respond_to(:artist_id) }
+  it { should respond_to(:creative_user_id) }
   it { should respond_to(:due_date) }
   it { should respond_to(:art_url) }
   it { should respond_to(:quote_number) }

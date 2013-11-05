@@ -2,7 +2,7 @@
   <%= render 'shared/error_messages', object: f.object %>
   
   <section class="white-box">
-    <h2>Create Artist</h2>
+    <h2>Create User</h2>
     <div class="row">
       <div class="four-col">
         <%= f.label :name %>
@@ -27,7 +27,7 @@
       <%= f.check_box :admin %>
     </div>
     
-    <%= f.submit "Create Artist", class: "button margin-right" %>
+    <%= f.submit "Create User", class: "button margin-right" %>
     <%= link_to "Go Back", creative_users_path, class: "button" %>
   </section>
 <% end %>

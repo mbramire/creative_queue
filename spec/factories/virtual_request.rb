@@ -9,6 +9,8 @@ FactoryGirl.define do
     contact_phone "1-900-mix-alot"
     quantity "1,000"
     budget "$5.00"
+#    creative_user_id "66"
     art_url "www.pappajohns.com"
+    association :creative_user
   end
 end
