@@ -2,7 +2,7 @@
 
 .profile{
   float: left;
-  background: image-url("backgrounds/profile_bg.png") repeat;
+  background: $maroon;
   color: white;
   font-size: 12px;
   @include shadow;
@@ -50,7 +50,7 @@
 }
 
 .profile-list {
-  color: $darkblue;
+  color: $maroon;
   font-weight: bold;
 }
 

@@ -48,16 +48,11 @@
   </div>
   <div class="four-col">
     <%= f.label :artist_id, "Artist" %><br>
-    <% if current_user.admin %>
-      <% 
-        options = Artist.in_queue?.collect {|p| [ p.name, p.id ] } 
-        options.unshift ["auto-assign", 0]
-      %>
-      <%= f.select :artist_id, options %> 
-    <% else %>
-      <%= current_user.name %>
-      <%= f.hidden_field :artist_id, value: "#{current_user.id}" %>
-    <% end %>
+    <% 
+      options = Artist.in_queue?.collect {|p| [ p.name, p.id ] } 
+      options.unshift ["auto-assign", 0]
+    %>
+    <%= f.select :artist_id, options %> 
   </div>
 </div>
 <div class="row pad-bottom-large">

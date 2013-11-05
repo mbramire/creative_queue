@@ -1,5 +1,6 @@
 class Artist < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i 
+  TITLES = ["Apprentice", "CrackerJack", "Virtual Pro", "Maestro", "Visionary", "Czar", "Virtual Diety"] 
   
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, 
@@ -47,6 +48,12 @@ class Artist < ActiveRecord::Base
 
   def virtuals_this_month
     self.virtuals.find_all { |v| v.updated_at.strftime("%B") == Time.new.strftime("%B") }.count
+  end
+
+  def converted_all_time
+  end
+
+  def converted_this_month
   end
 
   private

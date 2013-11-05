@@ -36,21 +36,6 @@ a {
   }
 }
 
-.new-virtual-button {
-  @include cursor;
-  @include roundcorners;
-  display: block;
-  color: white;
-  background: $gray;
-  text-align: center;
-  padding: 20px;
-  width: 100%;
-
-  &:hover {
-    background: $lightgray;
-  }
-}
-
 .pdf-button {
   &:hover {
     opacity: 0.5;

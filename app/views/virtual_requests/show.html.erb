@@ -1,10 +1,4 @@
 <div class="white-box">
-  <% if current_user.owns?(@virtual_request) || current_user.admin %>
-    <%= link_to "Edit Request", edit_virtual_request_path(@virtual_request), class: "button pull-right margin-left" %>
-  <% end %>
-  <% unless current_user.owns?(@virtual_request) %>
-    <%= link_to "Move to my Queue", move_virtual_request_path(@virtual_request), method: :put, class: "button pull-right" %>
-  <% end %>
   <h1><%= @virtual_request.company %> - due <%= @virtual_request.due_date_human %></h1>
   <div class="row pad-top-large">
     <div class="three-col pad-right-med shadow-border-right">
@@ -23,7 +17,7 @@
       <ul class="margin-bottom">
         <li><em>artist</em>
           <% if @virtual_request.artist.nil? %>
-            <span class="alert-text">unassigned</span>
+            <em class="alert-text">unassigned</em>
           <% else %>
             <%= @virtual_request.artist.name %>
           <% end %>
@@ -33,14 +27,14 @@
           <% if @virtual_request.quote_number.present? %>
             <%= @virtual_request.quote_number %>
           <% else %>
-            <span class="alert-text">none</span>
+            <em class="alert-text">none</em>
           <% end %>
         </li>
         <li><em>purchase order no.</em> 
           <% if @virtual_request.purchase_order.present? %>
             <%= @virtual_request.purchase_order %>
           <% else %>
-            <span class="alert-text">none</span>
+            <em class="alert-text">none</em>
           <% end %>
         </li>
       </ul>
@@ -60,11 +54,22 @@
         </li>
       </ul>
       <%= link_to "Download Art", root_path, class: "button" %>
+      <% if current_user.owns?(@virtual_request) || current_user.admin %>
+        <br/><%= link_to "Edit Request", edit_virtual_request_path(@virtual_request), class: "button margin-top" %>
+      <% end %>
+      <% unless current_user.owns?(@virtual_request) %>
+        <br/><%= link_to "Move to my queue", move_virtual_request_path, method: :put, class: "button margin-top" %>
+      <% end %>
     </div>
     <div class="three-col-span-two virtual-list">
       <% @virtual_request.virtuals.each do |v| %>
         <%= render "virtual", v: v %>
       <% end %>
-      <%= link_to "Create Virtual", new_virtual_request_virtual_path(virtual_request_id: @virtual_request.id), class: "new-virtual-button" %>
+      <% if current_user.owns?(@virtual_request) %>
+        <%= link_to "Create Virtual", new_virtual_request_virtual_path(virtual_request_id: @virtual_request.id), class: "new-virtual-button" %>
+      <% else %>
+        <p class="virtual-notice">Move this virtual request to your queue to start working on it.</br> 
+          Keep in mind that it will be removed from <%= @virtual_request.artist.name %>'s queue.</p>
+      <% end %>
     </div>
 </div>
