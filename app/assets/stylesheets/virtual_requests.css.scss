@@ -10,7 +10,7 @@
 
 .virtual-box {
   @include roundcorners;
-  background: $lightgray;
+  background: $tan;
   padding: 15px;
   margin-bottom: 30px;
 }
@@ -22,7 +22,7 @@
 
 .pdf-box {
   @include roundcorners;
-  background: $medgray;
+  background: $tan;
   padding: 15px;
   min-height: 155px;
 }
@@ -32,13 +32,13 @@
   @include roundcorners;
   display: block;
   color: white;
-  background: $gray;
+  background: $tan;
   text-align: center;
   padding: 20px;
   width: 100%;
 
   &:hover {
-    background: $lightgray;
+    background: $tan;
   }
 }
 

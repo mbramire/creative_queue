@@ -14,7 +14,7 @@ input[type=file], {
   -moz-box-shadow:    inset 0 0 5px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   box-shadow:         inset 0 0 5px rgba(0, 0, 0, 0.2);
-  border: 1px solid $gray;
+  border: 1px solid $maroon;
 }
 
 input[type=checkbox] {
@@ -22,7 +22,7 @@ input[type=checkbox] {
 }
 
 label {
-  color: $blue;
+  color: $maroon;
   font-weight: bold;
   display: block;
 }

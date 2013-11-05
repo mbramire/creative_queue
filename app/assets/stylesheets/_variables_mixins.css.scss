@@ -1,16 +1,21 @@
-$lightblue: #87BCD6;
-$blue: #f2b33d;
+$lightyellow: #f2db94;
+
+$yellow: #f2b33d;
+
 $maroon: #360101;
 
-$lightgray: #EEEBE8;
-$medgray: #D7CFC2;
-$gray: #C9C0B4;
-$darkgray: #746E68;
-
 $orange: #f2622e;
-$tan: #E5AA60;
 
 $red: #CD3804;
+
+$tan: #E5AA60;
+
+/*$lightgray: #EEEBE8;
+$medgray: #D7CFC2;
+$gray: #C9C0B4;
+$darkgray: #746E68;*/
+
+
 
 @mixin smallfont {
   font-size: 12px;

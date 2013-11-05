@@ -8,7 +8,7 @@
         <li> 
           <%= current_user.name %>
           <% if !current_user.in_queue %>
-            <%= image_tag "icons/asleep-blue.png", class: "asleep-icon", alt: "Not in queue" %>
+            <%= image_tag "icons/asleep.png", class: "asleep-icon", alt: "Not in queue" %>
           <% end %>
         </li>
         <li> <%= current_user.admin ? "Admin" : current_user.title %></li>
@@ -31,6 +31,6 @@
         <li>log out</li>
       <% end %>
     </ul>
-    <%= link_to image_tag('logos/logo.png'), root_path %>
+    <%= link_to image_tag('logos/logo-reversed.png'), root_path %>
   </nav>
 <% end %>

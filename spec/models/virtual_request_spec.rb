@@ -19,6 +19,7 @@ describe VirtualRequest do
   it { should respond_to(:priority) }
   it { should respond_to(:purchase_order) }
   it { should respond_to(:user_id) }
+  it { should respond_to(:requested_by_id) }
 
   it { should be_valid }
 

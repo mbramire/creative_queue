@@ -2,7 +2,7 @@
 
 a {
   text-decoration: none;
-  color: $blue;
+  color: $orange;
   font-weight: bold;
 }
 
@@ -11,14 +11,14 @@ a {
   @include cursor;
   @include roundcorners;
   @include smallfont;
-  background: $blue;
+  background: $yellow;
   padding: 10px 20px;
   color: white;
   font-weight: bold;
   display: inline-block;
   
   &:hover {
-    background: $lightblue;
+    background: $lightyellow;
   }
 }
 
