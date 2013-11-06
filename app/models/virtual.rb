@@ -31,7 +31,7 @@ class Virtual < ActiveRecord::Base
 
     def set_version
       new_version = Virtual.where(virtual_request_id: virtual_request_id)
-      self.version = new_version.count + 1
+      self.version = new_version.empty? ? 1 : new_version.last.version + 1 
     end
 
     def update_document_attributes
