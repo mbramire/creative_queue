@@ -1,6 +1,6 @@
 <% if current_user %>
 
-  <div class="flex-box">
+  <div class="pad-all-large">
     <h1>My Queue (<%= @virtual_requests.count %>)</h1>
     <ul>
       <li>working on</li>
@@ -9,8 +9,7 @@
     <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @virtual_requests } %>
   </div>
 
-  <div class="divider"></div>
-  <div class="flex-box">
+  <div class="row-divider pad-all-large">
     <h1>Artist Statistics</h1>
     <table class="artist-tbl">
       <tr>
@@ -45,10 +44,10 @@
     <%= image_tag "logos/logo.png" %> 
     <%= form_for :session, url: sessions_path, :html => { :class => "pad-top" }  do |f| %>
 
-      <%= f.label :email %><br />
+      <%= f.label :email %>
       <%= f.text_field :email %><br />
 
-      <%= f.label :password %><br />
+      <%= f.label :password %>
       <%= f.password_field :password %><br />
 
       <%= f.submit "Sign in", class: "button" %>

@@ -8,17 +8,14 @@
 
 /* Simple Grid */
 
-.flex-box {
-  margin: 40px 40px;
-  padding: 30px;
+.row-divider {
+  background: image-url('chrome/divider.png') repeat-x top;
 }
 
 .white-box {
-  width: 980px;
-  margin: 60px auto;
+  width: 100%;
   padding: 30px;
-  background: white;
-  border: 1px solid $maroon;
+  background: $tan-light;
   @include shadow;
   @include roundcorners;
 
@@ -65,11 +62,6 @@
   display: table;
   clear: both;
 }
-.divider {
-  height: 35px;
-  width: 100%;
-  background: image-url('chrome/divider.png') repeat-x;
-}
 
 /* surgical classes */
 
@@ -111,6 +103,10 @@
 
 .pad-all {
   padding: 25px;
+}
+
+.pad-all-large {
+  padding: 40px;
 }
 
 .pad-top {
