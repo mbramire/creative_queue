@@ -26,7 +26,7 @@
           <%= v.contact_info %>
         </td>
         <% if show_artists %>
-          <td><%= v.artist.name %></td>
+          <td><%= v.artist.name unless v.artist.nil? %></td>
         <% else %>
           <td><%= v.creative_user.name %></td>
         <% end %>
