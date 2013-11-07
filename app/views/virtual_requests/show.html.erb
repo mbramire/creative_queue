@@ -45,7 +45,7 @@
           <li><em>budget</em> <%= @virtual_request.budget %></li>
           <li><em>qty</em> <%= @virtual_request.quantity %></li>
           <li><em>distributor comments </em>
-            <% if @virtual_request.comments.empty? %>
+            <% unless @virtual_request.comments.present? %>
               <em class="alert-text">none</em>
             <% else %>
               <p class="comments">
