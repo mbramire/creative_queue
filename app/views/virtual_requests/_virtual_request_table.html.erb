@@ -15,7 +15,12 @@
   <% unless virtuals.empty? %>
     <% virtuals.each do |v| %>
       <tr class="<%= current_user.owns?(v) ? "highlight" : "" %>">
-        <td><%= link_to v.company, virtual_request_path(v) %></td>
+        <td>
+          <%= link_to v.company, virtual_request_path(v) %> 
+          <% unless v.virtuals.empty? %>
+            (<%= v.virtuals.count %>)
+          <% end %>
+        </td>
         <td><%= v.id %></td>
         <td><%= v.due_date_human %></td>
         <td><%= v.priority ? "Yes" : "-" %></td>
