@@ -41,7 +41,7 @@
         </ul>
         <h2 class="pad-top-large margin-top">Virtual Art Info</h2>
         <ul class="margin-bottom-large">
-          <li><em>url</em> <%= @virtual_request.art_url %></li>
+          <li><em>url</em> <%= link_to @virtual_request.art_url, @virtual_request.web_path %></li>
           <li><em>budget</em> <%= @virtual_request.budget %></li>
           <li><em>qty</em> <%= @virtual_request.quantity %></li>
           <li><em>distributor comments </em>

@@ -24,6 +24,10 @@ class VirtualRequest < ActiveRecord::Base
 
   default_scope { order('priority ASC, due_date ASC') }
 
+  def web_path 
+    "http://" + self.art_url
+  end
+
   def contact_info
     self.contact_name + " - " + self.contact_email
   end
