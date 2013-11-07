@@ -11,6 +11,7 @@ describe VirtualRequest do
   it { should respond_to(:budget) }
   it { should respond_to(:comments) }
   it { should respond_to(:art) }
+  it { should respond_to(:artist_id) }
   it { should respond_to(:company) }
   it { should respond_to(:creative_user_id) }
   it { should respond_to(:due_date) }
@@ -19,7 +20,6 @@ describe VirtualRequest do
   it { should respond_to(:priority) }
   it { should respond_to(:purchase_order) }
   it { should respond_to(:user_id) }
-  it { should respond_to(:requested_by_id) }
 
   it { should be_valid }
 
@@ -43,11 +43,30 @@ describe VirtualRequest do
     it { should_not be_valid }
   end
 
+  describe "without quantities" do
+    before { virtual.quantity = " " }
+    it { should_not be_valid }
+  end
+
   describe "without due date" do
     before { virtual.due_date = " " }
     it { should_not be_valid }
   end
 
+  describe "without art file" do 
+    before { virtual.art = " " }
+    it { should_not be_valid }
+  end
+
+  describe "without phone number" do
+    before { virtual.contact_phone = " " }
+    it { should_not be_valid }
+  end
+
+  describe "when destroyed" do
+    it "should destroy virtuals attached"
+  end
+  
   describe "when created" do
     before do
       @user = FactoryGirl.create(:user, email: virtual.contact_email)

@@ -29,6 +29,20 @@ describe CreativeUser do
     it { should_not be_valid }
   end
 
+
+  describe "when uploading profile image" do
+    before(:each) do
+      @creative_user = FactoryGirl.create(:creative_user)
+      @creative_user.avatar = File.open(File.join(Rails.root, 'spec/fake_data/sample_image.jpg'))
+      @creative_user.save!
+    end
+    
+    it "should be valid" do
+      expect(@creative_user).to be_valid
+      expect(@creative_user.avatar.filename).to eq 'sample_image.jpg'
+    end
+  end
+
   describe "when email format is invalid" do
     it "should be invalid" do
       addresses = %w[user@foo,com user_at_foo.org example.user@foo.
