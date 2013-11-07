@@ -11,10 +11,13 @@ input[type=file], {
   padding: 7px;
   @include roundcorners;
   width: 175px;
-  -moz-box-shadow:    inset 0 0 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow:    none;
+  -webkit-box-shadow: none;
+  box-shadow:         none;
+  /*-moz-box-shadow:    inset 0 0 5px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  box-shadow:         inset 0 0 5px rgba(0, 0, 0, 0.2);
-  border: 1px solid $yellow-light;
+  box-shadow:         inset 0 0 5px rgba(0, 0, 0, 0.2);*/
+  border: 1px solid $tan-med;
 }
 
 input[type=checkbox] {

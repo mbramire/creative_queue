@@ -1,12 +1,22 @@
 <% if current_user %>
+  <% if current_user.virtual_requests_artist_for > 0 %>
+    <div class="row-divider pad-all-large">
+      <h1 class="pull-left margin-right-large pad-bottom">My Queue (<%= @virtual_requests_to_work_on.count %>)</h1>
+      <ul>
+        <li class="pull-left margin-right-large">working on</li>
+        <li class="pull-left">recently completed</li>
+      </ul>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @virtual_requests_to_work_on } %>
+    </div>
+  <% end %>
 
-  <div class="pad-all-large">
-    <h1>My Queue (<%= @virtual_requests.count %>)</h1>
+  <div class="row-divider pad-all-large">
+    <h1 class="pull-left margin-right-large pad-bottom">My Requests (<%= @virtual_requests_made.count %>)</h1>
     <ul>
-      <li>working on</li>
-      <li>recently completed</li>
+      <li class="pull-left margin-right-large">being worked on</li>
+      <li class="pull-left">recently completed</li>
     </ul>
-    <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @virtual_requests } %>
+    <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @virtual_requests_made, :show_artists => true } %>
   </div>
 
   <div class="row-divider pad-all-large">
@@ -14,22 +24,22 @@
     <table class="artist-tbl">
       <tr>
         <th>Artist</th>
-        <th>Working On</th>
-        <th>Completed in <%= Time.new.strftime("%B") %></th>
+        <th>Queued</th>
+        <th>Completed <%= Time.new.strftime("%B") %></th>
         <th>Completed all-time</th>
-        <th>Converted to order in <%= Time.new.strftime("%B") %></th>
+        <th>Converted <%= Time.new.strftime("%B") %></th>
         <th>Converted all-time</th>
       </tr>
       <% @all_creative_users.each do |a| %>
         <tr>
           <td>
             <%= image_tag a.avatar_image, class: "small-avatar" %>
-            <%= link_to a.name, creative_user_path(a), class: "pad-left" %>
+            <%= link_to a.name, creative_user_path(a) %>
             <% if !a.in_queue %>
               <%= image_tag "icons/asleep.png", class: "asleep-icon", alt: "Not in queue" %>
             <% end %>
           </td>
-          <td><%= a.virtual_requests.count %></td>
+          <td><%= a.virtual_requests_artist_for %></td>
           <td><%= a.virtuals_this_month %></td>
           <td><%= a.virtuals.count %></td>
           <td>?</td>

@@ -40,7 +40,7 @@ class VirtualRequestsController < ApplicationController
     @virtual_request.auto_assign!
 
     if @virtual_request.save
-      flash[:success] = "Virtual has been created and assigned to #{@virtual_request.creative_user.name}"
+      flash[:success] = "Virtual has been created and assigned to #{@virtual_request.artist.name}"
       redirect_to virtual_requests_path
     else
       render 'new'
@@ -56,7 +56,7 @@ class VirtualRequestsController < ApplicationController
 
   def move
     @virtual_request = VirtualRequest.find(params[:id])
-    @virtual_request.creative_user_id = current_user.id
+    @virtual_request.artist_id = current_user.id
     @virtual_request.save
     flash[:success] = "#{@virtual_request.company} added to your queue."
     redirect_to root_path

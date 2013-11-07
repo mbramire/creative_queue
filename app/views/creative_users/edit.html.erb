@@ -1,8 +1,8 @@
 <%= form_for(@user) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+<div class="pad-all-large">
   <div class="white-box">
-
     <h2>Profile for <%= @user.name %></h2>
     <div class="row pad-top pad-bottom">
       <div class="four-col">
@@ -51,4 +51,5 @@
       <%= link_to "Delete #{@user.name}", creative_user_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete #{@user.name}?" } %>
     <% end %>
   </div>
+</div>
 <% end %>
