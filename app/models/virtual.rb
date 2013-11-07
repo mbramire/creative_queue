@@ -11,6 +11,8 @@ class Virtual < ActiveRecord::Base
     self.recipients = emails.join(",")
   end
 
+  validates_presence_of :virtual_request_id
+  validates_presence_of :creative_user_id
   validates_presence_of :document
   validates_presence_of :recipients
   validate :document_size_validation, :if => :document? 

@@ -1,10 +1,13 @@
 <div class="virtual-box">
   <div class="row">
-    <div class="two-col">
+    <div class="two-col pad-right">
       <h2><%= @virtual_request.company %> - <%= v.version %>.0</h2>  
       <em>recipients</em>
       <p class="comments">
-        <%= v.recipients %>
+        <% rec = v.recipients.split(",") %>
+        <% rec.each do |email| %>
+          <%= email %><br/>
+        <% end %> 
       </p>
       <p class="pad-top">
         <em>distributor comments</em>
@@ -24,7 +27,7 @@
     <div class="two-col pdf-box">
       <%= link_to image_tag("icons/large-pdf.png"), v.document.url, class: "pull-left margin-right pdf-button" %>
       <p class="pad-top">
-        <em>completed on</em> <%= v.completed_date %></br> 
+        <em>completed on</em> <%= v.completed_date %></br></br> 
         <em>by </em><%= v.creative_user.name %></br>
       </p>
       <p style="padding-top: 30px">

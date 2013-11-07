@@ -54,15 +54,19 @@ namespace :db do
     50.times do |n|
       recipients = Faker::Internet.email + ", " + Faker::Internet.email
       virtual_request_id = (1...100).to_a.sample
-      comments = Faker::Lorem.paragraph
-      file_number = (1...9).to_a.sample
-      file = File.open(File.join(Rails.root, 'spec/fake_data/sample_file_#{file_number}.pdf'))
+      artist_comments = Faker::Lorem.paragraph
+      user_comments = Faker::Lorem.paragraph
+      file_number = (1...6).to_a.sample
+      file = File.open(File.join(Rails.root, "spec/fake_data/sample_file_#{file_number}.pdf"))
+      artist_id = (2...7).to_a.sample
 
       Virtual.create!(
-        artist_comments: comments,
+        artist_comments: artist_comments,
+        user_comments: user_comments,
         recipients: recipients,
         virtual_request_id: virtual_request_id,
-        document: file 
+        document: file,
+        creative_user_id: artist_id
         )
     end
   end

@@ -23,7 +23,7 @@ class CreativeUser < ActiveRecord::Base
   end
   
   def owns?(virtual)
-    self.id == virtual.creative_user_id || self.id == virtual.artist_id
+    self.id == virtual.creative_user_id || self.id == virtual.artist_id || self.admin
   end
   
   def CreativeUser.new_remember_token

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106202928) do
+ActiveRecord::Schema.define(version: 20131107193518) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",                      null: false
@@ -953,8 +953,6 @@ ActiveRecord::Schema.define(version: 20131106202928) do
     t.string   "document"
     t.integer  "document_file_size"
     t.string   "document_file_type"
-    t.string   "artist_comments"
-    t.string   "user_comments"
     t.string   "recipients"
     t.boolean  "sent"
     t.integer  "virtual_request_id"
@@ -962,6 +960,8 @@ ActiveRecord::Schema.define(version: 20131106202928) do
     t.integer  "version",            default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "user_comments"
+    t.text     "artist_comments"
   end
 
   add_index "virtuals", ["creative_user_id"], name: "index_virtuals_on_creative_user_id", using: :btree
