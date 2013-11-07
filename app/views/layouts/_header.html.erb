@@ -19,7 +19,7 @@
   <nav>
     <ul class="navigation">
       <%= link_to root_path do %>
-        <li class="<%= @nav[0] == 'home' ? "selected" : "" %>">my queue</li>
+        <li class="<%= @nav[0] == 'home' ? "selected" : "" %>">home</li>
       <% end %>
       <%= link_to virtual_requests_path do %>
         <li class="<%= @nav[0] == 'virtuals' ? "selected" : "" %>">virtuals</li>

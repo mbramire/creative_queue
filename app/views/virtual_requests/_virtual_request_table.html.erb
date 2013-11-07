@@ -5,9 +5,11 @@
     <th>No.</th>
     <th>Due Date</th>
     <th>Priority?</th>
-    <th>Request by</th>
+    <th>For</th>
     <% if show_artists %>
       <th>Artist</th>
+    <% else %>
+      <th>Requested by</th>
     <% end %>
   </tr>
   <% unless virtuals.empty? %>
@@ -24,14 +26,18 @@
           <%= v.contact_info %>
         </td>
         <% if show_artists %>
+          <td><%= v.artist.name %></td>
+        <% else %>
           <td><%= v.creative_user.name %></td>
         <% end %>
       </tr>
     <% end %>
   <% else %>
     <tr>
-      <td colspan="5">- no virtuals -</td>
+      <td colspan="6">- no requests made -</td>
     </tr>
   <% end %>
 </table>
-<%= link_to "Create Virtual Request", new_virtual_request_path, class: "button" %></a>
+<% if show_artists %>
+  <%= link_to "Create Virtual Request", new_virtual_request_path, class: "button" %></a>
+<% end %>

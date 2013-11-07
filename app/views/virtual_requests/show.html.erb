@@ -17,10 +17,10 @@
         <h2 class="pad-top-large">Virtual Info</h2>
         <ul class="margin-bottom">
           <li><em>Artist</em>
-            <% if @virtual_request.creative_user.nil? %>
+            <% if @virtual_request.artist.nil? %>
               <em class="alert-text">unassigned</em>
             <% else %>
-              <%= @virtual_request.creative_user.name %>
+              <%= @virtual_request.artist.name %>
             <% end %>
           </li>
           <li><em>virtual no.</em> <%= @virtual_request.id %></li>
@@ -45,7 +45,7 @@
           <li><em>budget</em> <%= @virtual_request.budget %></li>
           <li><em>qty</em> <%= @virtual_request.quantity %></li>
           <li><em>distributor comments </em>
-            <% if @virtual_request.comments.empty? %>
+            <% unless @virtual_request.comments.present? %>
               <em class="alert-text">none</em>
             <% else %>
               <p class="comments">

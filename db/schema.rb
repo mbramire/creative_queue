@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131105191825) do
+ActiveRecord::Schema.define(version: 20131106202928) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",                      null: false
@@ -944,7 +944,10 @@ ActiveRecord::Schema.define(version: 20131105191825) do
     t.string   "purchase_order"
     t.integer  "user_id"
     t.string   "quote_number"
+    t.integer  "artist_id"
   end
+
+  add_index "virtual_requests", ["artist_id"], name: "index_virtual_requests_on_artist_id", using: :btree
 
   create_table "virtuals", force: true do |t|
     t.string   "document"
