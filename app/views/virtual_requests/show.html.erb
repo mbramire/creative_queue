@@ -70,6 +70,7 @@
         <% end %>
       </div>
       <div class="three-col-span-two virtual-list">
+        <h2>Virtuals</h2>
         <% @virtual_request.virtuals.each do |v| %>
           <%= render "virtual", v: v %>
         <% end %>

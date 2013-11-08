@@ -23,15 +23,14 @@
             <% unless v.virtuals.empty? %>
               (<%= v.virtuals.count %>)
             <% end %>
+            <%= image_tag "icons/owned.png", class: "small-tbl-icon" if current_user.artist_for?(v) && show_artists %>
           </td>
           <td><%= v.id %></td>
           <td><%= v.due_date_human %></td>
           <td><%= v.priority ? "Yes" : "-" %></td>
           <td>
-            <% if v.user_id.present? %>
-              <%= image_tag "icons/jb.png", class: "jb-acct-icon" %>
-            <% end %>
             <%= v.contact_name %>
+            <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
           </td>
           <% if show_artists %>
             <td><%= v.artist.name unless v.artist.nil? %></td>

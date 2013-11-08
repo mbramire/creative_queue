@@ -22,8 +22,16 @@ class CreativeUser < ActiveRecord::Base
     VirtualRequest.where(artist_id: self.id).count
   end
   
-  def owns?(virtual)
-    self.id == virtual.creative_user_id || self.id == virtual.artist_id || self.admin
+  def owns?(virtual, admin=true)
+    if admin
+      self.id == virtual.creative_user_id || self.id == virtual.artist_id || self.admin
+    else
+     self.id == virtual.creative_user_id || self.id == virtual.artist_id
+    end 
+  end
+
+  def artist_for?(virtual)
+    self.id == virtual.artist_id
   end
   
   def CreativeUser.new_remember_token
