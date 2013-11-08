@@ -19,17 +19,6 @@ describe "Virtual Request Pages" do
       it "should show virtuals" do
       	should have_content(@virtual.company)
       end
-
-      describe "with an assigned virtual" do
-      	
-      	before do      	 
-      		@virtual.creative_user_id = @creative_user.id 
-      	end
-
-				it "should show artistname" do
-      		should have_content(@creative_user.name)
-      	end
-      end
     end
 
     describe "delete link" do
