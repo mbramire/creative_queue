@@ -10,11 +10,11 @@ describe "Homepage" do
     end
   end
 
-  context "when signed in" do
+  context "when signed in as artist" do
     before do
       @other_creative_user = FactoryGirl.create(:creative_user)
-      @virtual1 = FactoryGirl.create(:virtual_request, creative_user: creative_user)
-      @virtual2 = FactoryGirl.create(:virtual_request, creative_user: creative_user)
+      @virtual1 = FactoryGirl.create(:virtual_request, creative_user: creative_user, artist: creative_user)
+      @virtual2 = FactoryGirl.create(:virtual_request, creative_user: creative_user, artist: creative_user)
       10.times { FactoryGirl.create(:virtual_request, creative_user: @other_creative_user) }
       sign_in(creative_user)
     end
@@ -27,8 +27,8 @@ describe "Homepage" do
       expect(page).to have_content(@virtual1.company)
     end
 
-    it "should show current virtual count" do
-      expect(page).to have_content("My Queue (#{creative_user.virtual_requests.count})")
+    it "should show current virtual queue count" do
+      expect(page).to have_content("My Queue (#{creative_user.virtual_requests_artist_for})")
     end
 
     it "should show other creative_users stats" do
