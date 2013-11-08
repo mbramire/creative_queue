@@ -1,0 +1,90 @@
+@import "variables_mixins";
+
+.dataTables_length, .dataTables_info {
+  display: none;
+}
+
+.dataTables_paginate {
+  float: right;
+}
+
+.paginate_enabled_previous {
+  @include cursor;
+  @include roundcorners;
+  background-image: image-url('icons/arrow-left-small.png');
+  background-repeat: no-repeat;
+  background-color: $yellow;
+  background-position: 10px 11px;
+  padding: 10px 15px 10px 30px;
+  color: white;
+  position: relative;
+  top: 10px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: $yellow-dark;
+  }
+}
+
+.paginate_enabled_next {
+  @extend .paginate_enabled_previous;
+  background-image: image-url('icons/arrow-right-small.png');
+  background-position: 57px 11px;
+  padding: 10px 30px 10px 15px;
+  margin-left: 15px;
+}
+
+.paginate_disabled_previous {
+  @extend .paginate_enabled_previous;
+  background-color: $yellow-light;
+
+  &:hover {
+    background-color: $yellow-light;
+  }
+}
+
+.paginate_disabled_next {
+  @extend .paginate_enabled_next;
+  background-color: $yellow-light;
+
+  &:hover {
+    background-color: $yellow-light;
+  }
+}
+
+.dataTables_filter {
+  float: right;
+
+  label {
+    position: relative;
+    top: -10px;
+  }
+
+  input[type=text] {
+    margin-bottom: 0;
+  }
+}
+
+.sorting {
+  @include cursor;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.sorting_asc {
+  @extend .sorting;
+  padding-left: 30px;
+  background-image: image-url('icons/sorting-arrow-up.png');
+  background-repeat: no-repeat;
+  background-position: 8px 8px;
+}
+
+.sorting_desc {
+  @extend .sorting_asc;
+  background-image: image-url('icons/sorting-arrow-down.png');
+}

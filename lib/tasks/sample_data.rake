@@ -31,7 +31,7 @@ namespace :db do
       company = Faker::Company.name
       due_date = Time.now
       art_url = Faker::Internet.url
-      quote_number = (49000...53000).to_a.sample
+      quote_number = 530029 + n
       creative_user_id = (5...10).to_a.sample
       artist_id = (2...7).to_a.sample
 

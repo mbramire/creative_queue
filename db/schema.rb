@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107193518) do
+ActiveRecord::Schema.define(version: 20131108165055) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",                      null: false
@@ -939,7 +939,7 @@ ActiveRecord::Schema.define(version: 20131107193518) do
     t.string   "company"
     t.integer  "creative_user_id"
     t.datetime "due_date"
-    t.string   "art_url"
+    t.string   "art_website"
     t.boolean  "priority"
     t.string   "purchase_order"
     t.integer  "user_id"
@@ -952,12 +952,12 @@ ActiveRecord::Schema.define(version: 20131107193518) do
   create_table "virtuals", force: true do |t|
     t.string   "document"
     t.integer  "document_file_size"
-    t.string   "document_file_type"
+    t.string   "document_content_type"
     t.string   "recipients"
     t.boolean  "sent"
     t.integer  "virtual_request_id"
     t.integer  "creative_user_id"
-    t.integer  "version",            default: 1
+    t.integer  "version",               default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "user_comments"

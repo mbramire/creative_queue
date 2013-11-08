@@ -18,7 +18,7 @@ a {
   display: inline-block;
   
   &:hover {
-    background: $yellow-light;
+    background: $yellow-dark;
   }
 }
 
@@ -32,7 +32,7 @@ a {
 
   &:hover {
     @extend .email-btn;
-    background-color: $tan;
+    background-color: $red;
   }
 }
 
