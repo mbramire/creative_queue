@@ -38,7 +38,7 @@ class Virtual < ActiveRecord::Base
 
     def update_document_attributes
       if document.present? && document_changed?
-        self.document_file_type = document.file.content_type
+        self.document_content_type = document.file.content_type
         self.document_file_size = document.file.size
       end
     end

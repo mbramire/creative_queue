@@ -1,47 +1,51 @@
 <% show_artists ||= false %>
 <table>
-  <tr>
-    <th>Virtual Name</th>
-    <th>No.</th>
-    <th>Due Date</th>
-    <th>Priority?</th>
-    <th>For</th>
-    <% if show_artists %>
-      <th>Artist</th>
+  <thead>
+    <tr>
+      <th>Virtual Name</th>
+      <th>No.</th>
+      <th>Due</th>
+      <th>Priority?</th>
+      <th>For</th>
+      <% if show_artists %>
+        <th>Artist</th>
+      <% else %>
+        <th>Requested by</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless virtuals.empty? %>
+      <% virtuals.each do |v| %>
+        <tr class="<%= current_user.owns?(v) ? "highlight" : "" %>">
+          <td>
+            <%= link_to v.company, virtual_request_path(v) %> 
+            <% unless v.virtuals.empty? %>
+              (<%= v.virtuals.count %>)
+            <% end %>
+          </td>
+          <td><%= v.id %></td>
+          <td><%= v.due_date_human %></td>
+          <td><%= v.priority ? "Yes" : "-" %></td>
+          <td>
+            <% if v.user_id.present? %>
+              <%= image_tag "icons/jb.png", class: "jb-acct-icon" %>
+            <% end %>
+            <%= v.contact_name %>
+          </td>
+          <% if show_artists %>
+            <td><%= v.artist.name unless v.artist.nil? %></td>
+          <% else %>
+            <td><%= v.creative_user.name %></td>
+          <% end %>
+        </tr>
+      <% end %>
     <% else %>
-      <th>Requested by</th>
-    <% end %>
-  </tr>
-  <% unless virtuals.empty? %>
-    <% virtuals.each do |v| %>
-      <tr class="<%= current_user.owns?(v) ? "highlight" : "" %>">
-        <td>
-          <%= link_to v.company, virtual_request_path(v) %> 
-          <% unless v.virtuals.empty? %>
-            (<%= v.virtuals.count %>)
-          <% end %>
-        </td>
-        <td><%= v.id %></td>
-        <td><%= v.due_date_human %></td>
-        <td><%= v.priority ? "Yes" : "-" %></td>
-        <td>
-          <% if v.user_id.present? %>
-            <%= image_tag "icons/jb.png", class: "jb-acct-icon" %>
-          <% end %>
-          <%= v.contact_info %>
-        </td>
-        <% if show_artists %>
-          <td><%= v.artist.name unless v.artist.nil? %></td>
-        <% else %>
-          <td><%= v.creative_user.name %></td>
-        <% end %>
+      <tr>
+        <td colspan="6">- no requests made -</td>
       </tr>
     <% end %>
-  <% else %>
-    <tr>
-      <td colspan="6">- no requests made -</td>
-    </tr>
-  <% end %>
+  </tbody>
 </table>
 <% if show_artists %>
   <%= link_to "Create Virtual Request", new_virtual_request_path, class: "button" %></a>

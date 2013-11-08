@@ -40,7 +40,7 @@ describe "Virtual Request Pages" do
         fill_in "Budget Per Book (NET)", with: "999"
         fill_in "Contact Phone", with: "(800)-222-2222"
         fill_in "Quote number", with: "2"
-#        fill_in "Purchase Order", with: "3"
+        #fill_in "Purchase Order", with: "3"
 
         expect { click_button "Create Virtual" }.to change(VirtualRequest, :count).by(1)
       end

@@ -39,8 +39,8 @@
     <%= f.file_field :art %>
   </div>
   <div class="four-col">
-    <%= f.label :art_url, "url for artwork" %>
-    <%= f.text_field :art_url %>
+    <%= f.label :art_website, "url for artwork" %>
+    <%= f.text_field :art_website %>
   </div>
   <div class="four-col">
     <%= f.label :due_date %><br>
@@ -61,4 +61,4 @@
     <%= f.text_area :comments %>
   </div>
 </div>
-<%= f.hidden_field :creative_user_id, value: current_user.id %>
+<%= f.hidden_field :creative_user_id, value: current_user.id unless params[:action] == "edit" %>
