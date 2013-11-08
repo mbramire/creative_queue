@@ -11,7 +11,7 @@ FactoryGirl.define do
     budget "$5.00"
     artist_id 2
     creative_user_id 6
-    art_url "www.pappajohns.com"
+    art_website "www.pappajohns.com"
     association :creative_user
   end
 end
