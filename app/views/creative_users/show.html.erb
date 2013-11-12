@@ -1,0 +1,73 @@
+<div class="pad-all-large">
+  <div class="white-box">
+    <div class="row">
+      <div class="two-col">
+        <h1>
+          <% if @user.avatar.present? %>
+            <%= image_tag @user.avatar.url, class: "small-avatar" %> 
+          <% else %>
+            <%= image_tag 'profile/avatar.png', class: "small-avatar" %>
+          <% end %>
+          <%= @user.name %> 
+        </h1>
+        <h3 class="pad-top"><%= @user.admin ? "Admin" : @user.title %> | <%= @user.email %></h3>
+      </div>
+      <div class="two-col">
+        <% if current_user.admin || current_user?(@user) %>
+          <%= link_to "Edit Profile", edit_creative_user_path(@user), class: "button pull-right margin-right" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="three-col">
+        <h2 class="pad-top-large">Currently...</h2>
+        <ul>
+          <li><em><%= @user.virtual_requests_artist_for %></em> Virtuals Queued</li>
+          <li>Revisions waiting</li>
+        </ul>
+      </div>
+
+      <div class="three-col">
+        <h2 class="pad-top-large">In <%= Time.new.strftime("%B") %></h2>
+        <ul>
+          <li><em><%= @user.virtuals_this_month %></em> Virtuals completed</li>
+          <li>Virtuals revised</li>
+          <li>Virtuals turned into orders</li>
+          <li>
+        </ul>
+      </div>
+
+      <div class="three-col">
+        <h2 class="pad-top-large">All-time</h2>
+        <ul>
+          <li><em><%= @user.virtuals.count %></em> Virtuals completed</li>
+          <li>Virtuals revised</li>
+          <li>Virtuals turned into orders</li>
+          <li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row-divider pad-all-large">
+  <div class="white-box">
+    <h2>Awards</h2>
+    <p>Coming soon...</p>
+  </div>
+</div>
+
+<div class="row-divider pad-all-large">
+  <div class="white-box">
+    <h2>Records</h2>
+    <p>Coming soon...</p>
+  </div>
+</div>
+
+<div class="row-divider pad-all-large">
+  <div class="white-box">
+    <h2>Title Progress</h2>
+    <p>Coming soon...</p>
+  </div>
+</div>

@@ -2,6 +2,7 @@ class VirtualsController < ApplicationController
   before_action :signed_in_user
   before_action :setup_nav_array
   before_action { |c| c.admin_or_current_user params[:virtual_request_id] }
+  before_action :virtual_editable?, only: [:edit, :update]
 
   def new 
     @virtual_request = VirtualRequest.find(params[:virtual_request_id])
@@ -46,7 +47,26 @@ class VirtualsController < ApplicationController
     redirect_to virtual_request_path(@virtual_request)
   end
 
+  def send_out
+    @virtual_request = VirtualRequest.find(params[:virtual_request_id])
+    @virtual = Virtual.find(params[:id])
+    @recipients = @virtual.recipients
+    @sender = current_user
+    DistributorMailer.virtual_email(@virtual, @virtual_request, @recipients, @sender).deliver
+    @virtual.update_attributes(sent: Time.now)
+    flash[:success] = "#{@virtual_request.company} - version #{@virtual.version} has been sent to #{@recipients}."
+    redirect_to virtual_request_path(@virtual_request)
+  end
+
   private
+    def virtual_editable?
+      virtual = Virtual.find(params[:id])
+      request = VirtualRequest.find(params[:virtual_request_id])
+      if virtual.sent
+        flash[:error] = "This virtual has already been sent and cannot be edited, you need to create a new version."
+        redirect_to virtual_request_path(request)
+      end
+    end
 
     def virtual_params
       params.require(:virtual).permit!

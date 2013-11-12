@@ -2,7 +2,7 @@
 
 .profile{
   float: left;
-  background: image-url("backgrounds/profile_bg.png") repeat;
+  background: $maroon;
   color: white;
   font-size: 12px;
   @include shadow;
@@ -33,7 +33,7 @@
     
     li:first-child {
       font-weight: bold;
-      color: $lightblue;
+      color: $yellow;
       font-size: 15px;
     }
   }
@@ -42,6 +42,7 @@
 .small-avatar {
   height: 25px;
   width: 25px;
+  margin-right: 5px;
   position: relative;
   top: 2px;
   -webkit-border-radius: 3px;
@@ -50,10 +51,6 @@
 }
 
 .profile-list {
-  color: $darkblue;
+  color: $maroon;
   font-weight: bold;
-}
-
-.asleep-icon {
-  padding-left: 5px;
 }

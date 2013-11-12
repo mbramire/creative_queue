@@ -10,7 +10,7 @@
 
 .virtual-box {
   @include roundcorners;
-  background: $lightgray;
+  background: $tan-light;
   padding: 15px;
   margin-bottom: 30px;
 }
@@ -22,7 +22,34 @@
 
 .pdf-box {
   @include roundcorners;
-  background: $medgray;
+  background: $tan-lightest;
   padding: 15px;
   min-height: 155px;
+}
+
+.new-virtual-button {
+  @include cursor;
+  @include roundcorners;
+  display: block;
+  color: white;
+  background: $green;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+
+  &:hover {
+    background: $green-light;
+  }
+}
+
+.virtual-notice {
+  padding: 20px 60px;
+  line-height: 17px;
+  color: white;
+  display: block;
+  @include roundcorners;
+  background-color: $orange;
+  background-image: asset-url('icons/error.png');
+  background-repeat: no-repeat;
+  background-position: 20px 20px;
 }

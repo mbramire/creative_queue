@@ -1,5 +1,6 @@
-class Artist < ActiveRecord::Base
+class CreativeUser < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i 
+  TITLES = ["Apprentice", "CrackerJack", "Virtual Pro", "Maestro", "Visionary", "Czar", "Virtual Diety"] 
   
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, 
@@ -17,15 +18,27 @@ class Artist < ActiveRecord::Base
   has_many :virtual_requests
   has_many :virtuals
 
-  def owns?(virtual)
+  def virtual_requests_artist_for
+    VirtualRequest.where(artist_id: self.id).count
+  end
+  
+  def owns?(virtual, admin=true)
+    if admin
+      self.id == virtual.creative_user_id || self.id == virtual.artist_id || self.admin
+    else
+     self.id == virtual.creative_user_id || self.id == virtual.artist_id
+    end 
+  end
+
+  def artist_for?(virtual)
     self.id == virtual.artist_id
   end
   
-  def Artist.new_remember_token
+  def CreativeUser.new_remember_token
     SecureRandom.urlsafe_base64
   end
 
-  def Artist.encrypt(token)
+  def CreativeUser.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
 
@@ -38,7 +51,7 @@ class Artist < ActiveRecord::Base
   end
   
   def self.in_queue?
-    Artist.where(in_queue: true)
+    CreativeUser.where(in_queue: true)
   end
   
   def avatar_image 
@@ -49,9 +62,15 @@ class Artist < ActiveRecord::Base
     self.virtuals.find_all { |v| v.updated_at.strftime("%B") == Time.new.strftime("%B") }.count
   end
 
+  def converted_all_time
+  end
+
+  def converted_this_month
+  end
+
   private
 
     def create_remember_token
-      self.remember_token = Artist.encrypt(Artist.new_remember_token)
+      self.remember_token = CreativeUser.encrypt(CreativeUser.new_remember_token)
     end
 end

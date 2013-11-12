@@ -1,70 +1,86 @@
-<div class="white-box">
-  <% if current_user.owns?(@virtual_request) || current_user.admin %>
-    <%= link_to "Edit Request", edit_virtual_request_path(@virtual_request), class: "button pull-right margin-left" %>
-  <% end %>
-  <% unless current_user.owns?(@virtual_request) %>
-    <%= link_to "Move to my Queue", move_virtual_request_path(@virtual_request), method: :put, class: "button pull-right" %>
-  <% end %>
-  <h1><%= @virtual_request.company %> - due <%= @virtual_request.due_date_human %></h1>
-  <div class="row pad-top-large">
-    <div class="three-col pad-right-med shadow-border-right">
-      <h2>Contact Info</h2>
-      <ul>
-        <li>
-          <% if @virtual_request.user_id.present? %>
-            <%= image_tag "icons/jb.png", class: "jb-acct-icon" %>
-          <% end %>
-          <%= @virtual_request.contact_name %>
-        </li>
-        <li><%= @virtual_request.contact_email %></li>
-        <li><%= @virtual_request.contact_phone %></li>
-      </ul>
-      <h2 class="pad-top-large">Virtual Info</h2>
-      <ul class="margin-bottom">
-        <li><em>artist</em>
-          <% if @virtual_request.artist.nil? %>
-            <span class="alert-text">unassigned</span>
-          <% else %>
-            <%= @virtual_request.artist.name %>
-          <% end %>
-        </li>
-        <li><em>virtual no.</em> <%= @virtual_request.id %></li>
-        <li><em>quote no.</em> 
-          <% if @virtual_request.quote_number.present? %>
-            <%= @virtual_request.quote_number %>
-          <% else %>
-            <span class="alert-text">none</span>
-          <% end %>
-        </li>
-        <li><em>purchase order no.</em> 
-          <% if @virtual_request.purchase_order.present? %>
-            <%= @virtual_request.purchase_order %>
-          <% else %>
-            <span class="alert-text">none</span>
-          <% end %>
-        </li>
-      </ul>
-      <h2 class="pad-top-large margin-top">Virtual Art Info</h2>
-      <ul class="margin-bottom-large">
-        <li><em>url</em> <%= @virtual_request.art_url %></li>
-        <li><em>budget</em> <%= @virtual_request.budget %></li>
-        <li><em>qty</em> <%= @virtual_request.quantity %></li>
-        <li><em>distributor comments </em>
-          <% if @virtual_request.comments.empty? %>
-            <em class="alert-text">none</em>
-          <% else %>
-            <p class="comments">
-              <%= @virtual_request.comments %>
-            </p>
-          <% end %>
-        </li>
-      </ul>
-      <%= link_to "Download Art", root_path, class: "button" %>
+<div class="pad-all-large">
+  <div class="white-box">
+    <h1><%= @virtual_request.company %> - due <%= @virtual_request.due_date_human %></h1>
+    <div class="row pad-top-large">
+      <div class="three-col pad-right-med shadow-border-right">
+        <h2>Contact Info</h2>
+        <ul>
+          <li>
+            <% if @virtual_request.user_id.present? %>
+              <%= image_tag "icons/jb.png", class: "jb-acct-icon" %>
+            <% end %>
+            <%= @virtual_request.contact_name %>
+          </li>
+          <li><%= @virtual_request.contact_email %></li>
+          <li><%= @virtual_request.contact_phone %></li>
+        </ul>
+        <h2 class="pad-top-large">Virtual Info</h2>
+        <ul class="margin-bottom">
+          <li><em>Requested by</em> <%= @virtual_request.requested_by %></li>
+          <li><em>Artist</em>
+            <% if @virtual_request.artist.nil? %>
+              <em class="alert-text">unassigned</em>
+            <% else %>
+              <%= @virtual_request.artist.name %>
+            <% end %>
+          </li>
+          <li><em>virtual no.</em> <%= @virtual_request.id %></li>
+          <li><em>quote no.</em> 
+            <% if @virtual_request.quote_number.present? %>
+              <%= @virtual_request.quote_number %>
+            <% else %>
+              <em class="alert-text">none</em>
+            <% end %>
+          </li>
+          <li><em>purchase order no.</em> 
+            <% if @virtual_request.purchase_order.present? %>
+              <%= @virtual_request.purchase_order %>
+            <% else %>
+              <em class="alert-text">none</em>
+            <% end %>
+          </li>
+        </ul>
+        <h2 class="pad-top-large margin-top">Virtual Art Info</h2>
+        <ul class="margin-bottom-large">
+          <li><em>url</em> 
+            <% unless @virtual_request.art_website.present? %>
+              <em class="alert-text">none</em>
+            <% else %>
+              <%= link_to truncate(@virtual_request.art_website, length: 30), @virtual_request.filter_art_website, target: "_blank" %></li>
+            <% end %>
+          </li>
+          <li><em>budget</em> <%= @virtual_request.budget %></li>
+          <li><em>qty</em> <%= @virtual_request.quantity %></li>
+          <li><em>distributor comments </em>
+            <% unless @virtual_request.comments.present? %>
+              <em class="alert-text">none</em>
+            <% else %>
+              <p class="comments">
+                <%= @virtual_request.comments %>
+              </p>
+            <% end %>
+          </li>
+        </ul>
+        <%= link_to "Download Art", @virtual_request.art.path, class: "button" if @virtual_request.art.present? %>
+        <% if current_user.owns?(@virtual_request) %>
+          <br/><%= link_to "Edit Request", edit_virtual_request_path(@virtual_request), class: "button margin-top" %>
+        <% end %>
+        <% unless current_user.owns?(@virtual_request) %>
+          <br/><%= link_to "Move to my queue", move_virtual_request_path, method: :put, class: "button margin-top" %>
+        <% end %>
+      </div>
+      <div class="three-col-span-two virtual-list">
+        <h2>Virtuals</h2>
+        <% @virtual_request.virtuals.each do |v| %>
+          <%= render "virtual", v: v %>
+        <% end %>
+        <% if current_user.owns?(@virtual_request) %>
+          <%= link_to "Create Virtual", new_virtual_request_virtual_path(virtual_request_id: @virtual_request.id), class: "new-virtual-button" %>
+        <% else %>
+          <p class="virtual-notice">Move this virtual request to your queue to start working on it.</br> 
+            Keep in mind that it will be removed from <%= @virtual_request.creative_user.name %>'s queue.</p>
+        <% end %>
+      </div>
     </div>
-    <div class="three-col-span-two virtual-list">
-      <% @virtual_request.virtuals.each do |v| %>
-        <%= render "virtual", v: v %>
-      <% end %>
-      <%= link_to "Create Virtual", new_virtual_request_virtual_path(virtual_request_id: @virtual_request.id), class: "new-virtual-button" %>
-    </div>
+  </div>
 </div>

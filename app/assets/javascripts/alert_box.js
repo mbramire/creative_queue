@@ -1,3 +1,3 @@
 $(document).ready(function(){
-  $(".alert-box").slideDown('slow');
+  $("[class^='alert-box']").slideDown('slow');
 });

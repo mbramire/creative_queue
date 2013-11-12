@@ -1,0 +1,19 @@
+<div class="pad-all-large">
+  <h1 class="tbl-header">Users</h1>
+  <table class="artist-tbl">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>email</th>
+        <th>In Queue</th>
+        <th>Admin?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @users %>
+    </tbody>
+  </table>
+  <% if current_user.admin %>
+    <%= link_to "New User", new_creative_user_path, class: "button margin-right" %>
+  <% end %>
+</div>

@@ -1,9 +1,9 @@
 module SessionsHelper
 
   def sign_in(user)
-    remember_token = Artist.new_remember_token
+    remember_token = CreativeUser.new_remember_token
     cookies.permanent[:remember_token] = remember_token
-    user.update_attribute(:remember_token, Artist.encrypt(remember_token))
+    user.update_attribute(:remember_token, CreativeUser.encrypt(remember_token))
     self.current_user = user
   end
 
@@ -16,8 +16,8 @@ module SessionsHelper
   end
 
   def current_user
-    remember_token  = Artist.encrypt(cookies[:remember_token])
-    @current_user ||= Artist.find_by(remember_token: remember_token)
+    remember_token  = CreativeUser.encrypt(cookies[:remember_token])
+    @current_user ||= CreativeUser.find_by(remember_token: remember_token)
   end
 
   def current_user?(user)

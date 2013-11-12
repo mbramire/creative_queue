@@ -3,8 +3,9 @@ class HomeController < ApplicationController
 
   def index 
     if current_user
-      @virtual_requests = VirtualRequest.where(artist_id: current_user.id)
-      @all_artists = Artist.all
+      @virtual_requests_to_work_on = VirtualRequest.where(artist_id: current_user.id)
+      @virtual_requests_made = VirtualRequest.where(creative_user_id: current_user.id)
+      @all_creative_users = CreativeUser.all
     end
   end
 

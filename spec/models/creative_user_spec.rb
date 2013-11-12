@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Artist do
+describe CreativeUser do
 
   before do
-    @artist = Artist.new(name: "Example User", email: "user@example.com",
+    @creative_user = CreativeUser.new(name: "Example User", email: "user@example.com",
                      password: "foobar", password_confirmation: "foobar")
   end
-  subject { @artist }
+  subject { @creative_user }
 
   it { should respond_to(:email) }
   it { should respond_to(:name) }
@@ -20,13 +20,27 @@ describe Artist do
   its(:first_name) { should == "Example" }
 
   describe "when name is not present" do
-    before { @artist.name = " " }
+    before { @creative_user.name = " " }
     it { should_not be_valid }
   end
 
   describe "when email is not present" do
-    before { @artist.email = " " }
+    before { @creative_user.email = " " }
     it { should_not be_valid }
+  end
+
+
+  describe "when uploading profile image" do
+    before(:each) do
+      @creative_user = FactoryGirl.create(:creative_user)
+      @creative_user.avatar = File.open(File.join(Rails.root, 'spec/fake_data/sample_image.jpg'))
+      @creative_user.save!
+    end
+    
+    it "should be valid" do
+      expect(@creative_user).to be_valid
+      expect(@creative_user.avatar.filename).to eq 'sample_image.jpg'
+    end
   end
 
   describe "when email format is invalid" do
@@ -34,8 +48,8 @@ describe Artist do
       addresses = %w[user@foo,com user_at_foo.org example.user@foo.
                      foo@bar_baz.com foo@bar+baz.com foo@bar..com]
       addresses.each do |invalid_address|
-        @artist.email = invalid_address
-        expect(@artist).not_to be_valid
+        @creative_user.email = invalid_address
+        expect(@creative_user).not_to be_valid
       end
     end
   end
@@ -44,15 +58,15 @@ describe Artist do
     it "should be valid" do
       addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
       addresses.each do |valid_address|
-        @artist.email = valid_address
-        expect(@artist).to be_valid
+        @creative_user.email = valid_address
+        expect(@creative_user).to be_valid
       end
     end
   end
 
   describe "when email address is already taken" do
     before do 
-      duplicate = @artist.dup
+      duplicate = @creative_user.dup
       duplicate.email.upcase
       duplicate.save
     end
@@ -61,12 +75,13 @@ describe Artist do
   end
 
   describe "virtual requests" do
+    before { @creative_user.save }
     #let! necessary to initialzie virtuals right away, since they are not called in a before block
-    let!(:virtual1) { FactoryGirl.create(:virtual_request, artist: @artist ) }
-    let!(:virtual2) { FactoryGirl.create(:virtual_request, artist: @artist ) }
+    let!(:virtual1) { FactoryGirl.create(:virtual_request, creative_user: @creative_user ) }
+    let!(:virtual2) { FactoryGirl.create(:virtual_request, creative_user: @creative_user ) }
 
     it "should be multiple" do
-      @artist.virtual_requests.count.should == 2 
+      @creative_user.virtual_requests.count.should == 2 
     end
   end
 end

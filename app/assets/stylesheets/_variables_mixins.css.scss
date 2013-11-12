@@ -1,16 +1,27 @@
-$lightblue: #87BCD6;
-$blue: #1F5874;
-$darkblue: #1b2640;
+$yellow-light:#f2db94;
+$yellow:      #f2b33d;
+$yellow-dark: #DF9203;
 
-$lightgray: #EEEBE8;
+$maroon:      #360101;
+$orange-light:#F38A64;
+$orange:      #f2622e;
+$red:         #CD3804;
+
+$green-light: #A2BF60;
+$green:       #768B46;
+
+$tan-lightest:#FFFDF5;
+$tan-light:   #FFF3CA;
+$tan:         #E5AA60;
+$tan-med:     #B2A16D;
+$tan-dark:    #726846;
+
+/*$lightgray: #EEEBE8;
 $medgray: #D7CFC2;
 $gray: #C9C0B4;
-$darkgray: #746E68;
+$darkgray: #746E68;*/
 
-$orange: #E0881B;
-$tan: #E5AA60;
 
-$red: #CD3804;
 
 @mixin smallfont {
   font-size: 12px;

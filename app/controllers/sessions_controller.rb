@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = Artist.find_by(email: params[:session][:email].downcase)
+    user = CreativeUser.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       sign_in user
       flash[:success] = "Welcome to Creative Queue #{current_user.first_name}!"

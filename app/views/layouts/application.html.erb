@@ -9,12 +9,12 @@
   <link href='http://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
+  <%= render 'layouts/header' %>
   <% flash.each do |key, value| %>
-    <section class="alert-box hide">
+    <section class="alert-box-<%= key %> hide">
       <div class="alert alert-<%= key %>"><%= value %></div>
     </section>
   <% end %>
-  <%= render 'layouts/header' %>
   <%= yield %>
   <% if Rails.env.development? %>
 <!--     <section class="debug">

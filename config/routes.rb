@@ -5,7 +5,7 @@ CreativeQueue::Application.routes.draw do
   # You can have the root of your site routed with "root"
 root 'home#index'
 
-resources :artists do
+resources :creative_users do
   member do
     get 'update_password'
   end
@@ -15,7 +15,11 @@ resources :virtual_requests do
   member do
     put 'move'
   end
-  resources :virtuals
+  resources :virtuals do 
+    member do
+      put 'send_out'
+    end
+  end
 end
 
 resources :sessions, only: [:new, :create, :destroy]
