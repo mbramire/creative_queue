@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131109160608) do
+ActiveRecord::Schema.define(version: 20131112195421) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",                      null: false
@@ -946,6 +946,7 @@ ActiveRecord::Schema.define(version: 20131109160608) do
     t.string   "quote_number"
     t.integer  "artist_id"
     t.boolean  "revision_requested"
+    t.boolean  "completed",          default: false
   end
 
   add_index "virtual_requests", ["artist_id"], name: "index_virtual_requests_on_artist_id", using: :btree

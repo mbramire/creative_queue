@@ -1,5 +1,9 @@
-<% show_artists ||= false %>
-<table>
+<% 
+  show_artists ||= false 
+  hide ||= false
+%>
+
+<table class="<%= "hide" if hide %>">
   <thead>
     <tr>
       <th>Virtual Name</th>
@@ -17,13 +21,14 @@
   <tbody>
     <% unless virtuals.empty? %>
       <% virtuals.each do |v| %>
-        <tr class="<%= current_user.owns?(v) ? "highlight" : "" %>">
+        <tr>
           <td>
             <%= link_to v.company, virtual_request_path(v) %> 
             <% unless v.virtuals.empty? %>
               (<%= v.virtuals.count %>)
             <% end %>
             <%= image_tag "icons/owned.png", class: "small-tbl-icon" if current_user.artist_for?(v) && show_artists %>
+            <%= image_tag "icons/completed.png", class: "small-tbl-icon" if v.completed && show_artists %>
           </td>
           <td><%= v.id %></td>
           <td><%= v.due_date_human %></td>
@@ -46,6 +51,3 @@
     <% end %>
   </tbody>
 </table>
-<% if show_artists %>
-  <%= link_to "Create Virtual Request", new_virtual_request_path, class: "button" %></a>
-<% end %>

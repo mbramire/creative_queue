@@ -27,6 +27,7 @@ class VirtualRequestsController < ApplicationController
     if @virtual_request.update(virtual_params)
       @virtual_request.auto_assign!
       @virtual_request.apply_user
+      
       flash[:success] = "Virtual request updated"
       redirect_to virtual_request_path(@virtual_request)
     else
@@ -50,16 +51,17 @@ class VirtualRequestsController < ApplicationController
   def destroy
     @virtual_request = VirtualRequest.find(params[:id])
     @virtual_request.destroy
+
     flash[:success] = "Virtual removed."
     redirect_to virtual_requests_path
   end
 
   def move
     @virtual_request = VirtualRequest.find(params[:id])
-    @virtual_request.artist_id = current_user.id
-    @virtual_request.save
+    @virtual_request.update_attributes(artist_id: current_user.id, completed: false)
+
     flash[:success] = "#{@virtual_request.company} added to your queue."
-    redirect_to root_path
+    redirect_to virtual_request_path(@virtual_request)
   end
 
   private

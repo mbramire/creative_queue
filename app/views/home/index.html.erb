@@ -1,22 +1,25 @@
 <% if current_user %>
   <% if current_user.virtual_requests_artist_for > 0 %>
     <div class="row-divider pad-all-large">
-      <h1 class="tbl-header margin-right-large">My Queue (<%= @virtual_requests_to_work_on.count %>)</h1>
-      <ul>
-        <li class="pull-left margin-right-large">working on</li>
+      <h1 class="tbl-header margin-right-large">My Queue (<%= @vr_to_work_on.count %>)</h1>
+      <ul class="tabs">
+        <li class="pull-left margin-right-large tab-on">working on</li>
         <li class="pull-left">recently completed</li>
       </ul>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @virtual_requests_to_work_on } %>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_to_work_on } %>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_completed, :hide => true } %>
     </div>
   <% end %>
 
   <div class="row-divider pad-all-large">
-    <h1 class="tbl-header margin-right-large">My Requests (<%= @virtual_requests_made.count %>)</h1>
-    <ul>
-      <li class="pull-left margin-right-large">being worked on</li>
+    <h1 class="tbl-header margin-right-large">My Requests (<%= @vr_made.count %>)</h1>
+    <ul class="tabs">
+      <li class="pull-left margin-right-large tab-on">being worked on</li>
       <li class="pull-left">recently completed</li>
     </ul>
-    <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @virtual_requests_made, :show_artists => true } %>
+    <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_made, :show_artists => true } %>
+    <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_made_and_completed, :show_artists => true, :hide => true } %>
+    <%= link_to "Create Virtual Request", new_virtual_request_path, class: "button" %></a>
   </div>
 
   <div class="row-divider pad-all-large">

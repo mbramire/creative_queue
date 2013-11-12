@@ -1,4 +1,5 @@
 <div class="pad-all-large">
   <h1 class="tbl-header">Virtual Requests</h1>
   <%= render partial: "virtual_request_table", :locals => { :virtuals => @virtuals, :show_artists => true } %>
+  <%= link_to "Create Virtual Request", new_virtual_request_path, class: "button" %></a>
 </div>

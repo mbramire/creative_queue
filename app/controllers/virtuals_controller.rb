@@ -52,10 +52,12 @@ class VirtualsController < ApplicationController
     @virtual = Virtual.find(params[:id])
     @recipients = @virtual.recipients
     @sender = current_user
+    
     DistributorMailer.virtual_email(@virtual, @virtual_request, @recipients, @sender).deliver
-    @virtual.update_attributes(sent: Time.now)
     flash[:success] = "#{@virtual_request.company} - version #{@virtual.version} has been sent to #{@recipients}."
-    redirect_to virtual_request_path(@virtual_request)
+    @virtual.update_attributes(sent: Time.now)
+    @virtual_request.update_attributes(completed: true)
+    redirect_to root_path
   end
 
   private

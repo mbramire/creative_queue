@@ -44,7 +44,7 @@ namespace :db do
         comments: comments,
         company: company,
         due_date: due_date,
-        art_url: art_url,
+        art_website: art_url,
         quote_number: quote_number,
         creative_user_id: creative_user_id, 
         artist_id: artist_id 

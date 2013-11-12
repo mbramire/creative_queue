@@ -1,9 +1,13 @@
 <div class="pad-all-large">
   <div class="white-box">
-    <h1><%= @virtual_request.company %> - due <%= @virtual_request.due_date_human %></h1>
+    <h1>
+      <%= @virtual_request.company %>
+      <%= "(completed)" if @virtual_request.completed %>
+    </h1>
     <div class="row pad-top-large">
       <div class="three-col pad-right-med shadow-border-right">
-        <h2>Contact Info</h2>
+        <h2>Due <%= @virtual_request.due_date_human %></h2>
+        <h2 class="pad-top">Contact Info</h2>
         <ul>
           <li>
             <% if @virtual_request.user_id.present? %>
@@ -65,7 +69,7 @@
         <% if current_user.owns?(@virtual_request) %>
           <br/><%= link_to "Edit Request", edit_virtual_request_path(@virtual_request), class: "button margin-top" %>
         <% end %>
-        <% unless current_user.owns?(@virtual_request) %>
+        <% unless current_user.artist_for?(@virtual_request) && !@virtual_request.completed %>
           <br/><%= link_to "Move to my queue", move_virtual_request_path, method: :put, class: "button margin-top" %>
         <% end %>
       </div>
@@ -74,11 +78,10 @@
         <% @virtual_request.virtuals.each do |v| %>
           <%= render "virtual", v: v %>
         <% end %>
-        <% if current_user.owns?(@virtual_request) %>
+        <% if current_user.artist_for?(@virtual_request) && !@virtual_request.completed %>
           <%= link_to "Create Virtual", new_virtual_request_virtual_path(virtual_request_id: @virtual_request.id), class: "new-virtual-button" %>
         <% else %>
-          <p class="virtual-notice">Move this virtual request to your queue to start working on it.</br> 
-            Keep in mind that it will be removed from <%= @virtual_request.creative_user.name %>'s queue.</p>
+          <p class="virtual-notice">Move this virtual request to your queue to start working on it.</p>
         <% end %>
       </div>
     </div>

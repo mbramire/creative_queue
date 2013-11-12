@@ -19,7 +19,7 @@
           <% end %>
         </p>
       </p>
-      <% if current_user.owns?(@virtual_request) %>
+      <% if current_user.artist_for?(@virtual_request) %>
         <% if v.sent.present? %>
           <p class="pad-top">
             <em>sent on</em> <%= v.sent_date %></br>
