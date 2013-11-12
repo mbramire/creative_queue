@@ -16,6 +16,8 @@ describe "Virtual Pages" do
  		end
  	end
 
+  it "should not be editable if it has been emailed"
+
   context "when viewing other's virtual" do
   	before { visit virtual_request_path(virtual_request)}
   	

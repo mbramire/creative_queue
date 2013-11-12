@@ -15,15 +15,20 @@ class Virtual < ActiveRecord::Base
   validates_presence_of :creative_user_id
   validates_presence_of :document
   validates_presence_of :recipients
+  validates_presence_of :version
   validate :document_size_validation, :if => :document? 
 
   before_save :update_document_attributes
-  before_save :set_version
+  before_create :set_version
 
   mount_uploader :document, DocumentUploader
 
   def completed_date
     self.updated_at.strftime("%m/%d/%y")
+  end
+
+  def sent_date
+    self.sent.strftime("%m/%d/%y at %l:%M %P")
   end
 
   private

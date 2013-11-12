@@ -15,7 +15,7 @@ describe "Homepage" do
       @other_creative_user = FactoryGirl.create(:creative_user)
       @virtual1 = FactoryGirl.create(:virtual_request, creative_user: creative_user, artist: creative_user)
       @virtual2 = FactoryGirl.create(:virtual_request, creative_user: creative_user, artist: creative_user)
-      10.times { FactoryGirl.create(:virtual_request, creative_user: @other_creative_user) }
+      10.times { FactoryGirl.create(:virtual_request, creative_user: @other_creative_user, artist: @other_creative_user) }
       sign_in(creative_user)
     end
 

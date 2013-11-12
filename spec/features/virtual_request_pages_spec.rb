@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Virtual Request Pages" do 
   before do
     @creative_user = FactoryGirl.create(:creative_user) 
-    @virtual_request = FactoryGirl.create(:virtual_request, creative_user: @creative_user)
+    @virtual_request = FactoryGirl.create(:virtual_request, creative_user: @creative_user, artist: @creative_user)
     sign_in(@creative_user) 
   end
   
@@ -28,23 +28,22 @@ describe "Virtual Request Pages" do
   end
 
   describe "auto-assigning" do
-    before do
-      @creative_user2 = FactoryGirl.create(:creative_user) 
-      @virtual_request2 = FactoryGirl.create(:virtual_request, creative_user_id: @creative_user.id, artist_id: @creative_user2.id )
-      @virtual_request3 = FactoryGirl.create(:virtual_request, artist_id: @creative_user2.id )
-      @virtual_request4 = FactoryGirl.create(:virtual_request, artist_id: @creative_user.id )
-      @virtual_request.update_attributes(artist_id: @creative_user2.id)
-      visit edit_virtual_request_path(@virtual_request2)
+    before(:each) do
+      @other_artist = FactoryGirl.create(:creative_user)
+      10.times { FactoryGirl.create(:virtual_request, artist: @creative_user) }
+      visit edit_virtual_request_path(@virtual_request)
     end
 
     it "should assign to artist with lowest number of virtual requests" do
       select("auto-assign", :from => "Artist")
       click_on "Save Changes"
-      expect(@creative_user.virtual_requests_artist_for).to eq(2)
+      expect(@virtual_request.artist).to eq(@creative_user) #this passes when it should not, @virtual_request should re-assign to someone else
+      expect(@virtual_request.artist).to eq(@other_artist)
     end
   end  
 
-  it "should e-mail virtual to client" 
+  it "should e-mail virtual to client"
+
 
   describe "index page" do
     before { visit virtual_requests_path }

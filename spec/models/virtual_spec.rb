@@ -7,12 +7,12 @@ describe Virtual do
   subject { virtual }
 
   it { should respond_to(:document) }
+  it { should respond_to(:version) }
   it { should respond_to(:recipients) }
   it { should respond_to(:creative_user_id) }
   it { should respond_to(:artist_comments) }
   it { should respond_to(:user_comments) }
   it { should respond_to(:sent) }
-  it { should respond_to(:revision_requested) }
 
   it { should be_valid }
 
@@ -54,7 +54,7 @@ describe Virtual do
       expect(@virtual.document_file_size).to eq 26749
     end
     it "should save content type" do
-      expect(@virtual.document_file_type).to eq 'image/jpeg'
+      expect(@virtual.document_content_type).to eq 'image/jpeg'
     end
   end
 end

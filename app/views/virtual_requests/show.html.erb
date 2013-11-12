@@ -46,7 +46,7 @@
             <% unless @virtual_request.art_website.present? %>
               <em class="alert-text">none</em>
             <% else %>
-              <%= link_to truncate(@virtual_request.art_website, length: 30), @virtual_request.filter_art_website %></li>
+              <%= link_to truncate(@virtual_request.art_website, length: 30), @virtual_request.filter_art_website, target: "_blank" %></li>
             <% end %>
           </li>
           <li><em>budget</em> <%= @virtual_request.budget %></li>

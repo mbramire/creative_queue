@@ -15,7 +15,11 @@ resources :virtual_requests do
   member do
     put 'move'
   end
-  resources :virtuals
+  resources :virtuals do 
+    member do
+      put 'send_out'
+    end
+  end
 end
 
 resources :sessions, only: [:new, :create, :destroy]

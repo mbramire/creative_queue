@@ -15,11 +15,12 @@ describe VirtualRequest do
   it { should respond_to(:company) }
   it { should respond_to(:creative_user_id) }
   it { should respond_to(:due_date) }
-  it { should respond_to(:art_url) }
+  it { should respond_to(:art_website) }
   it { should respond_to(:quote_number) }
   it { should respond_to(:priority) }
   it { should respond_to(:purchase_order) }
   it { should respond_to(:user_id) }
+  it { should respond_to(:revision_requested) }
 
   it { should be_valid }
 
@@ -53,8 +54,11 @@ describe VirtualRequest do
     it { should_not be_valid }
   end
 
-  describe "without art file" do 
-    before { virtual.art = " " }
+  describe "without art file or art url" do 
+    before do 
+      virtual.art = nil 
+      virtual.art_website = " "
+    end
     it { should_not be_valid }
   end
 
