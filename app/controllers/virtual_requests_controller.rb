@@ -42,7 +42,7 @@ class VirtualRequestsController < ApplicationController
 
     if @virtual_request.save
       flash[:success] = "Virtual has been created and assigned to #{@virtual_request.artist.name}"
-      redirect_to virtual_requests_path
+      redirect_to root_path
     else
       render 'new'
     end

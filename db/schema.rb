@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131112195421) do
+ActiveRecord::Schema.define(version: 20131113143734) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",                      null: false
@@ -299,8 +299,8 @@ ActiveRecord::Schema.define(version: 20131112195421) do
     t.string   "avatar"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "in_queue",        default: true
     t.string   "title",           default: "Greenhorn"
+    t.boolean  "in_queue"
   end
 
   add_index "creative_users", ["email"], name: "index_creative_users_on_email", unique: true, using: :btree

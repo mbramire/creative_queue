@@ -1,9 +1,10 @@
 <% 
-  show_artists ||= false 
-  hide ||= false
+  show_artists ||= false
+  show_requested ||=false 
+  completed ||= false
 %>
 
-<table class="<%= "hide" if hide %>">
+<table class="<%= "hide" if completed %>">
   <thead>
     <tr>
       <th>Virtual Name</th>
@@ -13,7 +14,8 @@
       <th>For</th>
       <% if show_artists %>
         <th>Artist</th>
-      <% else %>
+      <% end %>
+      <% if show_requested %>
         <th>Requested by</th>
       <% end %>
     </tr>
@@ -39,14 +41,19 @@
           </td>
           <% if show_artists %>
             <td><%= v.artist.name unless v.artist.nil? %></td>
-          <% else %>
+          <% end %>
+          <% if show_requested %>
             <td><%= v.creative_user.name %></td>
           <% end %>
         </tr>
       <% end %>
     <% else %>
       <tr>
-        <td colspan="6">- no requests made -</td>
+        <% if completed %>
+          <td cplspan="6">no requests recently completed</td>
+        <% else %>
+          <td colspan="6">no requests made</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -22,10 +22,19 @@
         </div>
       </div>
 
-      <div class="row">
-        <%= f.label :admin %>
-        <%= f.check_box :admin %>
-      </div>
+      <h2>Status</h2>
+      <div class="row pad-top pad-bottom">
+        <div class="four-col">
+          <% if current_user.admin && @user != current_user %>
+            <%= f.label :admin %>
+            <%= f.check_box :admin %>&nbsp;&nbsp;&nbsp;
+          <% end %>
+        </div>
+        <div class="four-col">
+          <%= f.label :in_queue %>
+          <%= f.check_box :in_queue %></br>
+        </div>
+      </div> 
       
       <%= f.submit "Create User", class: "button margin-right" %>
       <%= link_to "Go Back", creative_users_path, class: "button" %>

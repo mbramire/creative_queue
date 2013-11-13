@@ -7,7 +7,7 @@
         <li class="pull-left">recently completed</li>
       </ul>
       <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_to_work_on } %>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_completed, :hide => true } %>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_completed, :completed => true } %>
     </div>
   <% end %>
 
@@ -18,8 +18,8 @@
       <li class="pull-left">recently completed</li>
     </ul>
     <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_made, :show_artists => true } %>
-    <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_made_and_completed, :show_artists => true, :hide => true } %>
-    <%= link_to "Create Virtual Request", new_virtual_request_path, class: "button" %></a>
+    <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_made_and_completed, :show_artists => true, :completed => true } %>
+    <%= link_to "Make Virtual Request", new_virtual_request_path, class: "button" %></a>
   </div>
 
   <div class="row-divider pad-all-large">
