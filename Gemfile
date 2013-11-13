@@ -50,6 +50,8 @@ gem 'will_paginate', '3.0.4'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'mysql2'
 gem 'carrierwave', '0.9.0'
+#business days gem
+gem "business_time"
 
 group :test, :development do
   gem 'rspec-rails', '2.13.1'

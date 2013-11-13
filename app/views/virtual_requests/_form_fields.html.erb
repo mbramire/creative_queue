@@ -52,7 +52,11 @@
       options = CreativeUser.in_queue?.collect {|p| [ p.name, p.id ] } 
       options.unshift ["auto-assign", 0]
     %>
-    <%= f.select :artist_id, options %> 
+    <% if options[1].nil? %>
+      No artists available
+    <% else %>
+      <%= f.select :artist_id, options %> 
+    <% end %>
   </div>
 </div>
 <div class="row pad-bottom-large">
