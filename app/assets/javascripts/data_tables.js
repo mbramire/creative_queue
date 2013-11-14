@@ -7,7 +7,7 @@ $(document).ready(function(){
     }
   });
 
-  
+
   $(".tabs").children("li").on("click", function(){
     var tab = $(this),
       dataTbl = tab.parent("ul").siblings(".dataTables_wrapper");
@@ -19,4 +19,6 @@ $(document).ready(function(){
       dataTbl.toggle();
     };
   });
+
+  $("#virtual_request_unformatted_date").datepicker({beforeShowDay: $.datepicker.noWeekends});
 });

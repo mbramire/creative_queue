@@ -12,7 +12,7 @@ class VirtualsController < ApplicationController
   def edit
     @virtual_request = VirtualRequest.find(params[:virtual_request_id])
     @virtual = Virtual.find(params[:id])
-    admin_or_current_user(@virtual_request)
+    @email_addresses = @virtual.recipients
   end
 
   def update

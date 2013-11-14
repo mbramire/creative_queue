@@ -39,8 +39,8 @@
     <%= f.text_field :art_website %>
   </div>
   <div class="four-col">
-    <%= f.label :due_date %><br>
-    <%= f.date_select :due_date, { use_short_month: :true, default: 5.days.from_now } %> 
+    <%= f.label :due_date %>
+    <%= f.text_field :unformatted_date, value: @human_date %> 
   </div>
   <div class="four-col">
     <%= f.label :artist_id, "Artist" %><br>

@@ -20,10 +20,12 @@ class VirtualRequestsController < ApplicationController
 
   def edit
     @virtual_request = VirtualRequest.find(params[:id])
+    @human_date = @virtual_request.due_date.strftime("%m/%d/%Y")
   end
 
   def update
     @virtual_request = VirtualRequest.find(params[:id])
+    @virtual_request.need_due_date
 
     if @virtual_request.update(virtual_params)
       @virtual_request.auto_assign!
@@ -40,6 +42,7 @@ class VirtualRequestsController < ApplicationController
     @virtual_request = VirtualRequest.new(virtual_params)
     @virtual_request.apply_user
     @virtual_request.auto_assign!
+    @virtual_request.need_due_date
 
     if @virtual_request.save
       flash[:success] = "Virtual has been created and assigned to #{@virtual_request.artist.name}"

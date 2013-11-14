@@ -1,0 +1,42 @@
+@import "variables_mixins";
+
+.ui-datepicker {
+ margin-top: 15px; 
+}
+
+
+.ui-datepicker-calendar {
+  margin: 0;
+  font-size: 12px;
+  
+  td, th {
+    padding: 5px;
+  }
+
+  .ui-datepicker-week-end {
+    color: $yellow-light;
+  }
+}
+
+.ui-datepicker-next {
+  float: right;
+  font-size: 9px;
+  @include cursor;
+}
+
+.ui-datepicker-prev {
+  float: left;
+  font-size: 9px;
+  @include cursor;
+}
+
+.ui-datepicker-header {
+  padding-bottom: 5px;
+}
+
+.ui-datepicker-title {
+  text-align: center;
+  font-weight: bold;
+  color: $maroon;
+  padding-bottom: 5px;
+}
