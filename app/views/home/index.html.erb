@@ -3,18 +3,18 @@
     <div class="row-divider pad-all-large">
       <h1 class="tbl-header margin-right-large">My Queue (<%= @vr_to_work_on.count %>)</h1>
       <ul class="tabs">
-        <li class="pull-left margin-right-large tab-on">working on</li>
+        <li class="pull-left margin-right-large tab-on">pending</li>
         <li class="pull-left">recently completed</li>
       </ul>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_to_work_on } %>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_completed, :completed => true } %>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_to_work_on, :show_requested => true } %>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_completed, :completed => true, :show_requested => true } %>
     </div>
   <% end %>
 
   <div class="row-divider pad-all-large">
     <h1 class="tbl-header margin-right-large">My Requests (<%= @vr_made.count %>)</h1>
     <ul class="tabs">
-      <li class="pull-left margin-right-large tab-on">being worked on</li>
+      <li class="pull-left margin-right-large tab-on">pending</li>
       <li class="pull-left">recently completed</li>
     </ul>
     <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_made, :show_artists => true } %>

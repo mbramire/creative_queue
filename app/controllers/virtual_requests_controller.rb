@@ -6,7 +6,8 @@ class VirtualRequestsController < ApplicationController
   end
 
   def index 
-    @virtuals = VirtualRequest.all
+    @virtuals = VirtualRequest.all.where(completed: false)
+    @virtuals_completed = VirtualRequest.all.where(completed: true)
   end
 
   def new 

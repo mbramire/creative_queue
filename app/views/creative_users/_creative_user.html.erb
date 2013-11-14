@@ -4,6 +4,7 @@
     <%= link_to creative_user.name, creative_user_path(creative_user) %>
   </td>
   <td><%= creative_user.email %></td>
+  <td><%= creative_user.filter_phone_number %></td>
   <td><%= creative_user.in_queue ? "Yes" : "-" %></td>
   <td><%= creative_user.admin ? "Yes" : "-" %></td>
 </tr>

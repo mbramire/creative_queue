@@ -9,15 +9,22 @@ namespace :db do
 
   desc "Fill database with sample data"
   task populate: :environment do
-    CreativeUser.create!(name: "Matt Ramirez", email: "mattr@journalbooks.com", password: "password", password_confirmation: "password", admin: true)
+    CreativeUser.create!(name: "Matt Ramirez", 
+      email: "mattr@journalbooks.com", 
+      password: "password", 
+      phone_number: "7046022032", 
+      password_confirmation: "password", 
+      admin: true
+      )
 
     10.times do |n|
       name  = Faker::Name.name
       email_name = name.split(' ').join.downcase
       email = "#{email_name}@journalbooks.com"
       password  = "password"
+      phone_number = 7046022000 + n
 
-      CreativeUser.create!(name: name, email: email, password: password, password_confirmation: password)
+      CreativeUser.create!(name: name, email: email, phone_number: phone_number.to_s, password: password, password_confirmation: password)
     end
 
     100.times do |n|
@@ -29,11 +36,13 @@ namespace :db do
       budget = "$" + (1...9).to_a.sample.to_s + ".00"
       comments = Faker::Lorem.paragraph
       company = Faker::Company.name
-      due_date = Time.now
+      date_2 = Time.new(2013,11,1,9,00,0)
+      date_1 = Time.new(2013,12,30,5,00,0)
+      due_date = Time.at((date_2.to_f - date_1.to_f)*rand + date_1.to_f)
       art_url = Faker::Internet.url
-      quote_number = 530029 + n
       creative_user_id = (5...10).to_a.sample
       artist_id = (2...7).to_a.sample
+      completed = [0,1].sample
 
       VirtualRequest.create!(
         contact_name: contact_name, 
@@ -45,9 +54,9 @@ namespace :db do
         company: company,
         due_date: due_date,
         art_website: art_url,
-        quote_number: quote_number,
         creative_user_id: creative_user_id, 
-        artist_id: artist_id 
+        artist_id: artist_id,
+        completed: completed 
         )
     end
 
@@ -59,6 +68,8 @@ namespace :db do
       file_number = (1...6).to_a.sample
       file = File.open(File.join(Rails.root, "spec/fake_data/sample_file_#{file_number}.pdf"))
       artist_id = (2...7).to_a.sample
+      quote_number = 530029 + n
+      sent = [0,1].sample
 
       Virtual.create!(
         artist_comments: artist_comments,
@@ -66,7 +77,9 @@ namespace :db do
         recipients: recipients,
         virtual_request_id: virtual_request_id,
         document: file,
-        creative_user_id: artist_id
+        creative_user_id: artist_id,
+        quote_number: quote_number,
+        sent: sent
         )
     end
   end

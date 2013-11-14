@@ -1,12 +1,13 @@
 class CreativeUser < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i 
-  TITLES = ["Apprentice", "CrackerJack", "Virtual Pro", "Maestro", "Visionary", "Czar", "Virtual Diety"] 
+  TITLES = ["Apprentice", "CrackerJack", "Virtual Pro", "Maestro", "Visionary", "Czar", "Virtual Jedi"] 
   
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }, :unless => :password_not_needed?
+  validates :phone_number, presence: true, length: { maximum: 10 }
   
   has_secure_password
 
@@ -21,6 +22,10 @@ class CreativeUser < ActiveRecord::Base
   def virtual_requests_artist_for
     VirtualRequest.where(artist_id: self.id).count
   end
+
+  def filter_phone_number
+    new_num = self.phone_number.insert(3, ".").insert(7, ".")
+  end
   
   def owns?(virtual, admin=true)
     if admin
@@ -32,6 +37,10 @@ class CreativeUser < ActiveRecord::Base
 
   def artist_for?(virtual)
     self.id == virtual.artist_id
+  end
+
+  def requested?(virtual)
+    self.id == virtual.creative_user_id
   end
   
   def CreativeUser.new_remember_token

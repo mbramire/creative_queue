@@ -7,15 +7,15 @@ $(document).ready(function(){
     }
   });
 
+  
   $(".tabs").children("li").on("click", function(){
     var tab = $(this),
-      table = tab.parent("ul").siblings("table"),
-      dataTbl = tab.parent("ul").siblings(".dataTables_wrapper")
+      dataTbl = tab.parent("ul").siblings(".dataTables_wrapper");
 
     if (!tab.hasClass("tab-on")){
       tab.siblings("li").toggleClass("tab-on");
       tab.toggleClass("tab-on");
-      table.toggle();
+      $(".virtual-tbl").toggle();
       dataTbl.toggle();
     };
   });

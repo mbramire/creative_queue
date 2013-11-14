@@ -4,12 +4,12 @@
   completed ||= false
 %>
 
-<table class="<%= "hide" if completed %>">
+<table class="<%= "hide" if completed %> virtual-tbl">
   <thead>
     <tr>
+      <th>Due</th>
       <th>Virtual Name</th>
       <th>No.</th>
-      <th>Due</th>
       <th>Priority?</th>
       <th>For</th>
       <% if show_artists %>
@@ -24,26 +24,24 @@
     <% unless virtuals.empty? %>
       <% virtuals.each do |v| %>
         <tr>
+          <td><%= v.due_date_human %></td>
           <td>
             <%= link_to v.company, virtual_request_path(v) %> 
             <% unless v.virtuals.empty? %>
               (<%= v.virtuals.count %>)
             <% end %>
-            <%= image_tag "icons/owned.png", class: "small-tbl-icon" if current_user.artist_for?(v) && show_artists %>
-            <%= image_tag "icons/completed.png", class: "small-tbl-icon" if v.completed && show_artists %>
           </td>
           <td><%= v.id %></td>
-          <td><%= v.due_date_human %></td>
           <td><%= v.priority ? "Yes" : "-" %></td>
           <td>
             <%= v.contact_name %>
             <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
           </td>
           <% if show_artists %>
-            <td><%= v.artist.name unless v.artist.nil? %></td>
+            <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.name unless v.artist.nil? %></td>
           <% end %>
           <% if show_requested %>
-            <td><%= v.creative_user.name %></td>
+            <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.name %></td>
           <% end %>
         </tr>
       <% end %>
@@ -52,7 +50,7 @@
         <% if completed %>
           <td cplspan="6">no requests recently completed</td>
         <% else %>
-          <td colspan="6">no requests made</td>
+          <td colspan="6">no requests</td>
         <% end %>
       </tr>
     <% end %>

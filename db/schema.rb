@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131113143734) do
+ActiveRecord::Schema.define(version: 20131114142935) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",                      null: false
@@ -301,6 +301,7 @@ ActiveRecord::Schema.define(version: 20131113143734) do
     t.datetime "updated_at"
     t.string   "title",           default: "Greenhorn"
     t.boolean  "in_queue"
+    t.string   "phone_number"
   end
 
   add_index "creative_users", ["email"], name: "index_creative_users_on_email", unique: true, using: :btree
@@ -943,7 +944,6 @@ ActiveRecord::Schema.define(version: 20131113143734) do
     t.boolean  "priority"
     t.string   "purchase_order"
     t.integer  "user_id"
-    t.string   "quote_number"
     t.integer  "artist_id"
     t.boolean  "revision_requested"
     t.boolean  "completed",          default: false
@@ -964,6 +964,7 @@ ActiveRecord::Schema.define(version: 20131113143734) do
     t.text     "user_comments"
     t.text     "artist_comments"
     t.datetime "sent"
+    t.string   "quote_number"
   end
 
   add_index "virtuals", ["creative_user_id"], name: "index_virtuals_on_creative_user_id", using: :btree

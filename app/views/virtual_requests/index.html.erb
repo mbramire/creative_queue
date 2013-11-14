@@ -1,5 +1,10 @@
 <div class="pad-all-large">
-  <h1 class="tbl-header">Virtual Requests</h1>
+  <h1 class="tbl-header margin-right-large">Virtual Requests</h1>
+  <ul class="tabs">
+    <li class="pull-left margin-right-large tab-on">pending</li>
+    <li class="pull-left">completed</li>
+  </ul>
   <%= render partial: "virtual_request_table", :locals => { :virtuals => @virtuals, :show_artists => true, :show_requested => true } %>
+  <%= render partial: "virtual_request_table", :locals => { :virtuals => @virtuals_completed, :show_artists => true, :show_requested => true, :completed => true } %>
   <%= link_to "Make Virtual Request", new_virtual_request_path, class: "button" %></a>
 </div>

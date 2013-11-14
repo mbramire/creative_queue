@@ -13,6 +13,12 @@
           <%= f.text_field :email %>
         </div>
         <div class="four-col">
+          <%= f.label :phone_number, "Phone Number (numbers only)" %>
+          <%= f.text_field :phone_number, maxlength: 10 %>
+        </div>
+      </div>
+      <div class="row pad-top pad-bottom">
+        <div class="four-col">
           <%= f.label :password %>
           <%= f.password_field :password %>
         </div>
