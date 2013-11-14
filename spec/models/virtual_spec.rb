@@ -11,6 +11,7 @@ describe Virtual do
   it { should respond_to(:recipients) }
   it { should respond_to(:creative_user_id) }
   it { should respond_to(:artist_comments) }
+  it { should respond_to(:quote_number) }
   it { should respond_to(:user_comments) }
   it { should respond_to(:sent) }
 
@@ -28,6 +29,11 @@ describe Virtual do
 
   describe "without version" do
     before { virtual.version = " " }
+    it { should_not be_valid }
+  end
+
+  describe "without quote number" do
+    before { virtual.quote_number = " " }
     it { should_not be_valid }
   end
 

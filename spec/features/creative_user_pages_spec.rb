@@ -22,6 +22,7 @@ describe "Artist Pages"  do
         fill_in "Name", with: "New User"
         fill_in "Email", with: "newartist@email.com"
         fill_in "Password", with: "secret"
+        fill_in "creative_user_phone_number", with: "6664206969"
         fill_in "Confirmation", with: "secret"
         expect { click_button "Create User" }.to change(CreativeUser, :count).by(1)
       end

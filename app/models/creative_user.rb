@@ -7,7 +7,9 @@ class CreativeUser < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }, :unless => :password_not_needed?
-  validates :phone_number, presence: true, length: { maximum: 10 }
+  validates :phone_number,  presence: true, 
+                            length: { maximum: 10, minimum: 10 }, 
+                            :numericality => {:only_integer => true}
   
   has_secure_password
 

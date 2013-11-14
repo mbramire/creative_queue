@@ -14,13 +14,12 @@ describe "Virtual Request Pages" do
       visit new_virtual_request_path
       fill_in "Contact Name", with: "Troy McClure"
       fill_in "Contact Email", with: "customer@doodoo.com"
-      fill_in "Company", with: "Questionable Meats"
+      fill_in "End Client", with: "Questionable Meats"
       fill_in "url for artwork", with: "http://www.zombo.com"
       fill_in "Comments", with: "Sa da tay"
       fill_in "Quantities", with: "69"
       fill_in "Budget Per Book (NET)", with: "999"
       fill_in "Contact Phone", with: "(800)-222-2222"
-      fill_in "Quote number", with: "2"
      #fill_in "Purchase Order", with: "3"
 
       expect { click_button "Create Virtual" }.to change(VirtualRequest, :count).by(1)
@@ -76,13 +75,12 @@ describe "Virtual Request Pages" do
     it "should update the database" do
       fill_in "Name", with: "Waylon Smithers"
       fill_in "Contact Email", with: "customer@doodoo.com"
-      fill_in "Company", with: "Questionable Meats"
+      fill_in "End Client", with: "Questionable Meats"
       fill_in "url for artwork", with: "http://www.zombo.com"
       fill_in "Comments", with: "Sa da tay"
       fill_in "Quantities", with: "69"
       fill_in "Budget Per Book (NET)", with: "999"
       fill_in "Contact Phone", with: "(800)-222-2222"
-      fill_in "Quote number", with: "2"
       click_on "Save Changes"
       expect(page).to have_content("Virtual request updated")
     end

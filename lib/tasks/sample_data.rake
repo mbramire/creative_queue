@@ -44,7 +44,7 @@ namespace :db do
       artist_id = (2...7).to_a.sample
       completed = [0,1].sample
 
-      VirtualRequest.create!(
+      @requests = VirtualRequest.new(
         contact_name: contact_name, 
         contact_email: email, 
         contact_phone: contact_phone, 
@@ -58,6 +58,10 @@ namespace :db do
         artist_id: artist_id,
         completed: completed 
         )
+
+      @requests.need_due_date
+      @requests.save
+      
     end
 
     50.times do |n|
