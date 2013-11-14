@@ -14,6 +14,7 @@ end
 resources :virtual_requests do
   member do
     put 'move'
+    put 'duplicate'
   end
   resources :virtuals do 
     member do

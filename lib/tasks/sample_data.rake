@@ -58,7 +58,6 @@ namespace :db do
         artist_id: artist_id,
         completed: completed 
         )
-
       @requests.need_due_date
       @requests.save
       

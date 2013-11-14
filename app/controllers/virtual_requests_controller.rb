@@ -57,7 +57,7 @@ class VirtualRequestsController < ApplicationController
     @virtual_request.destroy
 
     flash[:success] = "Virtual removed."
-    redirect_to virtual_requests_path
+    redirect_to root_path
   end
 
   def move
@@ -66,6 +66,14 @@ class VirtualRequestsController < ApplicationController
 
     flash[:success] = "#{@virtual_request.company} added to your queue."
     redirect_to virtual_request_path(@virtual_request)
+  end
+
+  def duplicate
+    @new_request = VirtualRequest.find(params[:id]).dup
+    @new_request.make_copy(current_user)
+
+    flash[:success] = "#{@new_request.company} has been created."
+    redirect_to root_path
   end
 
   private

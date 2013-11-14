@@ -76,7 +76,14 @@ class VirtualRequest < ActiveRecord::Base
   def need_due_date?
     @need_date
   end
-  
+
+  def make_copy(user)
+    self.completed = false
+    self.company = self.company + " (copy)" unless self.company.include? "(copy)"
+    self.creative_user_id = user.id
+    self.save
+  end
+
 private
 
   def update_art_attributes
