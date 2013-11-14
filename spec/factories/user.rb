@@ -5,5 +5,6 @@ FactoryGirl.define do
     first_name "Miley"
     last_name "Cyrus"
     email "jim@distributor.com"
+    phone "666-420-6969"
   end
 end

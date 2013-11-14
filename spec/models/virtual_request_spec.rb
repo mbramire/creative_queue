@@ -7,16 +7,15 @@ describe VirtualRequest do
   it { should respond_to(:contact_name) }
   it { should respond_to(:contact_email) }
   it { should respond_to(:contact_phone) }
+  it { should respond_to(:company) }
   it { should respond_to(:quantity) }
   it { should respond_to(:budget) }
-  it { should respond_to(:comments) }
   it { should respond_to(:art) }
-  it { should respond_to(:artist_id) }
-  it { should respond_to(:company) }
-  it { should respond_to(:creative_user_id) }
-  it { should respond_to(:due_date) }
   it { should respond_to(:art_website) }
-  it { should respond_to(:quote_number) }
+  it { should respond_to(:due_date) }
+  it { should respond_to(:artist_id) } 
+  it { should respond_to(:comments)  }
+  it { should respond_to(:creative_user_id) }
   it { should respond_to(:priority) }
   it { should respond_to(:purchase_order) }
   it { should respond_to(:user_id) }

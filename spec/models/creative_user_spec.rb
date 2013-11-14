@@ -4,7 +4,7 @@ describe CreativeUser do
 
   before do
     @creative_user = CreativeUser.new(name: "Example User", email: "user@example.com",
-                     password: "foobar", password_confirmation: "foobar")
+                     password: "foobar", password_confirmation: "foobar", phone_number: "6664206969")
   end
   subject { @creative_user }
 
@@ -13,6 +13,7 @@ describe CreativeUser do
   it { should respond_to(:in_queue) }
   it { should respond_to(:title) }
   it { should respond_to(:admin) }
+  it { should respond_to(:phone_number) }
   it { should respond_to(:virtual_requests) }
 
   it { should be_valid }
@@ -29,6 +30,25 @@ describe CreativeUser do
     it { should_not be_valid }
   end
 
+  describe "when phone number is not ten digits" do
+    before { @creative_user.phone_number = "99999999999999" }
+    it { should_not be_valid }
+  end
+
+  describe "when phone number is ten digits" do
+    before {@creative_user.phone_number = "9999999999" }
+    it { should be_valid }
+  end
+
+  describe "when phone number is not numerical" do
+    before {@creative_user.phone_number = "Butts" }
+    it { should_not be_valid }
+  end
+
+  describe "when phone number is numerical" do
+    before {@creative_user.phone_number = "666" }
+    it { should_not be_valid }
+  end
 
   describe "when uploading profile image" do
     before(:each) do
