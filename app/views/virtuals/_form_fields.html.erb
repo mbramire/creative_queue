@@ -1,4 +1,4 @@
-<% email_addresses = f.object.errors.any? ? params[:recipients] : @virtual_request.contact_email %>
+<% @email_addresses ||= f.object.errors.any? ? params[:recipients] : @virtual_request.contact_email %>
 
 <div class="row pad-bottom-large pad-top">
   <div class="four-col">
@@ -7,7 +7,7 @@
   </div>
   <div class="four-col">
     <%= f.label :recipients, "Recipients - separate with ," %>
-    <%= f.text_area :recipients, value: email_addresses , class: "extend-field"  %>
+    <%= f.text_area :recipients, value: @email_addresses , class: "extend-field"  %>
   </div>
   <div class="four-col">
     <%= f.label :quote_number %>

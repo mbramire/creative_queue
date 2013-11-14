@@ -1,5 +1,10 @@
 <div class="pad-all-large">
   <div class="white-box">
+    <%= link_to "Duplicate", root_path, class: "button pull-right" %>
+    <%= link_to "Edit Request", edit_virtual_request_path(@virtual_request), class: "button pull-right" if current_user.owns?(@virtual_request) %>
+    <% unless current_user.artist_for?(@virtual_request) && !@virtual_request.completed %>
+      <%= link_to "Move to my queue", move_virtual_request_path, method: :put, class: "button pull-right" %>
+    <% end %>
     <h1>
       <%= @virtual_request.company %>
       <%= "(completed)" if @virtual_request.completed %>
@@ -58,13 +63,7 @@
             <% end %>
           </li>
         </ul>
-        <%= link_to "Download Art", @virtual_request.art.path, class: "button" if @virtual_request.art.present? %>
-        <% if current_user.owns?(@virtual_request) %>
-          <br/><%= link_to "Edit Request", edit_virtual_request_path(@virtual_request), class: "button margin-top" %>
-        <% end %>
-        <% unless current_user.artist_for?(@virtual_request) && !@virtual_request.completed %>
-          <br/><%= link_to "Move to my queue", move_virtual_request_path, method: :put, class: "button margin-top" %>
-        <% end %>
+        <%= link_to "Download Art", @virtual_request.art.path, class: "button pull-right" if @virtual_request.art.present? %>
       </div>
       <div class="three-col-span-two virtual-list">
         <h2>Virtuals</h2>

@@ -38,7 +38,7 @@ namespace :db do
       company = Faker::Company.name
       date_2 = Time.new(2013,11,1,9,00,0)
       date_1 = Time.new(2013,12,30,5,00,0)
-      due_date = Time.at((date_2.to_f - date_1.to_f)*rand + date_1.to_f)
+      due_date = Time.at((date_2.to_f - date_1.to_f)*rand + date_1.to_f).strftime("%m/%d/%Y")
       art_url = Faker::Internet.url
       creative_user_id = (5...10).to_a.sample
       artist_id = (2...7).to_a.sample
@@ -52,7 +52,7 @@ namespace :db do
         budget: budget,
         comments: comments,
         company: company,
-        due_date: due_date,
+        unformatted_date: due_date,
         art_website: art_url,
         creative_user_id: creative_user_id, 
         artist_id: artist_id,

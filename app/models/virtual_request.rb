@@ -5,7 +5,7 @@ class VirtualRequest < ActiveRecord::Base
   validates_presence_of :quantity
   validates_presence_of :budget
   validates_presence_of :company
-  validates_presence_of :due_date
+  validates_presence_of :unformatted_date, :if => :need_due_date?
   validates_presence_of :creative_user_id
   validates_presence_of :artist_id
   validates_presence_of :art, :unless => :art_website?, :message => "url or art file must be provided"
@@ -20,8 +20,11 @@ class VirtualRequest < ActiveRecord::Base
   mount_uploader :art, VirtualArtUploader
   
   before_save :update_art_attributes
+  before_save :format_date, :if => :need_due_date?
 
   default_scope { order('priority ASC, due_date ASC') }
+
+  attr_accessor  :unformatted_date
 
   def requested_by
     self.creative_user_id.present? ? self.creative_user.name : self.contact_name
@@ -62,6 +65,18 @@ class VirtualRequest < ActiveRecord::Base
     end
   end
 
+  def format_date
+    self.due_date = Date.strptime(self.unformatted_date, "%m/%d/%Y").to_time(:local)
+  end
+
+  def need_due_date
+    @need_date = true
+  end
+
+  def need_due_date?
+    @need_date
+  end
+  
 private
 
   def update_art_attributes
