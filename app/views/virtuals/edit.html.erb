@@ -4,7 +4,7 @@
     <div class="white-box">
       <h1>Edit <%= @virtual_request.company %> Virtual - <%= @virtual.version %>.0</h1>
       <%= render "form_fields", f: f %>  
-      <%= link_to "Delete Virtual", virtual_request_virtual_path(@virtual_request.id, @virtual.id), method: :delete, data: { confirm: "Are you sure you want to delete this virtual? (this will not delete the request)" } %>
+      <%= link_to "Delete Virtual", virtual_request_virtual_path(@virtual_request.id, @virtual.id), method: :delete, data: { confirm: "Are you sure you want to delete this virtual? (this will not delete the request)" }, class: "delete-btn" %>
     </div>
   </div>
 <% end %>

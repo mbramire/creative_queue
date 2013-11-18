@@ -6,5 +6,5 @@
   </ul>
   <%= render partial: "virtual_request_table", :locals => { :virtuals => @virtuals, :show_artists => true, :show_requested => true } %>
   <%= render partial: "virtual_request_table", :locals => { :virtuals => @virtuals_completed, :show_artists => true, :show_requested => true, :completed => true } %>
-  <%= link_to "Make Virtual Request", new_virtual_request_path, class: "button" %></a>
+  <%= link_to "Virtual Request", new_virtual_request_path, class: "new-btn" %></a>
 </div>

@@ -73,7 +73,7 @@ class VirtualRequestsController < ApplicationController
     @new_request.make_copy(current_user)
 
     flash[:success] = "#{@new_request.company} has been created."
-    redirect_to root_path
+    redirect_to edit_virtual_request_path(@new_request)
   end
 
   private

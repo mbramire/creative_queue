@@ -6,6 +6,25 @@ a {
   font-weight: bold;
 }
 
+
+.new-virtual-button {
+  @include cursor;
+  @include roundcorners;
+  display: block;
+  color: white;
+  background-image: image-url('icons/create-icon.png');
+  background-repeat: no-repeat;
+  background-color: $green;
+  background-position: 11px 11px;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+
+  &:hover {
+    background-color: $green-dark;
+  }
+}
+
 .button {
   border: none;
   @include cursor;
@@ -16,23 +35,99 @@ a {
   color: white;
   font-weight: bold;
   display: inline-block;
+  height: 32px;
   
   &:hover {
-    background: $yellow-dark;
+    background-color: $yellow-dark;
   }
 }
 
-.email-btn {
+.icon-btn {
   @extend .button;
-  background-image: image-url('icons/mail.png');
+  background-image: image-url('icons/icon-sprite.png');
   background-repeat: no-repeat;
+  background-color: $yellow;
+  padding: 10px 15px 10px 34px;
+}
+
+.new-btn {
+  @extend .icon-btn;
+  background-position: 8px -256px;
+}
+
+.prev-btn {
+  @extend .icon-btn;
+  background-position: 8px -96px;
+}
+
+.save-btn {
+  @extend .icon-btn;
+  background-position: 8px -288px;
+}
+
+.edit-btn {
+  @extend .icon-btn;
+  background-position: 8px -128px;
+}
+
+.copy-btn {
+  @extend .icon-btn;
+  background-position: 8px -224px;
+}
+
+.move-btn {
+  @extend .icon-btn;
+  background-position: 8px -192px;
+}
+
+.email-btn {
+  @extend .icon-btn;
   background-color: $orange;
-  background-position: 9px 9px;
-  padding: 10px 15px 10px 40px;
+  background-position: 8px 0px;
 
   &:hover {
-    @extend .email-btn;
     background-color: $red;
+  }
+}
+
+.delete-btn {
+  @extend .email-btn;
+  background-position: 8px -160px;  
+}
+
+.paginate_enabled_previous {
+  @extend .icon-btn;
+  background-position: 8px -96px;
+  position: relative;
+  top: 10px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.paginate_disabled_previous {
+  @extend .paginate_enabled_previous;
+  background-color: $yellow-light;
+
+  &:hover {
+    background-color: $yellow-light;
+  }
+}
+
+.paginate_enabled_next {
+  @extend .paginate_enabled_previous;
+  background-position: 50px -64px;
+  padding: 10px 34px 10px 15px;
+  margin-left: 15px;
+}
+
+.paginate_disabled_next {
+  @extend .paginate_enabled_next;
+  background-color: $yellow-light;
+
+  &:hover {
+    background-color: $yellow-light;
   }
 }
 

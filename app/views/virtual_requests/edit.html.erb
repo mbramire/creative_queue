@@ -2,11 +2,14 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="pad-all-large">
     <div class="white-box">
-      <h1>Edit Virtual Request</h1>
+      <h1>Edit <%= @virtual_request.company %></h1>
       <%= render "form_fields", f: f %>
-      <%= f.submit "Save Changes", class: "button margin-right" %>
-      <%= link_to "Go Back", virtual_request_path(@virtual_request), class: "button margin-right" %>
-      <%= link_to "Delete Virtual Request", virtual_request_path(@virtual_request), method: :delete, data: { confirm: "Are you sure you want to delete #{@virtual_request.company}?" } %>
+      <%= f.submit "Save Changes", class: "save-btn margin-right" %>
+      <%= link_to "Go Back", virtual_request_path(@virtual_request), class: "prev-btn margin-right" %>
+      <%= link_to "Delete Request", virtual_request_path(@virtual_request), 
+        method: :delete, 
+        data: { confirm: "Are you sure you want to delete #{@virtual_request.company}?" },
+        class: "delete-btn" %>
     </div>
   </div>
 <% end %>

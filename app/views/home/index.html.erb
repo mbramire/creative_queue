@@ -19,7 +19,7 @@
     </ul>
     <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_made, :show_artists => true } %>
     <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_made_and_completed, :show_artists => true, :completed => true } %>
-    <%= link_to "Make Virtual Request", new_virtual_request_path, class: "button" %></a>
+    <%= link_to "Virtual Request", new_virtual_request_path, class: "new-btn" %></a>
   </div>
 
   <div class="row-divider pad-all-large">
