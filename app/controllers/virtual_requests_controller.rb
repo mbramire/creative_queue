@@ -40,9 +40,9 @@ class VirtualRequestsController < ApplicationController
 
   def create
     @virtual_request = VirtualRequest.new(virtual_params)
+    @virtual_request.need_due_date
     @virtual_request.apply_user
     @virtual_request.auto_assign!
-    @virtual_request.need_due_date
 
     if @virtual_request.save
       flash[:success] = "Virtual has been created and assigned to #{@virtual_request.artist.name}"

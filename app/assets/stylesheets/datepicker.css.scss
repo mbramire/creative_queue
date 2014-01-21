@@ -1,7 +1,12 @@
 @import "variables_mixins";
 
 .ui-datepicker {
- margin-top: 15px; 
+  @include roundcorners;
+  padding: 10px;
+  border: 1px solid $tan-med;
+  margin-top: 15px;
+  background: white;
+  display: none;
 }
 
 
@@ -10,7 +15,7 @@
   font-size: 12px;
   
   td, th {
-    padding: 5px;
+    padding: 4px;
   }
 
   .ui-datepicker-week-end {

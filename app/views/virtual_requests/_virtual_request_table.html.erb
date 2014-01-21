@@ -38,10 +38,10 @@
             <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
           </td>
           <% if show_artists %>
-            <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.name unless v.artist.nil? %></td>
+            <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.nil? ? "PENDING" : v.artist.name %></td>
           <% end %>
           <% if show_requested %>
-            <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.name %></td>
+            <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.nil? ? "PENDING" : v.creative_user.name %></td>
           <% end %>
         </tr>
       <% end %>

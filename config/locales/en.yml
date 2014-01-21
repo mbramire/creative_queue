@@ -26,3 +26,11 @@ en:
     attributes:
       virtual:
         document:         "Virtual"
+
+en:
+  activerecord:
+    models:
+      virtual_request:      "Virtual Request"
+    attributes:
+      virtual_request:
+        unformatted_date:   "Due Date"

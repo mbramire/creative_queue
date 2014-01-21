@@ -6,6 +6,7 @@ class VirtualRequest < ActiveRecord::Base
   validates_presence_of :budget
   validates_presence_of :company
   validates_presence_of :unformatted_date, :if => :need_due_date?
+  #FIXME the validation will fail but the record is still created without due_date
   validates_presence_of :creative_user_id
   validates_presence_of :artist_id
   validates_presence_of :art, :unless => :art_website?, :message => "url or art file must be provided"
