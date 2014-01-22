@@ -1,11 +1,15 @@
 <%= form_for(@virtual_request) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div class="pad-all-large">
+  <div class="row primary-bg pad-all-large">
     <div class="white-box">
-      <h1>Create Virtual Request</h1>
+      <% if params[:queue] %>
+        <h1>Queue Virtual Request</h1>
+      <% else %>
+        <h1>Create Virtual Request</h1>
+      <% end %>
       <%= render "form_fields", f: f %>
       <%= f.submit "Create Virtual Request", class: "save-btn margin-right" %>
-      <%= link_to "Go Back", virtual_requests_path, class: "prev-btn" %>
+      <%= link_to "Go Back", root_path, class: "prev-btn" %>
     </div>
   </div>
 <% end %>

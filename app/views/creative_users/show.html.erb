@@ -1,4 +1,4 @@
-<div class="pad-all-large">
+<div class="row primary-bg pad-all-large">
   <div class="white-box">
     <div class="row">
       <div class="two-col">
@@ -19,55 +19,49 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row pad-top-large">
       <div class="three-col">
-        <h2 class="pad-top-large">Currently...</h2>
+        <h2>Currently...</h2>
         <ul>
-          <li><em><%= @user.virtual_requests_artist_for %></em> Virtuals Queued</li>
+          <li><em><%= @user.vr_to_work_on.count %></em> Virtuals Queued</li>
           <li>Revisions waiting</li>
         </ul>
       </div>
 
       <div class="three-col">
-        <h2 class="pad-top-large">In <%= Time.new.strftime("%B") %></h2>
+        <h2>In <%= Time.new.strftime("%B") %></h2>
         <ul>
           <li><em><%= @user.virtuals_this_month %></em> Virtuals completed</li>
           <li>Virtuals revised</li>
           <li>Virtuals turned into orders</li>
-          <li>
         </ul>
       </div>
 
       <div class="three-col">
-        <h2 class="pad-top-large">All-time</h2>
+        <h2>All-time</h2>
         <ul>
           <li><em><%= @user.virtuals.count %></em> Virtuals completed</li>
           <li>Virtuals revised</li>
           <li>Virtuals turned into orders</li>
-          <li>
         </ul>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="row-divider pad-all-large">
-  <div class="white-box">
-    <h2>Awards</h2>
-    <p>Coming soon...</p>
-  </div>
-</div>
+    <div class="row pad-top-large">
+      <div class="three-col">
+        <h2>Awards</h2>
+        <p>Coming soon...</p>
+      </div>
+      <div class="three-col">
+        <h2>Records</h2>
+        <p>Coming soon...</p>
+      </div>
+    </div>
 
-<div class="row-divider pad-all-large">
-  <div class="white-box">
-    <h2>Records</h2>
-    <p>Coming soon...</p>
-  </div>
-</div>
+    <div class="row pad-top-large">
+      <h2>Title</h2>
+      <p>Coming soon...</p>
+    </div>
 
-<div class="row-divider pad-all-large">
-  <div class="white-box">
-    <h2>Title Progress</h2>
-    <p>Coming soon...</p>
   </div>
 </div>

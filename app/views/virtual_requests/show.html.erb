@@ -1,4 +1,4 @@
-<div class="pad-all-large">
+<div class="row primary-bg pad-all-large">
   <div class="white-box">
     <%= link_to "Duplicate", duplicate_virtual_request_path, method: :put, class: "copy-btn pull-right margin-left" %>
     <%= link_to "Edit Request", edit_virtual_request_path(@virtual_request), class: "edit-btn pull-right margin-left" if current_user.owns?(@virtual_request) %>

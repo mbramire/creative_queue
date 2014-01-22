@@ -1,6 +1,6 @@
 <%= form_for(@virtual_request) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div class="pad-all-large">
+  <div class="row primary-bg pad-all-large">
     <div class="white-box">
       <h1>Edit <%= @virtual_request.company %></h1>
       <%= render "form_fields", f: f %>

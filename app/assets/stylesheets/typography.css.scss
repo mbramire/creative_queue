@@ -4,7 +4,6 @@ body {
   font-family: 'Alef', sans-serif;
   color: $tan-dark;
   font-size: 13px;
-  background: image-url('backgrounds/groovepaper.png') repeat;
 }
 
 ul {
@@ -51,4 +50,16 @@ em {
 .highlight {
   color: $yellow;
   font-weight: bold;
+}
+
+.reverse {
+  color: white;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
 }

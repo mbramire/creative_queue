@@ -1,55 +1,32 @@
 <%= form_for(@user) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-<div class="pad-all-large">
-  <div class="white-box">
-    <h2>Profile for <%= @user.name %></h2>
-    <div class="row pad-top pad-bottom">
-      <div class="four-col">
-        <%= f.label :name %>
-        <%= f.text_field :name %>
+  <div class="row primary-bg pad-all-large">
+    <div class="white-box">
+      <h2>Profile for <%= @user.name %></h2>
+      <%= render 'creative_user_fields', f: f %>
+
+      <h2>Attributes</h2>
+      <%= render 'attributes_fields', f: f %> 
+
+      <h2>Change Password</h2>
+      <div class="row pad-top pad-bottom-large">
+        <div class="four-col">
+          <%= f.label :password, "New Password" %>
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+
+        <div class="four-col">
+          <%= f.label :password_confirmation, "Confirmation" %>
+          <%= f.password_field :password_confirmation %>
+        </div>
       </div>
-      <div class="four-col">
-        <%= f.label :email %>
-        <%= f.text_field :email %>
-      </div>
-      <div class="four-col">
-        <%= f.label :avatar, "Profile Picture" %>
-        <%= f.file_field :avatar %>
-      </div>       
+
+      <%= f.submit "Save Changes", class: "save-btn margin-right" %>
+      <%= link_to "Go Back", creative_user_path(@user), class: "prev-btn margin-right" %>
+      <% if current_user.admin %>
+        <%= link_to "Delete #{@user.name}", creative_user_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete #{@user.name}?" }, class: "delete-btn" %>
+      <% end %>
     </div>
-
-    <h2>Status</h2>
-    <div class="row pad-top pad-bottom">
-      <div class="four-col">
-        <% if current_user.admin && @user != current_user %>
-          <%= f.label :admin %>
-          <%= f.check_box :admin %>&nbsp;&nbsp;&nbsp;
-        <% end %>
-      </div>
-      <div class="four-col">
-        <%= f.label :in_queue %>
-        <%= f.check_box :in_queue %></br>
-      </div>
-    </div> 
-
-    <h2>Change Password</h2>
-    <div class="row pad-top pad-bottom-large">
-      <div class="four-col">
-        <%= f.label :password, "New Password" %>
-        <%= f.password_field :password, autocomplete: "off" %>
-      </div>
-
-      <div class="four-col">
-        <%= f.label :password_confirmation, "Confirmation" %>
-        <%= f.password_field :password_confirmation %>
-      </div>
-    </div>
-    <%= f.submit "Save Changes", class: "save-btn margin-right" %>
-    <%= link_to "Go Back", creative_user_path(@user), class: "prev-btn margin-right" %>
-    <% if current_user.admin %>
-      <%= link_to "Delete #{@user.name}", creative_user_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete #{@user.name}?" }, class: "delete-btn" %>
-    <% end %>
   </div>
-</div>
 <% end %>

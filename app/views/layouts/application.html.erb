@@ -16,10 +16,6 @@
     </section>
   <% end %>
   <%= yield %>
-  <% if Rails.env.development? %>
-<!--     <section class="debug">
-      <%#= debug(params) %>
-    </section> -->
-  <% end %>
+  <%= render 'layouts/footer' %>
 </body>
 </html>

@@ -6,11 +6,11 @@
   -webkit-box-sizing:border-box
 }
 
-/* Simple Grid */
-
-.row-divider {
-  background: image-url('chrome/divider.png') repeat-x top;
+body {
+  background: $maroon;
 }
+
+/* Simple Grid */
 
 .white-box {
   width: 100%;
@@ -20,11 +20,13 @@
   @include roundcorners;
 
   &.sign-in {
-    width: 240px;
-    margin: 100px auto;
+    width: 420px;
+    margin: 0 auto;
+    overflow: auto;
 
     img {
-      margin-left: 35px;
+      padding-top: 10px;
+      width: 150px;
     }
   }
 }
@@ -36,6 +38,18 @@
 .row {
   width: 100%;
 
+  &.primary-bg {
+    background: image-url('backgrounds/groovepaper.png') repeat;
+  }
+
+  &.secondary-bg {
+    background: lighten($maroon, 20%);
+  }
+
+  &.third-bg {
+    background: lighten($maroon, 10%);
+  }
+
   .two-col {
     float: left;
     width: 50%;
@@ -46,14 +60,29 @@
     width: 33%;
   }
 
+  .three-col-span-two {
+    float: left;
+    width: 66%;
+  }
+
   .four-col {
     float: left;
     width: 25%;
   }
 
-  .three-col-span-two {
+  .five-col {
     float: left;
-    width: 66%;
+    width: 20%;
+  }
+
+  .nine-col {
+    float: left;
+    width: 11%;
+  }
+
+  .nine-col-span-three {
+    float: left;
+    width: 33%;
   }
 }
 
@@ -121,12 +150,20 @@
   padding-top: 40px;
 }
 
+.pad-top-xlarge {
+  padding-top: 100px;
+}
+
 .pad-bottom {
   padding-bottom: 15px;
 }
 
 .pad-bottom-large {
   padding-bottom: 40px;
+}
+
+.pad-bottom-xlarge {
+  padding-bottom: 100px;
 }
 
 .pad-right {

@@ -3,10 +3,6 @@ class HomeController < ApplicationController
 
   def index 
     if current_user
-      @vr_to_work_on = VirtualRequest.where(artist_id: current_user.id, completed: false)
-      @vr_completed = VirtualRequest.where(artist_id: current_user.id, completed: true).limit(30)
-      @vr_made = VirtualRequest.where(creative_user_id: current_user.id, completed: false)
-      @vr_made_and_completed = VirtualRequest.where(creative_user_id: current_user.id, completed: true).limit(30)
       @all_creative_users = CreativeUser.all
     end
   end

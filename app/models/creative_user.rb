@@ -20,9 +20,28 @@ class CreativeUser < ActiveRecord::Base
 
   has_many :virtual_requests
   has_many :virtuals
+  
+  def CreativeUser.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
 
-  def virtual_requests_artist_for
-    VirtualRequest.where(artist_id: self.id).count
+  def CreativeUser.encrypt(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def password_not_needed?
+    action_name = 'edit' && password.blank?
+  end
+
+  def first_name
+    self.name.split(' ')[0]
+  end
+
+  def short_name
+    new_name = self.name.split(" ")
+    first = new_name[0]
+    last = new_name[1][0] + "." unless new_name[1].nil?
+    "#{first} #{last}"
   end
 
   def filter_phone_number
@@ -45,24 +64,12 @@ class CreativeUser < ActiveRecord::Base
     self.id == virtual.creative_user_id
   end
   
-  def CreativeUser.new_remember_token
-    SecureRandom.urlsafe_base64
-  end
-
-  def CreativeUser.encrypt(token)
-    Digest::SHA1.hexdigest(token.to_s)
-  end
-
-  def password_not_needed?
-    action_name = 'edit' && password.blank?
-  end
-
-  def first_name
-    self.name.split(' ')[0]
-  end
-  
   def self.in_queue?
     CreativeUser.where(in_queue: true)
+  end
+
+  def requests_with(artist)
+    self.virtual_requests.find_all { |a| a.artist_id == artist.id }
   end
   
   def avatar_image 
@@ -77,6 +84,22 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def converted_this_month
+  end
+
+  def vr_to_work_on
+    VirtualRequest.where(artist_id: self.id, completed: false)
+  end
+
+  def vr_completed
+    VirtualRequest.where(artist_id: self.id, completed: true) 
+  end
+
+  def requests_pending
+    VirtualRequest.where(creative_user_id: self.id, completed: false) 
+  end
+
+  def requests_completed
+    VirtualRequest.where(creative_user_id: self.id, completed: true) 
   end
 
   private

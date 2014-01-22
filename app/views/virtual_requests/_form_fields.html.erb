@@ -43,15 +43,19 @@
     <%= f.text_field :unformatted_date, value: @human_date %> 
   </div>
   <div class="four-col">
-    <%= f.label :artist_id, "Artist" %><br>
-    <% 
-      options = CreativeUser.in_queue?.collect {|p| [ p.name, p.id ] } 
-      options.unshift ["auto-assign", 0]
-    %>
-    <% if options[1].nil? %>
-      No artists available
+    <% if params[:queue] %>
+      <%= f.hidden_field :artist_id, value: current_user.id %>
     <% else %>
-      <%= f.select :artist_id, options %> 
+      <%= f.label :artist_id, "Artist" %><br>
+      <% 
+        options = CreativeUser.in_queue?.collect {|p| [ p.name, p.id ] } 
+        options.unshift ["auto-assign", 0]
+      %>
+      <% if options[1].nil? %>
+        No artists available
+      <% else %>
+        <%= f.select :artist_id, options %> 
+      <% end %>
     <% end %>
   </div>
 </div>

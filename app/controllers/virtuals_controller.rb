@@ -57,7 +57,7 @@ class VirtualsController < ApplicationController
     flash[:success] = "#{@virtual_request.company} - version #{@virtual.version} has been sent to #{@recipients}."
     @virtual.update_attributes(sent: Time.now)
     @virtual_request.update_attributes(completed: true)
-    redirect_to root_path
+    redirect_to virtual_request_path(@virtual_request)
   end
 
   private

@@ -1,75 +1,54 @@
 <% if current_user %>
-  <% if current_user.virtual_requests_artist_for > 0 %>
-    <div class="row-divider pad-all-large">
-      <h1 class="tbl-header margin-right-large">My Queue (<%= @vr_to_work_on.count %>)</h1>
+  <% if current_user.artist %>
+    <div class="row primary-bg pad-all-large">
+      <h1 class="tbl-header margin-right-large">My Queue (<%= current_user.vr_to_work_on.count %>)</h1>
       <ul class="tabs">
         <li class="pull-left margin-right-large tab-on">pending</li>
         <li class="pull-left">recently completed</li>
       </ul>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_to_work_on, :show_requested => true } %>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_completed, :completed => true, :show_requested => true } %>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.vr_to_work_on, :show_requested => true } %>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.vr_completed.limit(30), :completed => true, :show_requested => true } %>
+      <%= link_to "Add to Queue", new_virtual_request_path(queue: true), class: "new-btn" %></a>
     </div>
   <% end %>
 
-  <div class="row-divider pad-all-large">
-    <h1 class="tbl-header margin-right-large">My Requests (<%= @vr_made.count %>)</h1>
-    <ul class="tabs">
-      <li class="pull-left margin-right-large tab-on">pending</li>
-      <li class="pull-left">recently completed</li>
-    </ul>
-    <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_made, :show_artists => true } %>
-    <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => @vr_made_and_completed, :show_artists => true, :completed => true } %>
-    <%= link_to "Virtual Request", new_virtual_request_path, class: "new-btn" %></a>
+  <% if current_user.sales %>
+    <div class="row primary-bg pad-all-large">
+      <h1 class="tbl-header margin-right-large">My Requests (<%= current_user.requests_pending.count %>)</h1>
+      <ul class="tabs">
+        <li class="pull-left margin-right-large tab-on">pending</li>
+        <li class="pull-left">recently completed</li>
+      </ul>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_pending, :show_artists => true } %>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_completed, :show_artists => true, :completed => true } %>
+      <%= link_to "Virtual Request", new_virtual_request_path, class: "new-btn" %></a>
+    </div>
+  <% end %>
+
+  <div class="row secondary-bg pad-all-large">
+    <h1 class="tbl-header reverse">Artist Statistics</h1>
+    <%= render "statistics/artist_stats_table" %>
   </div>
 
-  <div class="row-divider pad-all-large">
-    <h1 class="tbl-header">Artist Statistics</h1>
-    <table class="artist-tbl">
-      <thead>
-        <tr>
-          <th>Artist</th>
-          <th>Queued</th>
-          <th>Completed <%= Time.new.strftime("%B") %></th>
-          <th>Completed all-time</th>
-          <th>Converted <%= Time.new.strftime("%B") %></th>
-          <th>Converted all-time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @all_creative_users.each do |a| %>
-          <% if a.virtuals.count > 0 || a.virtual_requests_artist_for > 0 %>
-            <tr>
-              <td>
-                <%= image_tag a.avatar_image, class: "small-avatar" %>
-                <%= link_to a.name, creative_user_path(a) %>
-                <% if !a.in_queue %>
-                  <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
-                <% end %>
-              </td>
-              <td><%= a.virtual_requests_artist_for %></td>
-              <td><%= a.virtuals_this_month %></td>
-              <td><%= a.virtuals.count %></td>
-              <td>?</td>
-              <td>?</td>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="row third-bg pad-all-large">
+    <h1 class="tbl-header reverse">Request Statistics</h1>
+    <%#= render "statistics/request_stats_table" %>
   </div>
 
 <% else %>
-  <section class="white-box sign-in">
-    <%= image_tag "logos/logo.png" %> 
-    <%= form_for :session, url: sessions_path, :html => { :class => "pad-top" }  do |f| %>
+  <div class="row primary-bg pad-top-xlarge pad-bottom-xlarge">
+    <section class="white-box sign-in">
+      <%= image_tag "logos/logo.png", class: "pull-left pad-top" %> 
+      <%= form_for :session, url: sessions_path, :html => { :class => "pull-right" }  do |f| %>
 
-      <%= f.label :email %>
-      <%= f.text_field :email %><br />
+        <%= f.label :email %>
+        <%= f.text_field :email %><br />
 
-      <%= f.label :password %>
-      <%= f.password_field :password %><br />
+        <%= f.label :password %>
+        <%= f.password_field :password %><br />
 
-      <%= f.submit "Sign in", class: "button" %>
-    <% end %>
-  </section>
+        <%= f.submit "Sign in", class: "button" %>
+      <% end %>
+    </section>
+  </div>
 <% end %>

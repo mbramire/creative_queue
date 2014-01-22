@@ -1,11 +1,14 @@
 <tr>
   <td>
     <%= image_tag creative_user.avatar_image, class: "small-avatar" %>
-    <%= link_to creative_user.name, creative_user_path(creative_user) %>
+    <%= link_to creative_user.short_name, creative_user_path(creative_user) %>
   </td>
   <td><%= creative_user.email %></td>
   <td><%= creative_user.filter_phone_number %></td>
   <td><%= creative_user.in_queue ? "Yes" : "-" %></td>
   <td><%= creative_user.admin ? "Yes" : "-" %></td>
+  <td><%= creative_user.artist ? "Yes" : "-" %></td>
+  <td><%= creative_user.sales ? "Yes" : "-" %></td>
+  <td><%= creative_user.external ? "Yes" : "-" %></td>
 </tr>
 
