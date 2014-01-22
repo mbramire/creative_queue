@@ -1,0 +1,32 @@
+<table class="reverse-tbl">
+  <thead>
+    <tr>
+      <th>Artist</th>
+      <th>Queued</th>
+      <th>Completed <%= Time.new.strftime("%B") %></th>
+      <th>Completed all-time</th>
+      <th>Converted <%= Time.new.strftime("%B") %></th>
+      <th>Converted all-time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @all_creative_users.each do |a| %>
+      <% if a.artist %>
+        <tr>
+          <td>
+            <%= image_tag a.avatar_image, class: "small-avatar" %>
+            <%= link_to a.name, creative_user_path(a) %>
+            <% if !a.in_queue %>
+              <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
+            <% end %>
+          </td>
+          <td><%= a.vr_to_work_on.count %></td>
+          <td><%= a.virtuals_this_month %></td>
+          <td><%= a.virtuals.count %></td>
+          <td>?</td>
+          <td>?</td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

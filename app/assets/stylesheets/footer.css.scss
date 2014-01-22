@@ -1,0 +1,38 @@
+@import "variables_mixins"; 
+
+footer {
+  text-align: center;
+  color: rgba(white, .5);
+  font-size: .9em;
+
+  p {
+    padding-top: 15px;
+    line-height: 20px;
+  }
+
+  a {
+    font-weight: normal;
+    font-size: .9em;
+    color: rgba(white, .5);
+  }  
+
+  h1 {
+    color: rgba(white, .5);
+    font-size: .9em;
+    padding-bottom: 15px;
+  }
+
+  ul {
+    line-height: 20px;
+  }
+}
+
+.footer-list {
+  margin: 0 auto;
+  width: 680px;
+
+  > li {
+    float: left;
+    margin-right: 50px;
+  }
+}

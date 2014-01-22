@@ -1,0 +1,27 @@
+<table class="reverse-tbl">
+  <thead>
+    <tr>
+      <th>Requests By</th>
+      <% @all_creative_users.each do |a| %>
+        <% unless a.vr_to_work_on.count == 0 %>
+          <th><%= a.short_name %></th>
+        <% end %>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @all_creative_users.each do |a| %>
+      <% unless a.virtual_requests == 0 %>
+        <tr>
+          <td>
+            <%= image_tag a.avatar_image, class: "small-avatar" %>
+            <%= link_to a.short_name, creative_user_path(a) %>
+            <% if !a.in_queue %>
+              <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

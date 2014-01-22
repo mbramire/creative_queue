@@ -1,0 +1,25 @@
+<div class="row pad-top pad-bottom">
+  <% if current_user.admin && @user != current_user %>
+    <div class="nine-col">
+      <%= f.label :admin %>
+      <%= f.check_box :admin %>
+    </div>
+
+    <div class="nine-col">
+      <%= f.label :artist %>
+      <%= f.check_box :artist %></br>
+    </div>
+    <div class="nine-col">
+      <%= f.label :sales %>
+      <%= f.check_box :sales %></br>
+    </div>
+    <div class="nine-col">
+      <%= f.label :external %>
+      <%= f.check_box :external %></br>
+    </div>
+  <% end %>
+  <div class="nine-col">
+    <%= f.label :in_queue %>
+    <%= f.check_box :in_queue %></br>
+  </div>
+</div>
