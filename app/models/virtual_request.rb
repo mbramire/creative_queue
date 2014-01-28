@@ -1,15 +1,16 @@
 class VirtualRequest < ActiveRecord::Base
-  validates_presence_of :contact_name
-  validates_presence_of :contact_email
-  validates_presence_of :contact_phone
+  #validates_presence_of :contact_name
+  #validates_presence_of :contact_email
+  #validates_presence_of :contact_phone
   validates_presence_of :quantity
   validates_presence_of :budget
-  validates_presence_of :company
-  validates_presence_of :unformatted_date, :if => :need_due_date?
+  validates_presence_of :end_client
+  validates_presence_of :unformatted_date, if: :need_due_date?
   #FIXME the validation will fail but the record is still created without due_date
   validates_presence_of :creative_user_id
   validates_presence_of :artist_id
-  validates_presence_of :art, :unless => :art_website?, :message => "url or art file must be provided"
+  validates_presence_of :art, unless: :art_website?, message: "url or art file must be provided"
+  validates_presence_of :quote, if: :need_quote?, message: "must be provided"
 
   belongs_to :creative_user
   belongs_to :artist, class_name: CreativeUser
@@ -60,8 +61,14 @@ class VirtualRequest < ActiveRecord::Base
 
   def auto_assign!
     if self.artist_id == 0
-      artists = CreativeUser.in_queue?.collect {|p| [ p.id, p.virtual_requests_artist_for ] } 
+      artists = CreativeUser.artist_in_queue.collect {|p| [ p.id, p.vr_to_work_on.count ] } 
       self.artist_id = artists.sort { |a,b| a[1] <=> b[1] }.first[0]
+      self.save
+    end
+
+    if self.creative_user_id == 0
+      sales = CreativeUser.sales_in_queue.collect {|p| [ p.id, p.requests_pending.count ] } 
+      self.creative_user_id = sales.sort { |a,b| a[1] <=> b[1] }.first[0]
       self.save
     end
   end
@@ -76,6 +83,14 @@ class VirtualRequest < ActiveRecord::Base
 
   def need_due_date?
     @need_date
+  end
+
+  def need_quote
+    @quote = true
+  end
+
+  def need_quote?
+    @quote
   end
 
   def make_copy(user)

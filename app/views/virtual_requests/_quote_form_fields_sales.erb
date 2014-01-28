@@ -1,0 +1,20 @@
+<h2 class="pad-top-large">Quote & Artist Information</h2>
+<div class="row pad-top pad-bottom-large">
+  <div id="quote-field" class="four-col">
+    <%= f.label :quote, "Quote No." %>
+    <%= f.text_field :quote %>
+  </div>
+  <div class="four-col">
+    <%= f.label :artist_id, "Artist" %><br>
+    <% 
+      options = CreativeUser.artist_in_queue.collect {|p| [ p.name, p.id ] } 
+      options.unshift ["auto-assign", 0]
+    %>
+    <% if options[1].nil? %>
+      No artists available
+    <% else %>
+      <%= f.select :artist_id, options, include_blank: true %> 
+    <% end %>
+  </div>
+</div>
+<%= f.hidden_field :creative_user_id, value: current_user.id %>

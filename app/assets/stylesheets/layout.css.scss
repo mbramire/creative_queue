@@ -10,6 +10,18 @@ body {
   background: $maroon;
 }
 
+.primary-bg {
+  background: image-url('backgrounds/groovepaper.png') repeat;
+}
+
+.secondary-bg {
+  background: lighten($maroon, 20%);
+}
+
+.third-bg {
+  background: lighten($maroon, 10%);
+}
+
 /* Simple Grid */
 
 .white-box {
@@ -31,24 +43,22 @@ body {
   }
 }
 
+.red-box {
+  @extend .white-box;
+  background: lighten($maroon, 20%);
+}
+
+.red-box-dark {
+  @extend .white-box;
+  background: lighten($maroon, 10%);
+}
+
 .border-right {
   border-right: 1px solid $maroon;
 }
 
 .row {
   width: 100%;
-
-  &.primary-bg {
-    background: image-url('backgrounds/groovepaper.png') repeat;
-  }
-
-  &.secondary-bg {
-    background: lighten($maroon, 20%);
-  }
-
-  &.third-bg {
-    background: lighten($maroon, 10%);
-  }
 
   .two-col {
     float: left;
@@ -136,10 +146,14 @@ body {
 
 .pad-all {
   padding: 25px;
+
+  &.minus-top {
+    padding-top: 0;
+  }
 }
 
 .pad-all-large {
-  padding: 50px 50px 70px;
+  padding: 0 50px 70px;
 }
 
 .pad-top {
@@ -147,11 +161,11 @@ body {
 }
 
 .pad-top-large {
-  padding-top: 40px;
+  padding-top: 50px;
 }
 
 .pad-top-xlarge {
-  padding-top: 100px;
+  padding-top: 200px;
 }
 
 .pad-bottom {
@@ -163,7 +177,7 @@ body {
 }
 
 .pad-bottom-xlarge {
-  padding-bottom: 100px;
+  padding-bottom: 200px;
 }
 
 .pad-right {
@@ -180,4 +194,23 @@ body {
 
 .hide {
   display: none;
+}
+
+
+.small-avatar {
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.med-avatar {
+  height: 55px;
+  width: 55px;
+  margin-right: 15px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }

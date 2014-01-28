@@ -1,12 +1,12 @@
-<div class="row primary-bg pad-all-large">
+<div class="row pad-all-large">
   <div class="white-box">
     <div class="row">
       <div class="two-col">
         <h1>
           <% if @user.avatar.present? %>
-            <%= image_tag @user.avatar.url, class: "small-avatar" %> 
+            <%= image_tag @user.avatar.url, class: "med-avatar pull-left" %> 
           <% else %>
-            <%= image_tag 'profile/avatar.png', class: "small-avatar" %>
+            <%= image_tag 'profile/avatar.png', class: "med-avatar pull-left" %>
           <% end %>
           <%= @user.name %> 
         </h1>
@@ -18,35 +18,6 @@
         <% end %>
       </div>
     </div>
-
-    <div class="row pad-top-large">
-      <div class="three-col">
-        <h2>Currently...</h2>
-        <ul>
-          <li><em><%= @user.vr_to_work_on.count %></em> Virtuals Queued</li>
-          <li>Revisions waiting</li>
-        </ul>
-      </div>
-
-      <div class="three-col">
-        <h2>In <%= Time.new.strftime("%B") %></h2>
-        <ul>
-          <li><em><%= @user.virtuals_this_month %></em> Virtuals completed</li>
-          <li>Virtuals revised</li>
-          <li>Virtuals turned into orders</li>
-        </ul>
-      </div>
-
-      <div class="three-col">
-        <h2>All-time</h2>
-        <ul>
-          <li><em><%= @user.virtuals.count %></em> Virtuals completed</li>
-          <li>Virtuals revised</li>
-          <li>Virtuals turned into orders</li>
-        </ul>
-      </div>
-    </div>
-
     <div class="row pad-top-large">
       <div class="three-col">
         <h2>Awards</h2>
@@ -65,3 +36,24 @@
 
   </div>
 </div>
+<% if current_user.artist %>
+    <div class="row pad-all-large minus-top">
+      <div class="red-box">
+        <h1 class="tbl-header reverse">Virtuals</h1>
+        <table class="reverse-tbl align-center">
+          <%= render "statistics/artist_stats_table", artists: @user, single_user: true %>
+        </table>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user.sales %>
+    <div class="row pad-all-large minus-top">
+      <div class="red-box-dark">
+        <h1 class="tbl-header reverse">Requests</h1>
+        <table class="reverse-tbl align-center">
+          <%= render "statistics/request_stats_table", sales: @user, single_user: true%>
+        </table>
+      </div>
+    </div>
+  <% end %>

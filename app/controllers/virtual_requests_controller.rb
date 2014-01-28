@@ -14,6 +14,10 @@ class VirtualRequestsController < ApplicationController
     @virtual_request = VirtualRequest.new
   end
 
+  def artist_new 
+    @virtual_request = VirtualRequest.new
+  end
+
   def show
     @virtual_request = VirtualRequest.find(params[:id])
   end
@@ -40,6 +44,7 @@ class VirtualRequestsController < ApplicationController
 
   def create
     @virtual_request = VirtualRequest.new(virtual_params)
+    @virtual_request.need_quote
     @virtual_request.need_due_date
     @virtual_request.apply_user
     @virtual_request.auto_assign!
@@ -49,6 +54,26 @@ class VirtualRequestsController < ApplicationController
       redirect_to root_path
     else
       render 'new'
+    end
+  end
+
+  def artist_create
+    @virtual_request = VirtualRequest.new(virtual_params)
+    @virtual_request.need_due_date
+    @virtual_request.apply_user
+    @virtual_request.auto_assign!
+    
+    if @virtual_request.creative_user_id.nil? && @virtual_request.quote
+      @virtual_request.creative_user_id = current_user.id
+    elsif @virtual_request.creative_user_id.nil?
+      @virtual_request.need_quote
+    end
+
+    if @virtual_request.save
+      flash[:success] = "Virtual has been created and added to your queue"
+      redirect_to root_path
+    else
+      render 'artist_new'
     end
   end
 
@@ -74,6 +99,13 @@ class VirtualRequestsController < ApplicationController
 
     flash[:success] = "#{@new_request.company} has been created."
     redirect_to edit_virtual_request_path(@new_request)
+  end
+
+  def download_file
+    @virtual_request = VirtualRequest.find(params[:virtual_request_id])
+    send_file(@virtual_request.art.path,
+          disposition: 'attachment',
+          url_based_filename: false)
   end
 
   private

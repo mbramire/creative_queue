@@ -21,5 +21,5 @@ $(document).ready(function(){
     };
   });
 
-  $("#virtual_request_unformatted_date").datepicker({beforeShowDay: $.datepicker.noWeekends});
+  $("#virtual_request_unformatted_date").datepicker({beforeShowDay: $.datepicker.noWeekends, minDate: 0});
 });

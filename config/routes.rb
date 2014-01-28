@@ -7,7 +7,7 @@ root 'home#index'
 
 resources :creative_users do
   member do
-    get 'update_password'
+    post 'update_password'
   end
 end
 
@@ -16,14 +16,23 @@ resources :virtual_requests do
     put 'move'
     put 'duplicate'
   end
+  
+  collection do
+    get 'artist_new'
+    post 'artist_create'
+  end
+
   resources :virtuals do 
     member do
       put 'send_out'
     end
   end
+  get 'art', action: "download_file"
 end
 
 resources :sessions, only: [:new, :create, :destroy]
+
+get 'statistics', to:'statistics#index'
 
 #get 'session/destroy', to: 'session#destroy', as: :sessions
 

@@ -64,8 +64,12 @@ class CreativeUser < ActiveRecord::Base
     self.id == virtual.creative_user_id
   end
   
-  def self.in_queue?
-    CreativeUser.where(in_queue: true)
+  def self.artist_in_queue
+    CreativeUser.where(in_queue: true, artist: true)
+  end
+
+  def self.sales_in_queue
+    CreativeUser.where(in_queue: true, sales: true) 
   end
 
   def requests_with(artist)
@@ -80,6 +84,10 @@ class CreativeUser < ActiveRecord::Base
     self.virtuals.find_all { |v| v.updated_at.strftime("%B") == Time.new.strftime("%B") }.count
   end
 
+  def requests_this_month
+    self.virtual_requests.find_all { |v| v.updated_at.strftime("%B") == Time.new.strftime("%B") }.count
+  end
+
   def converted_all_time
   end
 
@@ -87,7 +95,7 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def vr_to_work_on
-    VirtualRequest.where(artist_id: self.id, completed: false)
+    VirtualRequest.where(artist_id: self.id, completed: false, processed: true).where.not(quote: nil)
   end
 
   def vr_completed
@@ -95,11 +103,15 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def requests_pending
-    VirtualRequest.where(creative_user_id: self.id, completed: false) 
+    VirtualRequest.where(creative_user_id: self.id, completed: false, processed: true).where.not(quote: nil) 
   end
 
   def requests_completed
     VirtualRequest.where(creative_user_id: self.id, completed: true) 
+  end
+
+  def requests_needing_quote
+    VirtualRequest.where(creative_user_id: self.id, quote: nil, processed: true) 
   end
 
   private

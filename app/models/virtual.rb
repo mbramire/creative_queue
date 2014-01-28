@@ -16,7 +16,7 @@ class Virtual < ActiveRecord::Base
   validates_presence_of :document
   validates_presence_of :recipients
   validates_presence_of :version
-  validates_presence_of :quote_number
+  #validates_presence_of :quote_number
   validate :document_size_validation, :if => :document? 
 
   before_save :update_document_attributes

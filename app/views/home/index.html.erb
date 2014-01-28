@@ -1,42 +1,61 @@
 <% if current_user %>
   <% if current_user.artist %>
-    <div class="row primary-bg pad-all-large">
-      <h1 class="tbl-header margin-right-large">My Queue (<%= current_user.vr_to_work_on.count %>)</h1>
+    <div class="row pad-all-large">
+      <h1 class="tbl-header margin-right-large">Virtual Queue (<%= current_user.vr_to_work_on.count %>)</h1>
       <ul class="tabs">
         <li class="pull-left margin-right-large tab-on">pending</li>
         <li class="pull-left">recently completed</li>
       </ul>
       <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.vr_to_work_on, :show_requested => true } %>
       <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.vr_completed.limit(30), :completed => true, :show_requested => true } %>
-      <%= link_to "Add to Queue", new_virtual_request_path(queue: true), class: "new-btn" %></a>
+      <%= link_to "Add to Virtual Queue", artist_new_virtual_requests_path, class: "new-btn" %>
     </div>
   <% end %>
 
   <% if current_user.sales %>
-    <div class="row primary-bg pad-all-large">
-      <h1 class="tbl-header margin-right-large">My Requests (<%= current_user.requests_pending.count %>)</h1>
+    <div class="row pad-all-large">
+      <h1 class="tbl-header margin-right-large">Sales Queue (<%= current_user.requests_pending.count %>)</h1>
       <ul class="tabs">
         <li class="pull-left margin-right-large tab-on">pending</li>
         <li class="pull-left">recently completed</li>
       </ul>
       <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_pending, :show_artists => true } %>
       <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_completed, :show_artists => true, :completed => true } %>
-      <%= link_to "Virtual Request", new_virtual_request_path, class: "new-btn" %></a>
+      <%= link_to "Add to Sales Queue", new_virtual_request_path, class: "new-btn" %>
     </div>
   <% end %>
 
-  <div class="row secondary-bg pad-all-large">
-    <h1 class="tbl-header reverse">Artist Statistics</h1>
-    <%= render "statistics/artist_stats_table" %>
-  </div>
+  <% if current_user.sales %>
+    <div class="row pad-all-large minus-top">
+      <h1 class="tbl-header margin-right-large">Need Quote (<%= current_user.requests_needing_quote.count %>)</h1>
+      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_needing_quote, :show_artists => true } %>
+    </div>
+  <% end %>
 
-  <div class="row third-bg pad-all-large">
-    <h1 class="tbl-header reverse">Request Statistics</h1>
-    <%#= render "statistics/request_stats_table" %>
-  </div>
+  <% if current_user.artist %>
+    <div class="row pad-all-large minus-top">
+      <div class="red-box">
+        <h1 class="tbl-header reverse">My Virtuals</h1>
+        <table class="reverse-tbl align-center">
+          <%= render "statistics/artist_stats_table", artists: current_user, single_user: true %>
+        </table>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user.sales %>
+    <div class="row pad-all-large minus-top">
+      <div class="red-box-dark">
+        <h1 class="tbl-header reverse">My Requests</h1>
+        <table class="reverse-tbl align-center">
+          <%= render "statistics/request_stats_table", sales: current_user, single_user: true%>
+        </table>
+      </div>
+    </div>
+  <% end %>
 
 <% else %>
-  <div class="row primary-bg pad-top-xlarge pad-bottom-xlarge">
+  <div class="row pad-top-xlarge pad-bottom-xlarge">
     <section class="white-box sign-in">
       <%= image_tag "logos/logo.png", class: "pull-left pad-top" %> 
       <%= form_for :session, url: sessions_path, :html => { :class => "pull-right" }  do |f| %>

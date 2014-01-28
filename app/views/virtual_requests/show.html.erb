@@ -1,31 +1,33 @@
-<div class="row primary-bg pad-all-large">
+<div class="row pad-all-large">
   <div class="white-box">
     <%= link_to "Duplicate", duplicate_virtual_request_path, method: :put, class: "copy-btn pull-right margin-left" %>
     <%= link_to "Edit Request", edit_virtual_request_path(@virtual_request), class: "edit-btn pull-right margin-left" if current_user.owns?(@virtual_request) %>
-    <% unless current_user.artist_for?(@virtual_request) && !@virtual_request.completed %>
+    <% unless current_user.artist_for?(@virtual_request) || !current_user.artist && current_user.sales %>
       <%= link_to "Move to my queue", move_virtual_request_path, method: :put, class: "move-btn pull-right" %>
     <% end %>
     <h1>
-      <%= @virtual_request.company %>
+      <%= @virtual_request.end_client %>
       <%= "(completed)" if @virtual_request.completed %>
     </h1>
     <div class="row pad-top-large">
       <div class="three-col pad-right-med shadow-border-right">
         <h2>Due <%= @virtual_request.due_date_human %></h2>
-        <h2 class="pad-top">Contact Info</h2>
+        <h2 class="pad-top">Request Info</h2>
         <ul>
-          <li>
+          <li><em>company</em> <%= @virtual_request.company %></li>
+          <li><em>for</em> 
             <% if @virtual_request.user_id.present? %>
               <%= image_tag "icons/jb.png", class: "jb-acct-icon" %>
             <% end %>
             <%= @virtual_request.contact_name %>
           </li>
-          <li><%= @virtual_request.contact_email %></li>
-          <li><%= @virtual_request.contact_phone %></li>
+          <li><em>email</em> <%= @virtual_request.contact_email %></li>
+          <li><em>phone</em> <%= @virtual_request.contact_phone %></li>
         </ul>
         <h2 class="pad-top-large">Virtual Info</h2>
         <ul class="margin-bottom">
-          <li><em>Requested by</em> <%= @virtual_request.requested_by %></li>
+          <li><em>virtual no.</em> <%= @virtual_request.quote %></li>
+          <li><em>Sales</em> <%= @virtual_request.creative_user.name %></li>
           <li><em>Artist</em>
             <% if @virtual_request.artist.nil? %>
               <em class="alert-text">unassigned</em>
@@ -33,7 +35,6 @@
               <%= @virtual_request.artist.name %>
             <% end %>
           </li>
-          <li><em>request no.</em> <%= @virtual_request.id %></li>
           <li><em>purchase order no.</em> 
             <% if @virtual_request.purchase_order.present? %>
               <%= @virtual_request.purchase_order %>
@@ -63,7 +64,7 @@
             <% end %>
           </li>
         </ul>
-        <%= link_to "Download Art", @virtual_request.art.path, class: "button" if @virtual_request.art.present? %>
+        <%= link_to "Download Art", virtual_request_art_path(virtual_request_id: @virtual_request.id), class: "button" if @virtual_request.art.present? %>
       </div>
       <div class="three-col-span-two virtual-list">
         <h2>Virtuals</h2>
@@ -72,6 +73,8 @@
         <% end %>
         <% if current_user.artist_for?(@virtual_request) && !@virtual_request.completed %>
           <%= link_to "Create Virtual", new_virtual_request_virtual_path(virtual_request_id: @virtual_request.id), class: "new-virtual-button" %>
+        <% elsif current_user.sales && !current_user.artist %>
+          <p>No virtuals have been created for this request</p>
         <% else %>
           <p class="virtual-notice">Move this virtual request to your queue to start working on it.</p>
         <% end %>

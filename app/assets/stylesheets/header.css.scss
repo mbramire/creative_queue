@@ -1,8 +1,8 @@
 @import "variables_mixins"; 
 
 nav {
-  font-size: 15px;
-  height: 150px;
+  font-size: 18px;
+  height: 100px;
   overflow: hidden;
   background: image-url("backgrounds/nav_bg.png") repeat;
   color: $orange;
@@ -12,10 +12,9 @@ nav {
     line-height: 18px;
 
     li {
-      height: 150px;
+      height: 100px;
       float: left;
-      padding: 70px 30px 0;
-      @include cursor;
+      padding: 40px 20px 0;
       color: white;
 
       &.selected {
@@ -24,14 +23,22 @@ nav {
     } 
   }
   
+  img {
+    float: left;
+    height: 85px;
+    padding: 15px 0 0 15px;
+  }
+}
+
+.navigation {
+  
   li:hover {
     background: rgba(255, 255, 255, 0.2);
   }
-  
-  img {
-    float: right;
-    height: 125px;
-    padding: 25px 25px 0 0;
+
+  li {
+    font-size: 14px;
+    @include cursor;
   }
 }
 
@@ -40,21 +47,21 @@ nav {
 }
 
 .profile{
-  float: left;
+  float: right;
   background: $maroon;
   color: white;
   font-size: 12px;
   @include cursor;
   
   div {
-    height: 150px;
-    width: 150px;
+    height: 100px;
+    width: 100px;
     float: left;
     overflow: hidden;
     border-right: 2px solid $orange;
     
     img {
-      height: 150px;
+      height: 100px;
     }
   }
 
@@ -63,8 +70,8 @@ nav {
   }
   
   ul {
-    height: 150px;
-    padding: 45px 30px 0;
+    height: 100px;
+    padding: 15px 20px 0;
     float: left;
     line-height: 18px;
     color: white;
@@ -75,15 +82,6 @@ nav {
       font-size: 15px;
     }
   }
-}
-
-.small-avatar {
-  height: 25px;
-  width: 25px;
-  margin-right: 5px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
 }
 
 .profile-list {

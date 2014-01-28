@@ -1,27 +1,48 @@
-<table class="reverse-tbl">
-  <thead>
-    <tr>
-      <th>Requests By</th>
-      <% @all_creative_users.each do |a| %>
-        <% unless a.vr_to_work_on.count == 0 %>
-          <th><%= a.short_name %></th>
-        <% end %>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% @all_creative_users.each do |a| %>
-      <% unless a.virtual_requests == 0 %>
-        <tr>
-          <td>
-            <%= image_tag a.avatar_image, class: "small-avatar" %>
-            <%= link_to a.short_name, creative_user_path(a) %>
-            <% if !a.in_queue %>
-              <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
+<% single_user ||= false %>
+
+<thead>
+  <tr>
+    <th class="align-left">Requests By</th>
+    <th>Requests Pending</th>
+    <th>Requests Made <%= Time.new.strftime("%B") %></th>
+    <th>Requests Converted <%= Time.new.strftime("%B") %></th>
+    <% unless single_user %>
+      <th>Completed all-time</th>
+      <th>Converted all-time</th>
     <% end %>
-  </tbody>
-</table>
+  </tr>
+</thead>
+<tbody>
+  <% if single_user %>
+
+    <tr>
+      <td class="avatar-td align-left">
+        <%= image_tag sales.avatar_image, class: "small-avatar" %>
+        <%= link_to sales.short_name, creative_user_path(sales) %>
+      </td>
+      <td><%= sales.requests_pending.count %></td>
+      <td><%= sales.requests_this_month %></td>
+      <td>?</td>
+    </tr>
+  
+  <% else %>
+
+    <% sales.each do |a| %>
+      <tr>
+        <td class="avatar-td align-left">
+          <%= image_tag a.avatar_image, class: "small-avatar" %>
+          <%= link_to a.short_name, creative_user_path(a) %>
+          <% unless a.in_queue %>
+            <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
+          <% end %>
+        </td>
+        <td><%= a.vr_to_work_on.count %></td>
+        <td><%= a.virtuals_this_month %></td>
+        <td>?</td>
+        <td><%= a.virtual_requests.count %></td>
+        <td>?</td>
+      </tr>
+    <% end %>
+
+  <% end %>
+</tbody>

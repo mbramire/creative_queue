@@ -1,7 +1,7 @@
 <%= form_for(@user) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-  <div class="row primary-bg pad-all-large">
+  <div class="row pad-all-large">
     <div class="white-box">
       <h2>Profile for <%= @user.name %></h2>
       <%= render 'creative_user_fields', f: f %>

@@ -1,23 +1,12 @@
-<h2 class="pad-top-large">Contact Information</h2>
-<div class="row pad-top pad-bottom-large">
-  <div class="four-col">  
-    <%= f.label :contact_name, "Contact Name" %>
-    <%= f.text_field :contact_name %>
-  </div>
-  <div class="four-col">
-    <%= f.label :contact_email, "Contact Email" %>
-    <%= f.text_field :contact_email %>
-  </div>
-  <div class="four-col">
-    <%= f.label :contact_phone, "Contact Phone" %>
-    <%= f.text_field :contact_phone %>
-  </div>
-</div>
 <h2>Virtual Details</h2>
 <div class="row pad-top pad-bottom-large">
   <div class="four-col">
-    <%= f.label :company, "End Client" %>
-    <%= f.text_field :company %>
+    <%= f.label :end_client %>
+    <%= f.text_field :end_client %>
+  </div>
+  <div class="four-col">
+    <%= f.label :purchase_order, "PO (optional)" %>
+    <%= f.text_field :purchase_order %>
   </div>
   <div class="four-col">
     <%= f.label :quantity, "Quantities" %>
@@ -42,22 +31,6 @@
     <%= f.label :unformatted_date, "Due Date" %>
     <%= f.text_field :unformatted_date, value: @human_date %> 
   </div>
-  <div class="four-col">
-    <% if params[:queue] %>
-      <%= f.hidden_field :artist_id, value: current_user.id %>
-    <% else %>
-      <%= f.label :artist_id, "Artist" %><br>
-      <% 
-        options = CreativeUser.in_queue?.collect {|p| [ p.name, p.id ] } 
-        options.unshift ["auto-assign", 0]
-      %>
-      <% if options[1].nil? %>
-        No artists available
-      <% else %>
-        <%= f.select :artist_id, options %> 
-      <% end %>
-    <% end %>
-  </div>
 </div>
 <div class="row pad-bottom-large">
   <div class="four-col">
@@ -65,4 +38,3 @@
     <%= f.text_area :comments %>
   </div>
 </div>
-<%= f.hidden_field :creative_user_id, value: current_user.id unless params[:action] == "edit" %>

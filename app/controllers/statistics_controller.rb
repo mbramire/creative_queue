@@ -1,4 +1,4 @@
-class HomeController < ApplicationController
+class StatisticsController < ApplicationController
   before_action :setup_nav_array
 
   def index 
@@ -11,6 +11,6 @@ class HomeController < ApplicationController
   private
 
     def setup_nav_array
-      @nav = ['home']
+      @nav = ['statistics']
     end
 end

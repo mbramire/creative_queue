@@ -2,8 +2,8 @@
 
 .ui-datepicker {
   @include roundcorners;
+  @include shadow;
   padding: 10px;
-  border: 1px solid $tan-med;
   margin-top: 15px;
   background: white;
   display: none;
@@ -44,4 +44,8 @@
   font-weight: bold;
   color: $maroon;
   padding-bottom: 5px;
+}
+
+.ui-datepicker-unselectable {
+  color: $yellow-light;
 }

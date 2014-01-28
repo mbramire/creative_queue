@@ -8,15 +8,16 @@
   <thead>
     <tr>
       <th>Due</th>
-      <th>Virtual Name</th>
-      <th>No.</th>
+      <th>End Client</th>
+      <th>Quote No.</th>
       <th>Priority?</th>
-      <th>For</th>
+      <th>Requested By</th>
+      <th>Company</th>
       <% if show_artists %>
-        <th>Artist</th>
+        <th>Creative</th>
       <% end %>
       <% if show_requested %>
-        <th>Requested by</th>
+        <th>Sales</th>
       <% end %>
     </tr>
   </thead>
@@ -26,17 +27,24 @@
         <tr>
           <td><%= v.due_date_human %></td>
           <td>
-            <%= link_to v.company, virtual_request_path(v) %> 
+            <%= link_to v.end_client, virtual_request_path(v) %> 
             <% unless v.virtuals.empty? %>
               (<%= v.virtuals.count %>)
             <% end %>
           </td>
-          <td><%= v.id %></td>
+          <td><%= v.quote ? v.quote : "<em class='alert-text'>Pending</em>".html_safe %></td>
           <td><%= v.priority ? "Yes" : "-" %></td>
-          <td>
-            <%= v.contact_name %>
-            <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
-          </td>
+          <% if v.processed %> 
+            <td>
+              <%= v.contact_name %>
+              <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
+            </td>
+            <td><%= v.company %></td>
+          <% else %>
+            <td colspan="2" class="align-center">
+              <em class='alert-text'>processing</em>
+            </td>
+          <% end %>
           <% if show_artists %>
             <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.nil? ? "PENDING" : v.artist.name %></td>
           <% end %>
@@ -48,9 +56,9 @@
     <% else %>
       <tr>
         <% if completed %>
-          <td cplspan="6">no requests recently completed</td>
+          <td colspan="8">no requests recently completed</td>
         <% else %>
-          <td colspan="6">no requests</td>
+          <td colspan="8">no requests</td>
         <% end %>
       </tr>
     <% end %>

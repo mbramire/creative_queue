@@ -6,8 +6,10 @@ table {
   width: 100%;
   text-align: left;
   
-  tr:nth-child(even) {
-    background: rgba(0, 0, 0, 0.1);
+  tr:nth-child(odd) {
+    td {
+      background: rgba(0, 0, 0, 0.1);
+    }
   }
 
   th, td{
@@ -23,10 +25,17 @@ table {
     position: absolute;
     margin-top: -5px;
   }
+
+  .avatar-td {
+    a {
+      padding-left: 35px;
+    }
+  }
 }
 
 .reverse-tbl {
-
+  margin-bottom: 0;
+  
   a {
     color: white;
   }

@@ -1,0 +1,25 @@
+<h2 class="pad-top-large">Quote Information</h2>
+<div class="row pad-top pad-bottom-large">
+  <div class="four-col" style="height: 70px"> 
+    <p class="pad-bottom">Are you quoting this order?</p>
+    <div class="pull-left pad-right">
+      <label>Yes</label>
+      <input id="quote-radio-yes" type="radio" name="quote" value="yes">
+      </div>
+    <label>No</label>
+    <input id="quote-radio-no" type="radio" name="quote" value="no">
+  </div>
+  <div id="quote-field" class="four-col hide">
+    <%= f.label :quote, "Quote No." %>
+    <%= f.text_field :quote %>
+  </div>
+  <div id="sales-select" class="four-col hide">
+    <%= f.label :creative_user_id, "Sales" %><br>
+      <% 
+        quote_options = CreativeUser.sales_in_queue.collect {|p| [ p.name, p.id ] } 
+        quote_options.unshift ["auto-assign", 0]
+      %>
+    <%= f.select :creative_user_id, quote_options, include_blank: true %> 
+  </div>
+</div>
+<%= f.hidden_field :artist_id, value: current_user.id %>
