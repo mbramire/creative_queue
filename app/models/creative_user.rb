@@ -95,7 +95,7 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def vr_to_work_on
-    VirtualRequest.where(artist_id: self.id, completed: false, processed: true).where.not(quote: nil)
+    VirtualRequest.where(artist_id: self.id, completed: false, processed: true)
   end
 
   def vr_completed
@@ -103,7 +103,7 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def requests_pending
-    VirtualRequest.where(creative_user_id: self.id, completed: false, processed: true).where.not(quote: nil) 
+    VirtualRequest.where(creative_user_id: self.id, completed: false, processed: true)
   end
 
   def requests_completed
