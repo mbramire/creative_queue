@@ -32,7 +32,7 @@ class VirtualsController < ApplicationController
     @virtual_request = VirtualRequest.find(params[:virtual_request_id])
 
     if @virtual.save
-      flash[:success] = "Virtual has been created for #{@virtual_request.company}"
+      flash[:success] = "Virtual has been created for #{@virtual_request.end_client}"
       redirect_to virtual_request_path(@virtual_request)
     else
       render 'new'
@@ -54,10 +54,10 @@ class VirtualsController < ApplicationController
     @sender = current_user
     
     DistributorMailer.virtual_email(@virtual, @virtual_request, @recipients, @sender).deliver
-    flash[:success] = "#{@virtual_request.company} - version #{@virtual.version} has been sent to #{@recipients}."
+    flash[:success] = "#{@virtual_request.end_client} - version #{@virtual.version} has been sent to #{@recipients}."
     @virtual.update_attributes(sent: Time.now)
     @virtual_request.update_attributes(completed: true)
-    redirect_to virtual_request_path(@virtual_request)
+    redirect_to root_path
   end
 
   private

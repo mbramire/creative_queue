@@ -1,0 +1,45 @@
+<table>
+  <thead>
+    <tr>
+      <th>Company =</th>
+      <th>+</th>
+      <th>Name =</th>
+      <th>+</th>
+      <th>Email =</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if rules.empty? %>
+      <tr>
+        <td colspan="5">no rules present</td>
+      </tr>
+    <% end %>
+    <% rules.each do |r| %>
+      <tr>
+        <% if r.company.present? %>
+          <td>
+            <%= link_to r.company, edit_rule_path(r) %>   
+          </td>
+        <% else %>
+          <td>-</td>
+        <% end %>
+        <td>+</td>
+        <% if r.name.present? %>
+          <td>
+            <%= link_to r.name, edit_rule_path(r) %>   
+          </td>
+        <% else %>
+          <td>-</td>
+        <% end %>
+        <td>+</td>
+        <% if r.email.present? %>
+          <td>
+            <%= link_to r.email, edit_rule_path(r) %>   
+          </td>
+        <% else %>
+          <td>-</td>
+        <% end %>        
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -11,11 +11,11 @@ class VirtualRequestsController < ApplicationController
   end
 
   def new 
-    @virtual_request = VirtualRequest.new
+    @new_virtual_request = VirtualRequest.new
   end
 
   def artist_new 
-    @virtual_request = VirtualRequest.new
+    @new_virtual_request = VirtualRequest.new
   end
 
   def show
@@ -24,12 +24,32 @@ class VirtualRequestsController < ApplicationController
 
   def edit
     @virtual_request = VirtualRequest.find(params[:id])
-    @human_date = @virtual_request.due_date.strftime("%m/%d/%Y")
+  end
+
+  def add_quote
+    @virtual_request = VirtualRequest.find(params[:id])
+  end
+
+  def quote_update
+    @virtual_request = VirtualRequest.find(params[:id])
+    @virtual_request.need_due_date
+    @virtual_request.need_quote
+
+    if @virtual_request.update(virtual_params)
+      @virtual_request.auto_assign!
+      @virtual_request.apply_user
+      
+      flash[:success] = "Quote added"
+      redirect_to root_path
+    else
+      render 'add_quote'
+    end
   end
 
   def update
     @virtual_request = VirtualRequest.find(params[:id])
     @virtual_request.need_due_date
+    @virtual_request.need_quote
 
     if @virtual_request.update(virtual_params)
       @virtual_request.auto_assign!
@@ -43,13 +63,13 @@ class VirtualRequestsController < ApplicationController
   end
 
   def create
-    @virtual_request = VirtualRequest.new(virtual_params)
-    @virtual_request.need_quote
-    @virtual_request.need_due_date
-    @virtual_request.apply_user
-    @virtual_request.auto_assign!
+    @new_virtual_request = VirtualRequest.new(virtual_params)
+    @new_virtual_request.need_quote
+    @new_virtual_request.need_due_date
+    @new_virtual_request.apply_user
+    @new_virtual_request.auto_assign!
 
-    if @virtual_request.save
+    if @new_virtual_request.save
       flash[:success] = "Virtual has been created and assigned to #{@virtual_request.artist.name}"
       redirect_to root_path
     else
@@ -58,19 +78,19 @@ class VirtualRequestsController < ApplicationController
   end
 
   def artist_create
-    @virtual_request = VirtualRequest.new(virtual_params)
-    @virtual_request.need_due_date
-    @virtual_request.apply_user
-    @virtual_request.auto_assign!
+    @new_virtual_request = VirtualRequest.new(virtual_params)
+    @new_virtual_request.need_due_date
+    @new_virtual_request.apply_user
+    @new_virtual_request.auto_assign!
     
-    if @virtual_request.creative_user_id.nil? && @virtual_request.quote
-      @virtual_request.creative_user_id = current_user.id
-    elsif @virtual_request.creative_user_id.nil?
-      @virtual_request.need_quote
+    if @new_virtual_request.creative_user_id.nil? && @new_virtual_request.quote
+      @new_virtual_request.creative_user_id = current_user.id
+    elsif @new_virtual_request.creative_user_id.nil?
+      @new_virtual_request.need_quote
     end
 
-    if @virtual_request.save
-      flash[:success] = "Virtual has been created and added to your queue"
+    if @new_virtual_request.save
+      flash[:success] = "Virtual has been created and is being processed"
       redirect_to root_path
     else
       render 'artist_new'

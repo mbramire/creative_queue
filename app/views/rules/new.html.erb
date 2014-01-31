@@ -1,0 +1,10 @@
+<%= form_for @rule do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+  <div class="row pad-all-large">
+    <div class="white-box">
+      <h1>Create New Priority Rule</h1>
+      <%= render "rule_form_fields", f: f %>
+      <%= f.submit "Create Rule", class: "save-btn margin-right" %>    
+    </div>
+  </div>
+<% end %>

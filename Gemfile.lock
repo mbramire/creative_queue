@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/radar/by_star
+  revision: d1848c6b01341ce6fc4d5859e8a8f199518a8c6a
+  specs:
+    by_star (2.2.0.rc1)
+      activesupport
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -150,6 +157,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby (= 3.0.1)
   business_time
+  by_star!
   capybara (= 2.1.0)
   carrierwave (= 0.9.0)
   coffee-rails (~> 4.0.0)

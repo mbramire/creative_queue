@@ -52,6 +52,8 @@ gem 'mysql2'
 gem 'carrierwave', '0.9.0'
 #business days gem
 gem "business_time"
+#finds active record by date
+gem 'by_star', :git => "git://github.com/radar/by_star"
 
 group :test, :development do
   gem 'rspec-rails', '2.13.1'

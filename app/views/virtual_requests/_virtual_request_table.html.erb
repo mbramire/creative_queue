@@ -1,7 +1,8 @@
 <% 
-  show_artists ||= false
-  show_requested ||=false 
-  completed ||= false
+  show_artists    ||= false
+  show_requested  ||=false 
+  completed       ||= false
+  need_quote      ||= false
 %>
 
 <table class="<%= "hide" if completed %> virtual-tbl">
@@ -10,7 +11,6 @@
       <th>Due</th>
       <th>End Client</th>
       <th>Quote No.</th>
-      <th>Priority?</th>
       <th>Requested By</th>
       <th>Company</th>
       <% if show_artists %>
@@ -26,26 +26,35 @@
       <% virtuals.each do |v| %>
         <tr>
           <td><%= v.due_date_human %></td>
-          <td>
-            <%= link_to v.end_client, virtual_request_path(v) %> 
-            <% unless v.virtuals.empty? %>
-              (<%= v.virtuals.count %>)
-            <% end %>
-          </td>
+          <% if need_quote %>
+            <td>
+              <%= link_to v.end_client, add_quote_virtual_request_path(v) %> 
+            </td>
+          <% else %>
+            <td>
+              <% if v.processed %>
+                <%= link_to v.end_client, virtual_request_path(v) %>
+                <% unless v.virtuals.empty? %>
+                  (<%= v.virtuals.count %>)
+                <% end %>
+              <% else %>
+                <%= v.end_client %>
+              <% end %>
+            </td>
+          <% end %>
           <td><%= v.quote ? v.quote : "<em class='alert-text'>Pending</em>".html_safe %></td>
-          <td><%= v.priority ? "Yes" : "-" %></td>
           <% if v.processed %> 
             <td>
               <%= v.contact_name %>
               <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
             </td>
-            <td><%= v.company %></td>
+            <td><%= "<span class='priority'>&#9733;</span>".html_safe if v.priority %> <%= v.company %></td>
           <% else %>
             <td>
-              <em class='alert-text'>processing</em>
+              <em class='alert-text'>Pending</em>
             </td>
             <td>
-              <em class='alert-text'>processing</em>
+              <em class='alert-text'>Pending</em>
             </td>
           <% end %>
           <% if show_artists %>

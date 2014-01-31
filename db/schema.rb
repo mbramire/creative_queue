@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140128183802) do
+ActiveRecord::Schema.define(version: 20140129203528) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",                      null: false
@@ -723,6 +723,12 @@ ActiveRecord::Schema.define(version: 20140128183802) do
     t.string   "password"
   end
 
+  create_table "rules", force: true do |t|
+    t.string "company"
+    t.string "email"
+    t.string "name"
+  end
+
   create_table "sale_items", force: true do |t|
     t.string   "name"
     t.string   "product_code"
@@ -954,9 +960,13 @@ ActiveRecord::Schema.define(version: 20140128183802) do
     t.string   "end_client"
     t.integer  "quote"
     t.boolean  "processed"
+    t.boolean  "ordered",            default: false
   end
 
   add_index "virtual_requests", ["artist_id"], name: "index_virtual_requests_on_artist_id", using: :btree
+  add_index "virtual_requests", ["completed"], name: "index_virtual_requests_on_completed", using: :btree
+  add_index "virtual_requests", ["creative_user_id"], name: "index_virtual_requests_on_creative_user_id", using: :btree
+  add_index "virtual_requests", ["processed"], name: "index_virtual_requests_on_processed", using: :btree
   add_index "virtual_requests", ["quote"], name: "index_virtual_requests_on_quote", using: :btree
 
   create_table "virtuals", force: true do |t|

@@ -80,21 +80,19 @@ class CreativeUser < ActiveRecord::Base
     self.avatar.present? ? self.avatar : "profile/avatar.png"
   end
 
-  def virtuals_this_month
-    self.virtuals.find_all { |v| v.updated_at.strftime("%B") == Time.new.strftime("%B") }.count
+  def vr_current_month
+    VirtualRequest.where(artist_id: self.id, completed: true).by_month(Time.new.strftime("%B"))
   end
 
-  def requests_this_month
-    self.virtual_requests.find_all { |v| v.updated_at.strftime("%B") == Time.new.strftime("%B") }.count
+  def vr_ordered_current_month
+    VirtualRequest.where(artist_id: self.id, ordered: true).by_month(Time.new.strftime("%B"))
   end
 
-  def converted_all_time
+  def vr_assigned
+    VirtualRequest.where(artist_id: self.id, completed: false)
   end
 
-  def converted_this_month
-  end
-
-  def vr_to_work_on
+  def vr_processed
     VirtualRequest.where(artist_id: self.id, completed: false, processed: true)
   end
 
@@ -102,7 +100,23 @@ class CreativeUser < ActiveRecord::Base
     VirtualRequest.where(artist_id: self.id, completed: true) 
   end
 
-  def requests_pending
+  def vr_ordered
+    VirtualRequest.where(artist_id: self.id, ordered: true) 
+  end
+
+  def requests_current_month
+    VirtualRequest.where(creative_user_id: self.id, completed: true).by_month(Time.new.strftime("%B"))
+  end
+
+  def requests_ordered_current_month
+    VirtualRequest.where(creative_user_id: self.id, ordered: true).by_month(Time.new.strftime("%B"))
+  end
+
+  def requests_assigned
+    VirtualRequest.where(creative_user_id: self.id, completed: false)
+  end
+
+  def requests_processed
     VirtualRequest.where(creative_user_id: self.id, completed: false, processed: true)
   end
 
@@ -111,7 +125,19 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def requests_needing_quote
-    VirtualRequest.where(creative_user_id: self.id, quote: nil, processed: true) 
+    VirtualRequest.where(creative_user_id: self.id, quote: nil) 
+  end
+
+  def requests_ordered
+    VirtualRequest.where(artist_id: self.id, ordered: true) 
+  end
+
+  def name_vrs
+    "#{self.name} (#{self.vr_assigned.count})"
+  end
+
+  def name_requests
+    "#{self.name} (#{self.requests_assigned.count})"
   end
 
   private

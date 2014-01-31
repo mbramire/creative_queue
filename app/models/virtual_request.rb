@@ -1,7 +1,4 @@
 class VirtualRequest < ActiveRecord::Base
-  #validates_presence_of :contact_name
-  #validates_presence_of :contact_email
-  #validates_presence_of :contact_phone
   validates_presence_of :quantity
   validates_presence_of :budget
   validates_presence_of :end_client
@@ -24,7 +21,7 @@ class VirtualRequest < ActiveRecord::Base
   before_save :update_art_attributes
   before_save :format_date, :if => :need_due_date?
 
-  default_scope { order('priority ASC, due_date ASC') }
+  default_scope { order('priority DESC, due_date ASC') }
 
   attr_accessor  :unformatted_date
 
@@ -46,7 +43,7 @@ class VirtualRequest < ActiveRecord::Base
 
   def due_date_human
     date = self.due_date.strftime("%m/%d/%y")
-    if due_date < 4.business_days.ago && !self.completed
+    if due_date < 4.business_days.from_now && !self.completed
       "<em class='alert-text'>#{date}</em>".html_safe
     else 
       date
@@ -61,13 +58,13 @@ class VirtualRequest < ActiveRecord::Base
 
   def auto_assign!
     if self.artist_id == 0
-      artists = CreativeUser.artist_in_queue.collect {|p| [ p.id, p.vr_to_work_on.count ] } 
+      artists = CreativeUser.artist_in_queue.collect {|p| [ p.id, p.vr_assigned.count ] } 
       self.artist_id = artists.sort { |a,b| a[1] <=> b[1] }.first[0]
       self.save
     end
 
     if self.creative_user_id == 0
-      sales = CreativeUser.sales_in_queue.collect {|p| [ p.id, p.requests_pending.count ] } 
+      sales = CreativeUser.sales_in_queue.collect {|p| [ p.id, p.requests_assigned.count ] } 
       self.creative_user_id = sales.sort { |a,b| a[1] <=> b[1] }.first[0]
       self.save
     end
@@ -95,9 +92,20 @@ class VirtualRequest < ActiveRecord::Base
 
   def make_copy(user)
     self.completed = false
-    self.company = self.company + " (copy)" unless self.company.include? "(copy)"
+    self.end_client = self.end_client + " (copy)" unless self.end_client.include? "(copy)"
     self.creative_user_id = user.id
     self.save
+  end
+
+  def check_priority
+    rules = Rule.all
+    clean_company = self.company.split(" ")[0].downcase
+
+    rules.each do |r|
+      if r.company.downcase == clean_company || r.email.downcase == self.contact_email.downcase || r.name.downcase == contact_name.downcase
+        self.update_attributes(priority: true)
+      end
+    end
   end
 
 private

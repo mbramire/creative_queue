@@ -1,11 +1,11 @@
-<%= form_for(@virtual_request, url: artist_create_virtual_requests_path) do |f| %>
+<%= form_for(@new_virtual_request, url: artist_create_virtual_requests_path) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="row pad-all-large">
     <div class="white-box">
       <h1>Queue Virtual Request</h1>
       <%= render 'quote_form_fields_artist', f: f %>
       <%= render "form_fields", f: f %>
-      <%= f.submit "Create Virtual Request", class: "save-btn margin-right" %>
+      <%= f.submit "Queue Virtual Request", class: "save-btn margin-right" %>
       <%= link_to "Go Back", root_path, class: "prev-btn" %>
     </div>
   </div>

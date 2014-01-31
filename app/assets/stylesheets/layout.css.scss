@@ -12,6 +12,14 @@ body {
 
 .primary-bg {
   background: image-url('backgrounds/groovepaper.png') repeat;
+
+  > .row {
+    padding: 0 50px 70px;
+  }
+
+  > .row:first-child {
+    padding-top: 50px;
+  }
 }
 
 .secondary-bg {
@@ -153,7 +161,7 @@ body {
 }
 
 .pad-all-large {
-  padding: 0 50px 70px;
+  padding: 50px;
 }
 
 .pad-top {

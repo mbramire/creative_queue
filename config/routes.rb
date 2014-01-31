@@ -15,6 +15,8 @@ resources :virtual_requests do
   member do
     put 'move'
     put 'duplicate'
+    get 'add_quote'
+    patch 'quote_update' 
   end
   
   collection do
@@ -31,6 +33,8 @@ resources :virtual_requests do
 end
 
 resources :sessions, only: [:new, :create, :destroy]
+
+resources :rules
 
 get 'statistics', to:'statistics#index'
 

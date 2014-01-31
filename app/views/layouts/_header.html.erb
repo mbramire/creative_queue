@@ -39,6 +39,9 @@
         <%= link_to creative_users_path do %>
           <li class="<%= @nav[0] == 'creative_users' ? "selected" : "" %>">users</li>
         <% end %>
+        <%= link_to rules_path do %>
+          <li class="<%= @nav[0] == 'rules' ? "selected" : "" %>">rules</li>
+        <% end %>
         <%= link_to session_path(current_user), method: "delete" do %>
           <li>log out</li>
         <% end %>
