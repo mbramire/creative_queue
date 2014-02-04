@@ -8,6 +8,7 @@ class VirtualRequest < ActiveRecord::Base
   validates_presence_of :artist_id
   validates_presence_of :art, unless: :art_website?, message: "url or art file must be provided"
   validates_presence_of :quote, if: :need_quote?, message: "must be provided"
+  validates_uniqueness_of :quote, if: :need_quote?
 
   belongs_to :creative_user
   belongs_to :artist, class_name: CreativeUser

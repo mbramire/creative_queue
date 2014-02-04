@@ -1,11 +1,11 @@
 <% 
   show_artists    ||= false
   show_requested  ||=false 
-  completed       ||= false
+  elem_class       ||= ""
   need_quote      ||= false
 %>
 
-<table class="<%= "hide" if completed %> virtual-tbl">
+<table class="<%= elem_class %> virtual-tbl">
   <thead>
     <tr>
       <th>Due</th>
@@ -38,12 +38,12 @@
                   (<%= v.virtuals.count %>)
                 <% end %>
               <% else %>
-                <%= v.end_client %>
+                <%= link_to v.end_client, add_quote_virtual_request_path(v) %> (processing)
               <% end %>
             </td>
           <% end %>
-          <td><%= v.quote ? v.quote : "<em class='alert-text'>Pending</em>".html_safe %></td>
-          <% if v.processed %> 
+          <td><%= v.quote ? v.quote : "<em class='alert-text'>Quote Needed</em>".html_safe %></td>
+          <% if v.contact_name.present? %> 
             <td>
               <%= v.contact_name %>
               <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
@@ -58,20 +58,16 @@
             </td>
           <% end %>
           <% if show_artists %>
-            <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.nil? ? "PENDING" : v.artist.name %></td>
+            <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.artist.name %></td>
           <% end %>
           <% if show_requested %>
-            <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.nil? ? "PENDING" : v.creative_user.name %></td>
+            <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.creative_user.name %></td>
           <% end %>
         </tr>
       <% end %>
     <% else %>
       <tr>
-        <% if completed %>
-          <td colspan="8">no requests recently completed</td>
-        <% else %>
-          <td colspan="8">no requests</td>
-        <% end %>
+        <td colspan="8">no requests</td>
       </tr>
     <% end %>
   </tbody>

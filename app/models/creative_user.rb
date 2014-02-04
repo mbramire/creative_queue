@@ -96,6 +96,10 @@ class CreativeUser < ActiveRecord::Base
     VirtualRequest.where(artist_id: self.id, completed: false, processed: true)
   end
 
+  def vr_processing
+    VirtualRequest.where(artist_id: self.id, processed: false)
+  end
+
   def vr_completed
     VirtualRequest.where(artist_id: self.id, completed: true) 
   end
@@ -118,6 +122,10 @@ class CreativeUser < ActiveRecord::Base
 
   def requests_processed
     VirtualRequest.where(creative_user_id: self.id, completed: false, processed: true)
+  end
+
+  def requests_processing
+    VirtualRequest.where(creative_user_id: self.id, processed: false)
   end
 
   def requests_completed

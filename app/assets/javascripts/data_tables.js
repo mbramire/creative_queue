@@ -10,14 +10,13 @@ $(document).ready(function(){
 
   $(".tabs").children("li").on("click", function(){
     var tab = $(this),
-      dataTbl = tab.parent("ul").siblings(".dataTables_wrapper"),
-      tables = tab.closest("div").find(".virtual-tbl");
-    
+      table = "." + tab.data("table");
+
     if (!tab.hasClass("tab-on")){
-      tab.siblings("li").toggleClass("tab-on");
-      tab.toggleClass("tab-on");
-      tables.toggle();
-      dataTbl.toggle();
+      tab.siblings("li").removeClass("tab-on")
+      tab.addClass("tab-on");
+      tab.closest("div").find(".virtual-tbl").hide();
+      $(table).show();
     };
   });
 

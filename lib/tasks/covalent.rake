@@ -18,8 +18,8 @@ namespace :covalent do
 
   desc "Import quote file and update attributs of virtual requests"
   task quotes: :environment do
-    file = "done_quote_0#{Time.now.strftime("%u")}"
-    todays_requests = VirtualRequest.where(processed: nil)
+    file = "quote_0#{Time.now.strftime("%u")}"
+    todays_requests = VirtualRequest.where(processed: false)
 
     puts "processing #{file}"
     File.open(Rails.root + "covalent/#{file}") do |f|
