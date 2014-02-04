@@ -27,7 +27,7 @@
         <h2 class="pad-top-large">Virtual Info</h2>
         <ul class="margin-bottom">
           <li><em>virtual no.</em> <%= @virtual_request.quote %></li>
-          <li><em>Sales</em> <%= @virtual_request.creative_user.name %></li>
+          <li><em>Sales</em> <%= @virtual_request.creative_user.try(:name) %></li>
           <li><em>Artist</em>
             <% if @virtual_request.artist.nil? %>
               <em class="alert-text">unassigned</em>

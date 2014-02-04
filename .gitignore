@@ -15,6 +15,9 @@
 /log/*.log
 /tmp
 
+# never share .env
+.env
+
 # carrierwave uploads
 /public/uploads/*
 

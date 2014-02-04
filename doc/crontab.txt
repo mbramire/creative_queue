@@ -1,0 +1,4 @@
+# m h  dom mon dow   command
+0 5 * * *       bash -l -c 'cd /home/sites/creative_queue && rake covalent:orders RAILS_ENV=production >> log/cron.txt'
+*/4 * * * *     bash -l -c 'cd /home/sites/creative_queue && rake covalent:quotes RAILS_ENV=production >> log/cron.txt'
+

@@ -28,17 +28,17 @@
           <td><%= v.due_date_human %></td>
           <% if need_quote %>
             <td>
-              <%= link_to v.end_client, add_quote_virtual_request_path(v) %> 
+              <%= link_to "#{v.end_client} (view)", add_quote_virtual_request_path(v) %> 
             </td>
           <% else %>
             <td>
               <% if v.processed %>
-                <%= link_to v.end_client, virtual_request_path(v) %>
+                <%= link_to "#{v.end_client} (view)", virtual_request_path(v) %>
                 <% unless v.virtuals.empty? %>
                   (<%= v.virtuals.count %>)
                 <% end %>
               <% else %>
-                <%= link_to v.end_client, add_quote_virtual_request_path(v) %> (processing)
+                <%= link_to "#{v.end_client} (processing)", add_quote_virtual_request_path(v) %> 
               <% end %>
             </td>
           <% end %>
