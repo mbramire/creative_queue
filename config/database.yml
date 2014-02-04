@@ -10,7 +10,7 @@ development:
   pool: 5
   username: root
   password:  
-  socket: /tmp/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,7 +25,14 @@ test:
   socket: /tmp/mysql.sock
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  database: journalbooks_production
   pool: 5
-  timeout: 5000
+  username: cq
+  password: Lenhom62 
+  host: durga.int
+  port: 3306
+#  socket: /var/run/mysqld/mysqld.sock
+
+

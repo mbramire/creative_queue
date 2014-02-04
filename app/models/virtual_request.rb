@@ -42,6 +42,7 @@ class VirtualRequest < ActiveRecord::Base
   end
 
   def due_date_human
+    return '' unless self.due_date.present?
     date = self.due_date.strftime("%m/%d/%y")
     if due_date < 4.business_days.from_now && !self.completed
       "<em class='alert-text'>#{date}</em>".html_safe
