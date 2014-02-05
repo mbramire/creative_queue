@@ -12,11 +12,11 @@ class VirtualRequestsController < ApplicationController
   end
 
   def new 
-    @new_virtual_request = VirtualRequest.new
+    @virtual_request = VirtualRequest.new
   end
 
   def artist_new 
-    @new_virtual_request = VirtualRequest.new
+    @virtual_request = VirtualRequest.new
   end
 
   def show
@@ -33,8 +33,7 @@ class VirtualRequestsController < ApplicationController
 
   def quote_update
     @virtual_request = VirtualRequest.find(params[:id])
-    @virtual_request.need_due_date
-    @virtual_request.need_quote
+    add_validations
 
     if @virtual_request.update(virtual_params)
       @virtual_request.auto_assign!
@@ -49,9 +48,8 @@ class VirtualRequestsController < ApplicationController
 
   def update
     @virtual_request = VirtualRequest.find(params[:id])
-    @virtual_request.need_due_date
-    @virtual_request.need_quote
-
+    add_validations
+    
     if @virtual_request.update(virtual_params)
       @virtual_request.auto_assign!
       @virtual_request.apply_user
@@ -64,13 +62,12 @@ class VirtualRequestsController < ApplicationController
   end
 
   def create
-    @new_virtual_request = VirtualRequest.new(virtual_params)
-    @new_virtual_request.need_quote
-    @new_virtual_request.need_due_date
-    @new_virtual_request.apply_user
-    @new_virtual_request.auto_assign!
+    @virtual_request = VirtualRequest.new(virtual_params)
+    add_validations
+    @virtual_request.apply_user
+    @virtual_request.auto_assign!
 
-    if @new_virtual_request.save
+    if @virtual_request.save
       flash[:success] = "Virtual has been created and assigned to #{@virtual_request.artist.name}"
       redirect_to root_path
     else
@@ -79,18 +76,19 @@ class VirtualRequestsController < ApplicationController
   end
 
   def artist_create
-    @new_virtual_request = VirtualRequest.new(virtual_params)
-    @new_virtual_request.need_due_date
-    @new_virtual_request.apply_user
-    @new_virtual_request.auto_assign!
+    @virtual_request = VirtualRequest.new(virtual_params)
+    @virtual_request.need_due_date
+    @virtual_request.cq_form
+    @virtual_request.apply_user
+    @virtual_request.auto_assign!
     
-    if @new_virtual_request.creative_user_id.nil? && @new_virtual_request.quote
-      @new_virtual_request.creative_user_id = current_user.id
-    elsif @new_virtual_request.creative_user_id.nil?
-      @new_virtual_request.need_quote
+    if @virtual_request.creative_user_id.nil? && @virtual_request.quote
+      @virtual_request.creative_user_id = current_user.id
+    elsif @virtual_request.creative_user_id.nil?
+      @virtual_request.need_quote
     end
 
-    if @new_virtual_request.save
+    if @virtual_request.save
       flash[:success] = "Virtual has been created and is being processed"
       redirect_to root_path
     else
@@ -127,6 +125,12 @@ class VirtualRequestsController < ApplicationController
     send_file(@virtual_request.art.path,
           disposition: 'attachment',
           url_based_filename: false)
+  end
+
+  def add_validations
+    @virtual_request.need_quote
+    @virtual_request.need_due_date
+    @virtual_request.cq_form
   end
 
   private

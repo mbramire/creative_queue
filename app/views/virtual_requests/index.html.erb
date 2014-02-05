@@ -8,5 +8,5 @@
   <%= render partial: "virtual_request_table", :locals => { :virtuals => @virtuals, :show_artists => true, :show_requested => true, :elem_class => "pending-table" } %>
   <%= render partial: "virtual_request_table", :locals => { :virtuals => @virtuals_processing, :show_artists => true, :show_requested => true, :elem_class => "processing-table hide" } %>
   <%= render partial: "virtual_request_table", :locals => { :virtuals => @virtuals_completed, :show_artists => true, :show_requested => true, :elem_class => "completed-table hide" } %>
-  <%= link_to "Virtual Request", new_virtual_request_path, class: "new-btn" %></a>
+  <%#= link_to "Virtual Request", new_virtual_request_path, class: "new-btn" %>
 </div>

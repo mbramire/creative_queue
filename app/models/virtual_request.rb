@@ -1,11 +1,13 @@
 class VirtualRequest < ActiveRecord::Base
+  validates_presence_of :contact_name, if: :jb_form?
+  validates_presence_of :contact_email, if: :jb_form?
+  validates_presence_of :contact_phone, if: :jb_form?
   validates_presence_of :quantity
   validates_presence_of :budget
   validates_presence_of :end_client
   validates_presence_of :unformatted_date, if: :need_due_date?
-  #FIXME the validation will fail but the record is still created without due_date
-  validates_presence_of :creative_user_id
-  validates_presence_of :artist_id
+  validates_presence_of :creative_user_id, if: :cq_form?
+  validates_presence_of :artist_id, if: :cq_form?
   validates_presence_of :art, unless: :art_website?, message: "url or art file must be provided"
   validates_presence_of :quote, if: :need_quote?, message: "must be provided"
   validates_uniqueness_of :quote, if: :need_quote?
@@ -13,14 +15,14 @@ class VirtualRequest < ActiveRecord::Base
   belongs_to :creative_user
   belongs_to :artist, class_name: CreativeUser
   belongs_to :user
-  # belongs_to :distributor
+  belongs_to :distributor
 
   has_many :virtuals, dependent: :destroy
 
-  mount_uploader :art, VirtualArtUploader
+  mount_uploader :art, VirtualUploader
   
   before_save :update_art_attributes
-  before_save :format_date, :if => :need_due_date?
+  before_save :format_date, if: :need_due_date?
 
   default_scope { order('priority DESC, due_date ASC') }
 
@@ -72,6 +74,13 @@ class VirtualRequest < ActiveRecord::Base
     end
   end
 
+  def auto_assign_jb!
+    if self.artist_id.nil?
+      users = CreativeUser.in_queue?.collect {|p| [ p.id, p.virtual_totals ] } 
+      self.creative_user_id = users.sort { |a,b| a[1] <=> b[1] }.first[0]
+    end
+  end
+
   def format_date
     self.due_date = Date.strptime(self.unformatted_date, "%m/%d/%Y").to_time(:local)
   end
@@ -90,6 +99,22 @@ class VirtualRequest < ActiveRecord::Base
 
   def need_quote?
     @quote
+  end
+
+  def cq_form?
+    @cq_form
+  end
+
+  def cq_form
+    @cq_form = true
+  end
+
+  def jb_form?
+    @jb_form
+  end
+
+  def jb_form
+    @jb_form = true
   end
 
   def make_copy(user)
