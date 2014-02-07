@@ -64,6 +64,10 @@ class CreativeUser < ActiveRecord::Base
     self.id == virtual.creative_user_id
   end
   
+  def sales_and_artist
+    self.sales && self.artist
+  end
+  
   def self.artist_in_queue
     CreativeUser.where(in_queue: true, artist: true)
   end
@@ -118,10 +122,10 @@ class CreativeUser < ActiveRecord::Base
     VirtualRequest.where(creative_user_id: self.id, ordered: true).by_month(Time.new.strftime("%B"))
   end
 
-  def requests_assigned
-    assigned = VirtualRequest.where(creative_user_id: self.id, completed: false)
-    need_quote = assigned.where(quote: nil)
-    ready = assigned.where(processed: true)
+  def requests_quoted
+    quoted = VirtualRequest.where(creative_user_id: self.id, completed: false)
+    need_quote = quoted.where(quote: nil)
+    ready = quoted.where(processed: true)
     ready + need_quote
   end
 
@@ -141,6 +145,11 @@ class CreativeUser < ActiveRecord::Base
     VirtualRequest.where(artist_id: self.id, ordered: true) 
   end
 
+  def queued_requests
+    all = self.vr_assigned + self.requests_quoted
+    all.uniq { |v| v[:id] }
+  end
+
   def virtual_totals
     art = VirtualRequest.where(artist_id: self.id, completed: false).count
     sales = VirtualRequest.where(creative_user_id: self.id, completed: false).count
@@ -152,7 +161,7 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def name_requests
-    "#{self.name} (#{self.requests_assigned.count})"
+    "#{self.name} (#{self.requests_quoted.count})"
   end
 
   private

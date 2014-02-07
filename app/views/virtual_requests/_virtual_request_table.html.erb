@@ -1,7 +1,5 @@
 <% 
-  show_artists    ||= false
-  show_requested  ||=false 
-  elem_class       ||= ""
+  elem_class      ||= ""
   need_quote      ||= false
 %>
 
@@ -13,12 +11,8 @@
       <th>Quote No.</th>
       <th>Requested By</th>
       <th>Company</th>
-      <% if show_artists %>
-        <th>Creative</th>
-      <% end %>
-      <% if show_requested %>
-        <th>Sales</th>
-      <% end %>
+      <th>Creative</th>
+      <th>Sales</th>
     </tr>
   </thead>
   <tbody>
@@ -59,12 +53,8 @@
               <em class='alert-text'>Pending</em>
             </td>
           <% end %>
-          <% if show_artists %>
-            <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.artist.name %></td>
-          <% end %>
-          <% if show_requested %>
-            <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.creative_user.name %></td>
-          <% end %>
+          <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.artist.name %></td>
+          <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.creative_user.name %></td>
         </tr>
       <% end %>
     <% else %>

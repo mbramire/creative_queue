@@ -3,7 +3,8 @@
   <div class="row pad-all-large">
     <div class="white-box">
       <h1>Edit <%= @virtual_request.end_client %></h1>
-      <%= render 'quote_form_fields_edit', f: f %>
+      <%= render 'quote_fields', f: f %>
+      <%= render 'company_fields', f: f %>
       <%= render "form_fields", f: f %>
       <div class="row pad-bottom-large">
         <div class="four-col">

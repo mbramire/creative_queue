@@ -32,7 +32,6 @@ namespace :covalent do
             vals[9..17].each do |c|
               comments << c unless c == ""
             end
-
             req.update_attributes(
               company: vals[4].titlecase,
               contact_name: "#{vals[5]} #{vals[6]}".titlecase,

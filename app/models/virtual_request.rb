@@ -69,7 +69,7 @@ class VirtualRequest < ActiveRecord::Base
     end
 
     if self.creative_user_id == 0
-      sales = CreativeUser.sales_in_queue.collect {|p| [ p.id, p.requests_assigned.count ] } 
+      sales = CreativeUser.sales_in_queue.collect {|p| [ p.id, p.requests_quoted.count ] } 
       self.creative_user_id = sales.sort { |a,b| a[1] <=> b[1] }.first[0]
       self.save
     end

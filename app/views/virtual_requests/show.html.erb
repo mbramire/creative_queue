@@ -2,7 +2,7 @@
   <div class="white-box">
     <%= link_to "Duplicate", duplicate_virtual_request_path, method: :put, class: "copy-btn pull-right margin-left" %>
     <%= link_to "Edit Request", edit_virtual_request_path(@virtual_request), class: "edit-btn pull-right margin-left" if current_user.owns?(@virtual_request) %>
-    <% unless current_user.artist_for?(@virtual_request) || !current_user.artist && current_user.sales %>
+    <% if current_user.artist && (!current_user.artist_for?(@virtual_request) || @virtual_request.completed) %>
       <%= link_to "Move to my queue", move_virtual_request_path, method: :put, class: "move-btn pull-right" %>
     <% end %>
     <h1>
@@ -64,7 +64,7 @@
             <% end %>
           </li>
         </ul>
-        <%#= link_to "Download Art", @virtual_request.art.url, class: "button" if @virtual_request.art.present? %>
+        <%= link_to "Download Art", @virtual_request.art.url, class: "button" if @virtual_request.art.present? %>
       </div>
       <div class="three-col-span-two virtual-list">
         <h2>Virtuals</h2>

@@ -14,7 +14,9 @@ class VirtualRequestsController < ApplicationController
   end
 
   def new 
-    @virtual_request = VirtualRequest.new
+    params = { creative_user_id: current_user.id, artist_id: nil }
+    params[:artist_id] = current_user.id if current_user.artist
+    @virtual_request = VirtualRequest.new(params)
   end
 
   def artist_new 

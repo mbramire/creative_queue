@@ -39,15 +39,7 @@
 <% if @user.artist %>
   <%= render "statistics/artist_stats_table", artists: @user, single_user: true, show_all: true %>
 <% end %>
-
 <% if @user.sales %>
   <%= render "statistics/request_stats_table", sales: @user, single_user: true, show_all: true%>
 <% end %>
-<% if @user.sales && @user.artist %>
-  <%= render 'home/artist_queue', user_page: true, user: @user %>
-  <%= render 'home/sales_queue', user_page: true, user: @user %>
-<% elsif @user.artist %>
-  <%= render 'home/artist_queue', user_page: true, user: @user %>
-<% elsif @user.sales %>
-  <%= render 'home/sales_queue', user_page: true, user: @user %>
-<% end %>
+<%= render 'home/virtual_queue', user_page: true, user: @user %>

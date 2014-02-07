@@ -1,16 +1,7 @@
 <% if current_user %>
-  <% if current_user.sales && current_user.artist %>
-    <%= render 'artist_queue' %>
-    <%= render 'sales_queue' %>
-    <%= render "statistics/artist_stats_table", artists: current_user, single_user: true %>
-    <%= render "statistics/request_stats_table", sales: current_user, single_user: true %>
-  <% elsif current_user.artist %>
-    <%= render 'artist_queue' %>
-    <%= render "statistics/artist_stats_table", artists: current_user, single_user: true %>
-  <% elsif current_user.sales %>
-    <%= render 'sales_queue' %>
-    <%= render "statistics/request_stats_table", sales: current_user, single_user: true %>
-  <% end %>
+  <%= render 'virtual_queue' %>
+  <%= render "statistics/artist_stats_table", artists: current_user, single_user: true if current_user.artist %>
+  <%= render "statistics/request_stats_table", sales: current_user, single_user: true if current_user.sales %>
 
   <%# if current_user.requests_needing_quote.count > 0 %>
     <!-- <div class="row">
