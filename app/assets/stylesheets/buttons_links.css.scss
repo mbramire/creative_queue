@@ -14,14 +14,14 @@ a {
   color: white;
   background-image: image-url('icons/create-icon.png');
   background-repeat: no-repeat;
-  background-color: $green;
+  background-color: $blue;
   background-position: 11px 11px;
   text-align: center;
   padding: 20px;
   width: 100%;
 
   &:hover {
-    background-color: $green-dark;
+    background-color: darken($blue, 10%);
   }
 }
 

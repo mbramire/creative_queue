@@ -5,13 +5,7 @@
       <h1>Edit <%= @virtual_request.end_client %></h1>
       <%= render 'quote_fields', f: f %>
       <%= render 'company_fields', f: f %>
-      <%= render "form_fields", f: f %>
-      <div class="row pad-bottom-large">
-        <div class="four-col">
-          <%= f.label :comments %>
-          <%= f.text_area :comments %>
-        </div>
-      </div>
+      <%= render "form_fields", f: f, comments: true %>
       <%= f.submit "Save Changes", class: "save-btn margin-right" %>
       <%= link_to "Go Back", virtual_request_path(@virtual_request), class: "prev-btn margin-right" %>
       <%= link_to "Delete Request", virtual_request_path(@virtual_request), 

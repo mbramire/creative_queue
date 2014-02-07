@@ -1,7 +1,7 @@
 class VirtualRequestsController < ApplicationController
   before_action :signed_in_user
   before_action :setup_nav_array
-  before_filter :only => [:edit, :destroy, :update] do |c| 
+  before_filter :only => [:edit, :destroy, :update, :quote_update, :add_quote] do |c| 
     c.admin_or_current_user params[:id]
   end
 
@@ -72,7 +72,7 @@ class VirtualRequestsController < ApplicationController
     @virtual_request.auto_assign!
 
     if @virtual_request.save
-      flash[:success] = "Virtual has been created and assigned to #{@virtual_request.artist.name}"
+      flash[:success] = "Virtual has been created and is processing"
       redirect_to root_path
     else
       render 'new'
@@ -107,7 +107,7 @@ class VirtualRequestsController < ApplicationController
     @virtual_request = VirtualRequest.find(params[:id])
     @virtual_request.update_attributes(artist_id: current_user.id, completed: false)
 
-    flash[:success] = "#{@virtual_request.company} added to your queue."
+    flash[:success] = "#{@virtual_request.end_client} added to your queue."
     redirect_to virtual_request_path(@virtual_request)
   end
 
@@ -115,7 +115,7 @@ class VirtualRequestsController < ApplicationController
     @new_request = VirtualRequest.find(params[:id]).dup
     @new_request.make_copy(current_user)
 
-    flash[:success] = "#{@new_request.company} has been created."
+    flash[:success] = "#{@new_request.end_client} has been created."
     redirect_to edit_virtual_request_path(@new_request)
   end
 

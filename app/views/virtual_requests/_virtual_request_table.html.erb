@@ -12,7 +12,7 @@
       <th>Requested By</th>
       <th>Company</th>
       <th>Creative</th>
-      <th>Sales</th>
+      <th>Quote</th>
     </tr>
   </thead>
   <tbody>
@@ -34,24 +34,28 @@
                   (<%= v.virtuals.count %>)
                 <% end %>
               <% else %>
-                <%= link_to "#{v.end_client} (processing)", add_quote_virtual_request_path(v) %> 
+                <%= link_to "#{v.end_client} (processing)", edit_virtual_request_path(v) %> 
               <% end %>
             </td>
           <% end %>
-          <td><%= v.quote ? v.quote : "<em class='alert-text'>Quote Needed</em>".html_safe %></td>
-          <% if v.contact_name.present? %> 
-            <td>
-              <%= v.contact_name %>
-              <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
-            </td>
-            <td><%= "<span class='priority'>&#9733;</span>".html_safe if v.priority %> <%= v.company %></td>
-          <% else %>
-            <td>
-              <em class='alert-text'>Pending</em>
-            </td>
-            <td>
-              <em class='alert-text'>Pending</em>
-            </td>
+          <% if v.updated_at < (Time.now - 1.day) && !v.processed %>
+            <td colspan="3"><em class='alert-text'>Unable to find quote <%= v.quote %> please check quote in covalent or process manually</em></td>
+          <% else %> 
+            <td><%= v.quote ? v.quote : "<em class='alert-text'>Quote Needed</em>".html_safe %></td>
+            <% if v.contact_name.present? %> 
+              <td>
+                <%= v.contact_name %>
+                <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
+              </td>
+              <td><%= "<span class='priority'>&#9733;</span>".html_safe if v.priority %> <%= v.company %></td>
+            <% else %>
+              <td>
+                <em class='alert-text'>Pending</em>
+              </td>
+              <td>
+                <em class='alert-text'>Pending</em>
+              </td>
+            <% end %>
           <% end %>
           <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.artist.name %></td>
           <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.creative_user.name %></td>

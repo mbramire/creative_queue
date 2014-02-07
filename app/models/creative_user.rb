@@ -146,7 +146,7 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def queued_requests
-    all = self.vr_assigned + self.requests_quoted
+    all = self.vr_assigned + self.requests_quoted + self.vr_processing + self.requests_processing
     all.uniq { |v| v[:id] }
   end
 

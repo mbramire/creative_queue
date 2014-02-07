@@ -1,9 +1,10 @@
 <% 
   due_date = if @virtual_request.nil? 
-    ""
+    "ff"
   else
     @virtual_request.due_date.try(:strftime, "%m/%d/%y")
   end
+  comments ||= false
 %>
 
 <h2>Virtual Details</h2>
@@ -27,6 +28,12 @@
 </div>
 <h2>Artwork</h2>
 <div class="row pad-top pad-bottom-large">
+  <% if comments %>
+    <div class="four-col">
+      <%= f.label :comments %>
+      <%= f.text_area :comments %>
+    </div>
+  <% end %>
   <div class="four-col">
     <%= f.label :art, "Select/Replace Art File" %>
     <%= f.file_field :art %>
