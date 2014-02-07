@@ -50,10 +50,14 @@ gem 'will_paginate', '3.0.4'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'mysql2'
 gem 'carrierwave', '0.9.0'
+gem 's3_direct_upload'
+gem 'fog', '~> 1.3.1'
 #business days gem
 gem "business_time"
 #finds active record by date
 gem 'by_star', :git => "git://github.com/radar/by_star"
+
+# gem 'journalbooks_core', path: "/Users/Matts/projects/"
 
 group :test, :development do
   gem 'rspec-rails', '2.13.1'

@@ -6,9 +6,11 @@ class VirtualRequestsController < ApplicationController
   end
 
   def index 
-    @virtuals = VirtualRequest.where(completed: false, processed: true)
+    ready = VirtualRequest.where(completed: false, processed: true)
+    quote_needed = VirtualRequest.where(quote: nil)
+    @virtuals = ready + quote_needed
     @virtuals_completed = VirtualRequest.all.where(completed: true)
-    @virtuals_processing = VirtualRequest.where(processed: false)
+    @virtuals_processing = VirtualRequest.where(processed: false).where("quote > ?", 0)
   end
 
   def new 
@@ -81,13 +83,8 @@ class VirtualRequestsController < ApplicationController
     @virtual_request.cq_form
     @virtual_request.apply_user
     @virtual_request.auto_assign!
+    @virtual_request.need_quote
     
-    if @virtual_request.creative_user_id.nil? && @virtual_request.quote
-      @virtual_request.creative_user_id = current_user.id
-    elsif @virtual_request.creative_user_id.nil?
-      @virtual_request.need_quote
-    end
-
     if @virtual_request.save
       flash[:success] = "Virtual has been created and is being processed"
       redirect_to root_path
@@ -122,7 +119,7 @@ class VirtualRequestsController < ApplicationController
 
   def download_file
     @virtual_request = VirtualRequest.find(params[:virtual_request_id])
-    send_file(@virtual_request.art.path,
+    send_file(@virtual_request.art.url,
           disposition: 'attachment',
           url_based_filename: false)
   end

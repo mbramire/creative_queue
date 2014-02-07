@@ -64,7 +64,7 @@
             <% end %>
           </li>
         </ul>
-        <%= link_to "Download Art", virtual_request_art_path(virtual_request_id: @virtual_request.id), class: "button" if @virtual_request.art.present? %>
+        <%#= link_to "Download Art", @virtual_request.art.url, class: "button" if @virtual_request.art.present? %>
       </div>
       <div class="three-col-span-two virtual-list">
         <h2>Virtuals</h2>

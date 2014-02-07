@@ -32,7 +32,9 @@
             </td>
           <% else %>
             <td>
-              <% if v.processed %>
+              <% if v.quote.nil? %>
+                <%= link_to v.end_client, add_quote_virtual_request_path(v) %>
+              <% elsif v.processed %>
                 <%= link_to v.end_client, virtual_request_path(v) %>
                 <% unless v.virtuals.empty? %>
                   (<%= v.virtuals.count %>)

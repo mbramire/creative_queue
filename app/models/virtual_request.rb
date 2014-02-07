@@ -11,6 +11,7 @@ class VirtualRequest < ActiveRecord::Base
   validates_presence_of :art, unless: :art_website?, message: "url or art file must be provided"
   validates_presence_of :quote, if: :need_quote?, message: "must be provided"
   validates_uniqueness_of :quote, if: :need_quote?
+  validates_length_of :quote, maximum: 10, if: :need_quote?
 
   belongs_to :creative_user
   belongs_to :artist, class_name: CreativeUser
@@ -76,7 +77,7 @@ class VirtualRequest < ActiveRecord::Base
 
   def auto_assign_jb!
     if self.artist_id.nil?
-      users = CreativeUser.in_queue?.collect {|p| [ p.id, p.virtual_totals ] } 
+      users = CreativeUser.in_queue.collect {|p| [ p.id, p.virtual_totals ] } 
       self.creative_user_id = users.sort { |a,b| a[1] <=> b[1] }.first[0]
     end
   end

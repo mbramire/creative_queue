@@ -72,6 +72,10 @@ class CreativeUser < ActiveRecord::Base
     CreativeUser.where(in_queue: true, sales: true) 
   end
 
+  def self.in_queue
+    CreativeUser.where(in_queue: true)
+  end
+
   def requests_with(artist)
     self.virtual_requests.find_all { |a| a.artist_id == artist.id }
   end
@@ -89,15 +93,13 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def vr_assigned
-    VirtualRequest.where(artist_id: self.id, completed: false)
-  end
-
-  def vr_processed
-    VirtualRequest.where(artist_id: self.id, completed: false, processed: true)
+    ready = VirtualRequest.where(artist_id: self.id, completed: false, processed: true)
+    need_quote = VirtualRequest.where(creative_user_id: self.id, completed: false, quote: nil)
+    ready + need_quote
   end
 
   def vr_processing
-    VirtualRequest.where(artist_id: self.id, processed: false)
+    VirtualRequest.where(artist_id: self.id, processed: false).where("quote > ?", 0)
   end
 
   def vr_completed
@@ -117,15 +119,14 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def requests_assigned
-    VirtualRequest.where(creative_user_id: self.id, completed: false)
-  end
-
-  def requests_processed
-    VirtualRequest.where(creative_user_id: self.id, completed: false, processed: true)
+    assigned = VirtualRequest.where(creative_user_id: self.id, completed: false)
+    need_quote = assigned.where(quote: nil)
+    ready = assigned.where(processed: true)
+    ready + need_quote
   end
 
   def requests_processing
-    VirtualRequest.where(creative_user_id: self.id, processed: false)
+    VirtualRequest.where(creative_user_id: self.id, processed: false).where("quote > ?", 0)
   end
 
   def requests_completed
@@ -138,6 +139,12 @@ class CreativeUser < ActiveRecord::Base
 
   def requests_ordered
     VirtualRequest.where(artist_id: self.id, ordered: true) 
+  end
+
+  def virtual_totals
+    art = VirtualRequest.where(artist_id: self.id, completed: false).count
+    sales = VirtualRequest.where(creative_user_id: self.id, completed: false).count
+    art + sales
   end
 
   def name_vrs

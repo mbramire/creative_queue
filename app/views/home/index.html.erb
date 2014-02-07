@@ -1,62 +1,23 @@
 <% if current_user %>
-  <% if current_user.artist %>
-    <div class="row">
-      <h1 class="tbl-header margin-right-large">Virtual Queue (<%= current_user.vr_processed.count %>)</h1>
-      <ul class="tabs">
-        <li class="pull-left margin-right-large tab-on" data-table="pending-table-art">ready</li>
-        <li class="pull-left margin-right-large" data-table="processing-table-art">processing</li>
-        <li class="pull-left" data-table="completed-table-art">recently completed</li>
-      </ul>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.vr_processed, :show_requested => true, :elem_class => "pending-table-art" } %>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.vr_processing, :show_requested => true, :elem_class => "processing-table-art hide" } %>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.vr_completed.limit(30), :elem_class => "completed-table-art hide", :show_requested => true } %>
-      <%= link_to "Add to Virtual Queue", artist_new_virtual_requests_path, class: "new-btn" %>
-    </div>
+  <% if current_user.sales && current_user.artist %>
+    <%= render 'artist_queue' %>
+    <%= render 'sales_queue' %>
+    <%= render "statistics/artist_stats_table", artists: current_user, single_user: true %>
+    <%= render "statistics/request_stats_table", sales: current_user, single_user: true %>
+  <% elsif current_user.artist %>
+    <%= render 'artist_queue' %>
+    <%= render "statistics/artist_stats_table", artists: current_user, single_user: true %>
+  <% elsif current_user.sales %>
+    <%= render 'sales_queue' %>
+    <%= render "statistics/request_stats_table", sales: current_user, single_user: true %>
   <% end %>
 
-  <% if current_user.sales %>
-    <div class="row">
-      <h1 class="tbl-header margin-right-large">Quoted (<%= current_user.requests_processed.count %>)</h1>
-      <ul class="tabs">
-        <li class="pull-left margin-right-large tab-on" data-table="pending-table-sales">ready</li>
-        <li class="pull-left margin-right-large" data-table="processing-table-sales">processing</li>
-        <li class="pull-left" data-table="completed-table-sales">recently completed</li>
-      </ul>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_processed, :show_artists => true, :elem_class => "pending-table-sales" } %>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_processing, :show_artists => true, :elem_class => "processing-table-sales hide" } %>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_completed, :show_artists => true, :elem_class => "completed-table-sales hide" } %>
-      <%= link_to "Add to Sales Queue", new_virtual_request_path, class: "new-btn" %>
-    </div>
-  <% end %>
-
-  <% if current_user.requests_needing_quote.count > 0 %>
-    <div class="row">
+  <%# if current_user.requests_needing_quote.count > 0 %>
+    <!-- <div class="row">
       <h1 class="tbl-header margin-right-large">Need Quote (<%= current_user.requests_needing_quote.count %>)</h1>
-      <%= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_needing_quote, :show_artists => true, need_quote: true } %>
-    </div>
-  <% end %>
-
-  <% if current_user.artist %>
-    <div class="row">
-      <div class="red-box">
-        <h1 class="tbl-header reverse">My Virtuals</h1>
-        <table class="reverse-tbl align-center">
-          <%= render "statistics/artist_stats_table", artists: current_user, single_user: true %>
-        </table>
-      </div>
-    </div>
-  <% end %>
-
-  <% if current_user.sales %>
-    <div class="row">
-      <div class="red-box-dark">
-        <h1 class="tbl-header reverse">My Requests</h1>
-        <table class="reverse-tbl align-center">
-          <%= render "statistics/request_stats_table", sales: current_user, single_user: true %>
-        </table>
-      </div>
-    </div>
-  <% end %>
+      <%#= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_needing_quote, :show_artists => true, need_quote: true } %>
+    </div> -->
+  <%# end %>
 
 <% else %>
   <div class="row">

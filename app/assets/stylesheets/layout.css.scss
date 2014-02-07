@@ -61,6 +61,11 @@ body {
   background: lighten($maroon, 10%);
 }
 
+.red-box-darkest {
+  @extend .white-box;
+  background: $maroon;
+}
+
 .border-right {
   border-right: 1px solid $maroon;
 }

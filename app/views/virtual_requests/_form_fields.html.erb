@@ -28,8 +28,9 @@
 <h2>Artwork</h2>
 <div class="row pad-top pad-bottom-large">
   <div class="four-col">
-    <%= f.label :art, "Select Art File" %>
+    <%= f.label :art, "Select/Replace Art File" %>
     <%= f.file_field :art %>
+    <%#= link_to "Download Art", @virtual_request.art.url, class: "button" if @virtual_request.art.present? %>
   </div>
   <div class="four-col">
     <%= f.label :art_website, "url for artwork" %>

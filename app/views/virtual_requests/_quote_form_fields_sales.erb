@@ -15,17 +15,21 @@
       %>
     <%#= f.select :creative_user_id, quote_options, include_blank: true %> 
   </div> -->
-  <div class="four-col">
-    <%= f.label :artist_id, "Artist" %><br>
-    <% 
-      options = CreativeUser.artist_in_queue.collect {|p| [ p.name_requests, p.id ] } 
-      options.unshift ["auto-assign", 0]
-    %>
-    <% if options[1].nil? %>
-      No artists available
-    <% else %>
-      <%= f.select :artist_id, options, include_blank: true %> 
-    <% end %>
-  </div>
+  <% if current_user.sales %>
+    <div class="four-col">
+      <%= f.label :artist_id, "Artist" %><br>
+      <% 
+        options = CreativeUser.artist_in_queue.collect {|p| [ p.name_requests, p.id ] } 
+        options.unshift ["auto-assign", 0]
+      %>
+      <% if options[1].nil? %>
+        No artists available
+      <% else %>
+        <%= f.select :artist_id, options, include_blank: true %> 
+      <% end %>
+    </div>
+  <% else %>
+    <%= f.hidden_field :artist_id, value: current_user.id %> 
+  <% end %>
 </div>
 <%= f.hidden_field :creative_user_id, value: current_user.id %>

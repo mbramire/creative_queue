@@ -1,48 +1,54 @@
 <% single_user ||= false %>
-
-<thead>
-  <tr>
-    <th class="align-left">Requests By</th>
-    <th>Queued</th>
-    <th>Completed <%= Time.new.strftime("%B") %></th>
-    <th>Converted <%= Time.new.strftime("%B") %></th>
-    <% unless single_user %>
-      <th>Completed total</th>
-      <th>Converted total</th>
-    <% end %>
-  </tr>
-</thead>
-<tbody>
-  <% if single_user %>
-
-    <tr>
-      <td class="avatar-td align-left">
-        <%= image_tag sales.avatar_image, class: "small-avatar" %>
-        <%= link_to sales.short_name, creative_user_path(sales) %>
-      </td>
-      <td><%= sales.requests_assigned.count %></td>
-      <td><%= sales.requests_current_month.count %></td>
-      <td><%= sales.requests_ordered_current_month.count %></td>
-    </tr>
-  
-  <% else %>
-
-    <% sales.each do |s| %>
-      <tr>
-        <td class="avatar-td align-left">
-          <%= image_tag s.avatar_image, class: "small-avatar" %>
-          <%= link_to s.short_name, creative_user_path(s) %>
-          <% unless s.in_queue %>
-            <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
+<div class="row">
+  <div class="red-box-dark">
+    <h1 class="tbl-header reverse">My Requests</h1>
+    <table class="reverse-tbl align-center">
+      <thead>
+        <tr>
+          <th class="align-left">Requests By</th>
+          <th>Queued</th>
+          <th>Completed <%= Time.new.strftime("%B") %></th>
+          <th>Converted <%= Time.new.strftime("%B") %></th>
+          <% unless single_user %>
+            <th>Completed total</th>
+            <th>Converted total</th>
           <% end %>
-        </td>
-        <td><%= s.requests_assigned.count %></td>
-        <td><%= s.requests_current_month.count %></td>
-        <td><%= s.requests_ordered_current_month.count %></td>
-        <td><%= s.requests_completed.count %></td>
-        <td><%= s.requests_ordered.count %></td>
-      </tr>
-    <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% if single_user %>
 
-  <% end %>
-</tbody>
+          <tr>
+            <td class="avatar-td align-left">
+              <%= image_tag sales.avatar_image, class: "small-avatar" %>
+              <%= link_to sales.short_name, creative_user_path(sales) %>
+            </td>
+            <td><%= sales.requests_assigned.count %></td>
+            <td><%= sales.requests_current_month.count %></td>
+            <td><%= sales.requests_ordered_current_month.count %></td>
+          </tr>
+        
+        <% else %>
+
+          <% sales.each do |s| %>
+            <tr>
+              <td class="avatar-td align-left">
+                <%= image_tag s.avatar_image, class: "small-avatar" %>
+                <%= link_to s.short_name, creative_user_path(s) %>
+                <% unless s.in_queue %>
+                  <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
+                <% end %>
+              </td>
+              <td><%= s.requests_assigned.count %></td>
+              <td><%= s.requests_current_month.count %></td>
+              <td><%= s.requests_ordered_current_month.count %></td>
+              <td><%= s.requests_completed.count %></td>
+              <td><%= s.requests_ordered.count %></td>
+            </tr>
+          <% end %>
+
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

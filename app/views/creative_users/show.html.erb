@@ -36,24 +36,18 @@
 
   </div>
 </div>
-<% if current_user.artist %>
-    <div class="row">
-      <div class="red-box">
-        <h1 class="tbl-header reverse">Virtuals</h1>
-        <table class="reverse-tbl align-center">
-          <%= render "statistics/artist_stats_table", artists: @user, single_user: true %>
-        </table>
-      </div>
-    </div>
-  <% end %>
+<% if @user.artist %>
+  <%= render "statistics/artist_stats_table", artists: @user, single_user: true, show_all: true %>
+<% end %>
 
-  <% if current_user.sales %>
-    <div class="row">
-      <div class="red-box-dark">
-        <h1 class="tbl-header reverse">Requests</h1>
-        <table class="reverse-tbl align-center">
-          <%= render "statistics/request_stats_table", sales: @user, single_user: true%>
-        </table>
-      </div>
-    </div>
-  <% end %>
+<% if @user.sales %>
+  <%= render "statistics/request_stats_table", sales: @user, single_user: true, show_all: true%>
+<% end %>
+<% if @user.sales && @user.artist %>
+  <%= render 'home/artist_queue', user_page: true, user: @user %>
+  <%= render 'home/sales_queue', user_page: true, user: @user %>
+<% elsif @user.artist %>
+  <%= render 'home/artist_queue', user_page: true, user: @user %>
+<% elsif @user.sales %>
+  <%= render 'home/sales_queue', user_page: true, user: @user %>
+<% end %>
