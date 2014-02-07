@@ -1,0 +1,30 @@
+<h2 class="pad-top-large">Quote & Artist Information</h2>
+<div class="row pad-top pad-bottom-large">
+  <div id="quote-field" class="four-col">
+    <%= f.label :quote, "Quote No." %>
+    <%= f.text_field :quote %>
+  </div>
+  <div id="sales-select" class="four-col">
+    <%= f.label :creative_user_id, "Sales" %><br>
+      <% 
+        quote_options = CreativeUser.sales_in_queue.collect {|p| [ p.name_vrs, p.id ] } 
+        quote_options.unshift ["auto-assign", 0]
+        unless current_user.sales
+          quote_options.unshift [current_user.name, current_user.id]
+        end
+      %>
+    <%= f.select :creative_user_id, quote_options, include_blank: true %> 
+  </div>
+  <div class="four-col">
+    <%= f.label :artist_id, "Artist" %><br>
+    <% 
+      options = CreativeUser.artist_in_queue.collect {|p| [ p.name_requests, p.id ] } 
+      options.unshift ["auto-assign", 0]
+    %>
+    <% if options[1].nil? %>
+      No artists available
+    <% else %>
+      <%= f.select :artist_id, options, include_blank: true %> 
+    <% end %>
+  </div>
+</div>
