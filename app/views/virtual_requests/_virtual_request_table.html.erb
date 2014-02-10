@@ -25,7 +25,7 @@
       <% virtuals.each do |v| %>
         <tr>
           <% if completed %>
-            <td><%= v.completed_date_human %></td>
+            <td><%#= v.completed_date_human %></td>
           <% else %>
             <td><%= v.due_date_human %></td>
           <% end %>
