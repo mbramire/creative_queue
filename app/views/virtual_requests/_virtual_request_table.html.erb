@@ -1,12 +1,17 @@
 <% 
-  elem_class      ||= ""
-  need_quote      ||= false
+  elem_class  ||= ""
+  need_quote  ||= false
+  completed   ||= false
 %>
 
 <table class="<%= elem_class %> virtual-tbl">
   <thead>
     <tr>
-      <th>Due</th>
+      <% if completed %>
+        <th>Completed</th>
+      <% else %>
+        <th>Due</th>
+      <% end %>
       <th>End Client</th>
       <th>Quote No.</th>
       <th>Requested By</th>
@@ -19,7 +24,11 @@
     <% unless virtuals.empty? %>
       <% virtuals.each do |v| %>
         <tr>
-          <td><%= v.due_date_human %></td>
+          <% if completed %>
+            <td><%= v.completed_date_human %></td>
+          <% else %>
+            <td><%= v.due_date_human %></td>
+          <% end %>
           <% if need_quote %>
             <td>
               <%= link_to v.end_client, add_quote_virtual_request_path(v) %> 
@@ -38,7 +47,7 @@
               <% end %>
             </td>
           <% end %>
-          <% if v.updated_at < (Time.now - 1.day) && !v.processed %>
+          <% if v.updated_at < (Time.now - 1.day) && !v.processed && v.quote.present? %>
             <td colspan="3"><em class='alert-text'>Unable to find quote <%= v.quote %> please check quote in covalent or process manually</em></td>
           <% else %> 
             <td><%= v.quote ? v.quote : "<em class='alert-text'>Quote Needed</em>".html_safe %></td>

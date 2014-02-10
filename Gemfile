@@ -56,6 +56,7 @@ gem 'fog', '~> 1.3.1'
 gem "business_time"
 #finds active record by date
 gem 'by_star', :git => "git://github.com/radar/by_star"
+gem 'devise'
 
 # gem 'journalbooks_core', path: "/Users/Matts/projects/"
 

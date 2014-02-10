@@ -6,11 +6,7 @@ class VirtualRequestsController < ApplicationController
   end
 
   def index 
-    ready = VirtualRequest.where(completed: false, processed: true)
-    quote_needed = VirtualRequest.where(quote: nil)
-    @virtuals = ready + quote_needed
-    @virtuals_completed = VirtualRequest.all.where(completed: true)
-    @virtuals_processing = VirtualRequest.where(processed: false).where("quote > ?", 0)
+    @virtual_requests = VirtualRequest.search(params)
   end
 
   def new 
@@ -59,7 +55,11 @@ class VirtualRequestsController < ApplicationController
       @virtual_request.apply_user
       
       flash[:success] = "Virtual request updated"
-      redirect_to virtual_request_path(@virtual_request)
+      if @virtual_request.processed
+        redirect_to virtual_request_path(@virtual_request)
+      else 
+        redirect_to root_path
+      end
     else
       render 'edit'
     end

@@ -18,7 +18,7 @@ class CreativeUsersController < ApplicationController
   def edit
     @user = CreativeUser.find(params[:id])
     unless current_user.admin || current_user == @user
-      flash[:error] = "Requires admin privledges."
+      flash[:error] = "Requires admin privileges."
       redirect_to root_path
     end
   end

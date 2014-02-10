@@ -13,7 +13,11 @@
           quote_options.unshift [current_user.name, current_user.id]
         end
       %>
-    <%= f.select :creative_user_id, quote_options, include_blank: true %> 
+    <% if quote_options[1].nil? %>
+      No artists available
+    <% else %>
+      <%= f.select :creative_user_id, quote_options, include_blank: true %>
+    <% end %> 
   </div>
   <div class="four-col">
     <%= f.label :artist_id, "Artist" %><br>

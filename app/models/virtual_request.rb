@@ -29,6 +29,12 @@ class VirtualRequest < ActiveRecord::Base
 
   attr_accessor  :unformatted_date
 
+  def self.search(params)
+    query = {}
+    query[:end_client] = params[:end_client] unless params[:end_client].blank?
+    VirtualRequest.where(query)
+  end
+
   def requested_by
     self.creative_user_id.present? ? self.creative_user.name : self.contact_name
   end
@@ -48,11 +54,15 @@ class VirtualRequest < ActiveRecord::Base
   def due_date_human
     return '' unless self.due_date.present?
     date = self.due_date.strftime("%m/%d/%y")
-    if due_date < 4.business_days.from_now && !self.completed
+    if self.due_date < 4.business_days.from_now && !self.completed
       "<em class='alert-text'>#{date}</em>".html_safe
     else 
       date
     end
+  end
+
+  def completed_date_human
+    self.virtuals.last.sent.strftime("%m/%d/%y")
   end
 
   def apply_user

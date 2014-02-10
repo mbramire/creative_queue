@@ -2,7 +2,7 @@
   due_date = if @virtual_request.nil? 
     "ff"
   else
-    @virtual_request.due_date.try(:strftime, "%m/%d/%y")
+    @virtual_request.due_date.try(:strftime, "%m/%d/%Y")
   end
   comments ||= false
 %>

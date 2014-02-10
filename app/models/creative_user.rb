@@ -97,13 +97,9 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def vr_assigned
-    ready = VirtualRequest.where(artist_id: self.id, completed: false, processed: true)
+    ready = VirtualRequest.where(artist_id: self.id, completed: false)
     need_quote = VirtualRequest.where(creative_user_id: self.id, completed: false, quote: nil)
     ready + need_quote
-  end
-
-  def vr_processing
-    VirtualRequest.where(artist_id: self.id, processed: false).where("quote > ?", 0)
   end
 
   def vr_completed
@@ -124,13 +120,6 @@ class CreativeUser < ActiveRecord::Base
 
   def requests_quoted
     quoted = VirtualRequest.where(creative_user_id: self.id, completed: false)
-    need_quote = quoted.where(quote: nil)
-    ready = quoted.where(processed: true)
-    ready + need_quote
-  end
-
-  def requests_processing
-    VirtualRequest.where(creative_user_id: self.id, processed: false).where("quote > ?", 0)
   end
 
   def requests_completed
@@ -146,8 +135,10 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def queued_requests
-    all = self.vr_assigned + self.requests_quoted + self.vr_processing + self.requests_processing
-    all.uniq { |v| v[:id] }
+    all = self.vr_assigned + self.requests_quoted
+    unduped = all.uniq { |v| v[:id] }
+    unduped.sort_by &:due_date
+    #sort by due_date
   end
 
   def virtual_totals
