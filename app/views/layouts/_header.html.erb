@@ -31,7 +31,7 @@
           <li class="<%= @nav[0] == 'home' ? "selected" : "" %>">my queue</li>
         <% end %>
         <%= link_to virtual_requests_path do %>
-          <li class="<%= @nav[0] == 'virtuals' ? "selected" : "" %>">search</li>
+          <li class="<%= @nav[0] == 'search' ? "selected" : "" %>">search</li>
         <% end %>
         <%= link_to statistics_path do %>
           <li class="<%= @nav[0] == 'statistics' ? "selected" : "" %>">stats</li>

@@ -34,23 +34,15 @@ class VirtualRequest < ActiveRecord::Base
 
     params[:search].each do |s|
       if s[1].is_a? Hash
-        value = s[1].values unless s[1].values.blank? || s[1].values == "no"
-        query[s[0]] = true if s[1].values == "yes"
+        if s[1]["options"] == "yes"
+          query[s[0]] = true
+        else
+          query[s[0]] = s[1]["options"] unless s[1]["options"].blank? || s[1]["options"] == "no"
+        end
       else
-        query[s[0]] = s[1] unless value.blank?
+        query[s[0]] = s[1] unless s[1].blank?
       end
     end
-    
-    # query[:end_client] = params[:search][:end_client] unless params[:search][:end_client].blank?
-    # query[:company] = params[:search][:company] unless params[:search][:company].blank?
-    # query[:quote] = params[:search][:quote] unless params[:search][:quote].blank?
-    # query[:contact_name] = params[:search][:contact] unless params[:search][:contact].blank?
-    # query[:artist_id] = params[:search][:artist][:options] unless params[:search][:artist][:options] == ""
-    # query[:creative_sales_id] = params[:search][:sales][:options] unless params[:search][:sales][:options] == ""
-    # query[:ordered] = params[:search][:ordered][:options] unless params[:search][:sales][:options] == ""
-    # query[:completed] = params[:search][:completed][:options] unless params[:search][:sales][:options] == ""
-
-
     VirtualRequest.where(query)
   end
 

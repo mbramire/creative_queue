@@ -75,6 +75,6 @@ class VirtualsController < ApplicationController
     end
 
     def setup_nav_array
-      @nav = ['virtuals']
+      @nav = ['home']
     end
 end

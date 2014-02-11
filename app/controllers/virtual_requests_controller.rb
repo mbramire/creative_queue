@@ -120,6 +120,6 @@ class VirtualRequestsController < ApplicationController
     end
 
     def setup_nav_array
-      @nav = ['virtuals']
+      @nav = params[:action] == "index" ? ['search'] : ['home']
     end
 end

@@ -8,7 +8,7 @@ class CreativeUsersController < ApplicationController
   end
   
   def new
-    @user = CreativeUser.new
+    @user = CreativeUser.new(in_queue: true)
   end
 
   def show

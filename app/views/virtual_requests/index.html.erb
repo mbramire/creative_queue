@@ -2,12 +2,12 @@
   unless params[:search].nil?
     orders_checked = params[:search][:ordered][:options] == "no" ? "false" : "checked"
     completed_checked = params[:search][:completed][:options] == "no" ? "false" : "checked"
-    artist_selected = params[:search][:artist][:options]
-    sales_selected = params[:search][:sales][:options]
+    artist_selected = params[:search][:artist_id][:options]
+    sales_selected = params[:search][:creative_user_id][:options]
     quote = params[:search][:quote]
     end_client = params[:search][:end_client]
     company = params[:search][:company]
-    contact = params[:search][:contact]
+    contact = params[:search][:contact_name]
   end 
 
   artist_options = CreativeUser.where(artist: true).collect {|p| [ p.name, p.id ] } 
@@ -32,18 +32,18 @@
           <%= text_field_tag "search[company]", company %>
         </div>
         <div class="four-col">
-          <%= label "search[contact]", "Requested by"  %>
-          <%= text_field_tag "search[contact]", contact %>
+          <%= label "search[contact_name]", "Requested by"  %>
+          <%= text_field_tag "search[contact_name]", contact %>
         </div>
       </div>
       <div class="row pad-bottom">
         <div class="four-col">
-          <%= label "search[artist]", "Artist" %>
-          <%= select "search[artist]", :options, artist_options, {include_blank: true, selected: artist_selected} %>
+          <%= label "search[artist_id]", "Artist" %>
+          <%= select "search[artist_id]", :options, artist_options, {include_blank: true, selected: artist_selected} %>
         </div>
         <div class="four-col">
-          <%= label "search[sales]", "Sales" %>
-          <%= select "search[sales]", :options, sales_options, {include_blank: true, selected: sales_selected} %>
+          <%= label "search[creative_user_id]", "Sales" %>
+          <%= select "search[creative_user_id]", :options, sales_options, {include_blank: true, selected: sales_selected} %>
         </div>
         <div class="four-col">
           <%= label "search[ordered]", "Only Ordered Virtuals" %>
@@ -61,7 +61,6 @@
     <% end %>
   </div>
 </div>
-<%= params %>
 <% if params[:search].present? %>
   <div class="row">
     <h1>Results</h1>

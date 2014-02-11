@@ -7,9 +7,7 @@ class CreativeUser < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }, :unless => :password_not_needed?
-  validates :phone_number,  presence: true, 
-                            length: { maximum: 10, minimum: 10 }, 
-                            :numericality => {:only_integer => true}
+  validates :phone_number,  presence: true
   
   has_secure_password
 
@@ -42,10 +40,6 @@ class CreativeUser < ActiveRecord::Base
     first = new_name[0]
     last = new_name[1][0] + "." unless new_name[1].nil?
     "#{first} #{last}"
-  end
-
-  def filter_phone_number
-    new_num = self.phone_number.insert(3, ".").insert(7, ".")
   end
   
   def owns?(virtual, admin=true)
