@@ -1,9 +1,13 @@
 <% 
-  unless params[:quote].nil?
-    orders_checked = params[:ordered][:options] == "no" ? "false" : "checked"
-    completed_checked = params[:completed][:options] == "no" ? "false" : "checked"
-    artist_selected = params[:artist][:options]
-    sales_selected = params[:sales][:options]
+  unless params[:search].nil?
+    orders_checked = params[:search][:ordered][:options] == "no" ? "false" : "checked"
+    completed_checked = params[:search][:completed][:options] == "no" ? "false" : "checked"
+    artist_selected = params[:search][:artist][:options]
+    sales_selected = params[:search][:sales][:options]
+    quote = params[:search][:quote]
+    end_client = params[:search][:end_client]
+    company = params[:search][:company]
+    contact = params[:search][:contact]
   end 
 
   artist_options = CreativeUser.where(artist: true).collect {|p| [ p.name, p.id ] } 
@@ -16,46 +20,51 @@
     <%= form_tag virtual_requests_path, method: :get do %>
       <div class="row pad-top pad-bottom">
         <div class="four-col">
-          <%= label :quote, "Virtual/Quote No."  %>
-          <%= text_field_tag :quote, params[:quote] %>
+          <%= label "search[quote]", "Virtual/Quote No."  %>
+          <%= text_field_tag "search[quote]", quote %>
         </div>
         <div class="four-col">
-          <%= label :end_client, "End Client" %>
-          <%= text_field_tag :end_client, params[:end_client] %>
+          <%= label "search[end_client]", "End Client" %>
+          <%= text_field_tag "search[end_client]", end_client %>
         </div>
         <div class="four-col">
-          <%= label :company, "Company"  %>
-          <%= text_field_tag :company, params[:company] %>
+          <%= label "search[company]", "Company"  %>
+          <%= text_field_tag "search[company]", company %>
         </div>
         <div class="four-col">
-          <%= label :contact, "Requested by"  %>
-          <%= text_field_tag :contact, params[:contact] %>
+          <%= label "search[contact]", "Requested by"  %>
+          <%= text_field_tag "search[contact]", contact %>
         </div>
       </div>
       <div class="row pad-bottom">
         <div class="four-col">
-          <%= label :artist, "Artist" %>
-          <%= select :artist, :options, artist_options, {include_blank: true, selected: artist_selected} %>
+          <%= label "search[artist]", "Artist" %>
+          <%= select "search[artist]", :options, artist_options, {include_blank: true, selected: artist_selected} %>
         </div>
         <div class="four-col">
-          <%= label :sales, "Sales" %>
-          <%= select :sales, :options, sales_options, {include_blank: true, selected: sales_selected} %>
+          <%= label "search[sales]", "Sales" %>
+          <%= select "search[sales]", :options, sales_options, {include_blank: true, selected: sales_selected} %>
         </div>
         <div class="four-col">
-          <%= label :ordered, "Only Ordered Virtuals" %>
-          <%= check_box :ordered, :options, { checked: orders_checked }, "yes", "no" %>
+          <%= label "search[ordered]", "Only Ordered Virtuals" %>
+          <%= check_box "search[ordered]", :options, { checked: orders_checked }, "yes", "no" %>
         </div>
         <div class="four-col">
-          <%= label :completed, "Only Completed Virtuals" %>
-          <%= check_box :completed, :options, { checked: completed_checked }, "yes", "no" %>
+          <%= label "search[completed]", "Only Completed Virtuals" %>
+          <%= check_box "search[completed]", :options, { checked: completed_checked }, "yes", "no" %>
         </div>
       </div>
       <%= submit_tag "Search", class: "button margin-right" %>
+      <% if params[:search].present? %>
+        <%= link_to "New Search", virtual_requests_path, class: "button margin-right" %>
+      <% end %>
     <% end %>
   </div>
 </div>
-
-<div class="row">
-  <h1>Results</h1>
-  <%= render 'virtual_request_table', virtuals: @virtual_requests %>
-</div>
+<%= params %>
+<% if params[:search].present? %>
+  <div class="row">
+    <h1>Results</h1>
+    <%= render 'virtual_request_table', virtuals: @virtual_requests, search: true %>
+  </div>
+<% end %>

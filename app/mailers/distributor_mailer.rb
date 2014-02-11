@@ -8,6 +8,6 @@ class DistributorMailer < ActionMailer::Base
     @sender = sender
     mail( to: @recipients, 
           from: "#{@sender.name} <#{@sender.email}>",
-          subject: "Your virtual no.#{@virtual.id} for #{@request.company} is ready")
+          subject: "Your virtual no.#{@virtual.quote} for #{@request.end_client} is ready")
   end
 end

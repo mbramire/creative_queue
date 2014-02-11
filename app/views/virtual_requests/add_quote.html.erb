@@ -6,7 +6,11 @@
       <%= render 'quote_fields', f: f %>
       <%= render "form_fields", f: f %>
       <%= f.submit "Add Quote", class: "save-btn margin-right" %>
-      <%= link_to "Go Back", root_path, class: "prev-btn" %>
+      <%= link_to "Go Back", root_path, class: "prev-btn margin-right" %>
+      <%= link_to "Delete Request", virtual_request_path(@virtual_request), 
+        method: :delete, 
+        data: { confirm: "Are you sure you want to delete #{@virtual_request.company}?" },
+        class: "delete-btn" %>
     </div>
   </div>
 <% end %>

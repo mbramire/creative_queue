@@ -2,6 +2,7 @@
   elem_class  ||= ""
   need_quote  ||= false
   completed   ||= false
+  search      ||= false
 %>
 
 <table class="<%= elem_class %> virtual-tbl">
@@ -29,24 +30,18 @@
           <% else %>
             <td><%= v.due_date_human %></td>
           <% end %>
-          <% if need_quote %>
-            <td>
-              <%= link_to v.end_client, add_quote_virtual_request_path(v) %> 
-            </td>
-          <% else %>
-            <td>
-              <% if v.quote.nil? %>
-                <%= link_to v.end_client, add_quote_virtual_request_path(v) %>
-              <% elsif v.processed %>
-                <%= link_to v.end_client, virtual_request_path(v) %>
-                <% unless v.virtuals.empty? %>
-                  (<%= v.virtuals.count %>)
-                <% end %>
-              <% else %>
-                <%= link_to "#{v.end_client} (processing)", edit_virtual_request_path(v) %> 
+          <td>
+            <% if v.quote.nil? %>
+              <%= link_to v.end_client, add_quote_virtual_request_path(v) %>
+            <% elsif v.processed %>
+              <%= link_to v.end_client, virtual_request_path(v) %>
+              <% unless v.virtuals.empty? %>
+                (<%= v.virtuals.count %>)
               <% end %>
-            </td>
-          <% end %>
+            <% else %>
+              <%= link_to "#{v.end_client} (processing)", edit_virtual_request_path(v) %> 
+            <% end %>
+          </td>
           <% if v.updated_at < (Time.now - 1.day) && !v.processed && v.quote.present? %>
             <td colspan="3"><em class='alert-text'>Unable to find quote <%= v.quote %> please check quote in covalent or process manually</em></td>
           <% else %> 
@@ -72,7 +67,11 @@
       <% end %>
     <% else %>
       <tr>
-        <td colspan="8">no requests</td>
+        <% if search %>
+          <td colspan="8">no results</td>
+        <% else %>
+          <td colspan="8">no requests</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -6,17 +6,13 @@ class VirtualRequestsController < ApplicationController
   end
 
   def index 
-    @virtual_requests = VirtualRequest.search(params)
+    @virtual_requests = params[:search].nil? ? "" : VirtualRequest.search(params) 
   end
 
   def new 
     params = { creative_user_id: current_user.id, artist_id: nil }
     params[:artist_id] = current_user.id if current_user.artist
     @virtual_request = VirtualRequest.new(params)
-  end
-
-  def artist_new 
-    @virtual_request = VirtualRequest.new
   end
 
   def show
@@ -67,6 +63,7 @@ class VirtualRequestsController < ApplicationController
 
   def create
     @virtual_request = VirtualRequest.new(virtual_params)
+    @virtual_request.need_quote if @virtual_request.creative_user_id == current_user.id
     add_validations
     @virtual_request.apply_user
     @virtual_request.auto_assign!
@@ -76,22 +73,6 @@ class VirtualRequestsController < ApplicationController
       redirect_to root_path
     else
       render 'new'
-    end
-  end
-
-  def artist_create
-    @virtual_request = VirtualRequest.new(virtual_params)
-    @virtual_request.need_due_date
-    @virtual_request.cq_form
-    @virtual_request.apply_user
-    @virtual_request.auto_assign!
-    @virtual_request.need_quote
-    
-    if @virtual_request.save
-      flash[:success] = "Virtual has been created and is being processed"
-      redirect_to root_path
-    else
-      render 'artist_new'
     end
   end
 
@@ -127,7 +108,7 @@ class VirtualRequestsController < ApplicationController
   end
 
   def add_validations
-    @virtual_request.need_quote
+    @virtual_request.need_quote if @virtual_request.creative_user_id == current_user.id
     @virtual_request.need_due_date
     @virtual_request.cq_form
   end

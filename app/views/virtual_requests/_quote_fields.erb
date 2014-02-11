@@ -5,16 +5,13 @@
     <%= f.text_field :quote %>
   </div>
   <div id="sales-select" class="four-col">
-    <%= f.label :creative_user_id, "Sales" %><br>
+    <%= f.label :creative_user_id, "Quote" %><br>
       <% 
-        quote_options = CreativeUser.sales_in_queue.collect {|p| [ p.name_vrs, p.id ] } 
+        quote_options = CreativeUser.in_queue.collect {|p| [ p.name_vrs, p.id ] } 
         quote_options.unshift ["auto-assign", 0]
-        unless current_user.sales
-          quote_options.unshift [current_user.name, current_user.id]
-        end
       %>
     <% if quote_options[1].nil? %>
-      No artists available
+      None available
     <% else %>
       <%= f.select :creative_user_id, quote_options, include_blank: true %>
     <% end %> 
@@ -26,7 +23,7 @@
       options.unshift ["auto-assign", 0]
     %>
     <% if options[1].nil? %>
-      No artists available
+      None available
     <% else %>
       <%= f.select :artist_id, options, include_blank: true %> 
     <% end %>
