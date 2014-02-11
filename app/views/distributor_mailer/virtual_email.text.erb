@@ -1,1 +1,19 @@
-Plain text
+Your virtual request #<%= @request.quote %> version <%= @virtual.version %> is ready.
+
+<% if @virtual.artist_comments.blank? %>
+Attached are the virtuals you requested. Please let me know if you have any questions.
+<% else %>
+<%= @virtual.artist_comments %>
+<% end %>
+
+PLEASE NOTE: These proofs are general representations ONLY. All monitors and printers show different colors and are not accurate for viewing foils, printed inserts, or material colors. Virtuals are NOT considered camera-ready art or art department proofs.
+
+Thanks,
+
+<%= @request.artist.name %>
+E: <%= @request.artist.email %>
+P: <%= @request.artist.phone_number %>
+www.journalbooks.com
+
+Problems seeing the attachment? You can access your virtual below as well -
+http://www.creative-queue.com/<%= @virtual.document.url %>
