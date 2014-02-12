@@ -30,20 +30,45 @@ class VirtualRequest < ActiveRecord::Base
   attr_accessor  :unformatted_date
 
   def self.search(params)
-    query = {}
+    query = VirtualRequest.all
 
     params[:search].each do |s|
       if s[1].is_a? Hash
         if s[1]["options"] == "yes"
-          query[s[0]] = true
+          q = {}
+          q[s[0]] = true
+          found = VirtualRequest.where(q)
+          query.merge!(found) unless found.nil?
         else
-          query[s[0]] = s[1]["options"] unless s[1]["options"].blank? || s[1]["options"] == "no"
+          unless s[1]["options"].blank? || s[1]["options"] == "no"
+            q = {}
+            q[s[0]] = s[1]["options"]
+            found = VirtualRequest.where(q)
+            query.merge!(found) unless found.nil?
+          end
         end
       else
-        query[s[0]] = s[1] unless s[1].blank?
+        unless s[1].blank?
+          key = s[0]
+          value = s[1]
+          found = VirtualRequest.where("#{key} LIKE ?", "%#{value}%")
+          query.merge!(found) unless found.nil?
+        end
       end
+
     end
-    VirtualRequest.where(query)
+
+    return query
+    # similar_ec = VirtualRequest.where("end_client LIKE ?", "%#{params[:search][:end_client]}%") unless params[:search][:end_client].blank?
+    # similar_co = VirtualRequest.where("end_client LIKE ?", "%#{params[:search][:end_client]}%") unless params[:search][:end_client].blank?
+    # exact = VirtualRequest.where(query)
+
+    # if similar.nil?
+    #   exact
+    # else
+    #   all = similar + exact
+    #   all.uniq { |v| v[:id] }
+    # end
   end
 
   def requested_by
