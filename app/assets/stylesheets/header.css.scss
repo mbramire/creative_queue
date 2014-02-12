@@ -84,6 +84,35 @@ nav {
   }
 }
 
+.profile-small {
+  display: none;
+
+  div {
+    height: 50px;
+    width: 50px;
+    float: right;
+    overflow: hidden;
+    border-left: 2px solid $orange;
+
+    img {
+      height: 50px;
+    }
+  }
+
+  li {
+    margin-right: 10px;
+    float: right;
+    line-height: 50px;
+    color: white;
+    font-weight: normal;
+  }
+
+  li:first-child {
+    color: $yellow;
+    font-weight: bold;
+  }
+}
+
 .profile-list {
   color: $maroon;
   font-weight: bold;

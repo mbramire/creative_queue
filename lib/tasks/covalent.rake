@@ -39,6 +39,7 @@ namespace :covalent do
               contact_email: vals[7].downcase,
               contact_phone: vals[18],
               comments: comments.to_sentence,
+              asi_number: vals[3],
               processed: true
               )
 

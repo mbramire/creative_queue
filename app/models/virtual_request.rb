@@ -76,6 +76,10 @@ class VirtualRequest < ActiveRecord::Base
     self.virtuals.last.sent.strftime("%m/%d/%y")
   end
 
+  def created_date_human
+    self.created_at.strftime("%m/%d/%y")
+  end
+
   def apply_user
     jb_user = User.where(email: self.contact_email)
     self.user_id = jb_user.first.id unless jb_user.first.nil?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140211204140) do
+ActiveRecord::Schema.define(version: 20140212133733) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",                      null: false
@@ -476,6 +476,7 @@ ActiveRecord::Schema.define(version: 20140211204140) do
     t.datetime "updated_at"
     t.string   "access_token"
     t.string   "status",                                              default: "new"
+    t.decimal  "balance",                    precision: 16, scale: 2
   end
 
   create_table "materials", force: true do |t|
@@ -960,6 +961,7 @@ ActiveRecord::Schema.define(version: 20140211204140) do
     t.integer  "quote"
     t.boolean  "ordered",            default: false
     t.boolean  "processed",          default: false
+    t.integer  "asi_number"
   end
 
   add_index "virtual_requests", ["artist_id"], name: "index_virtual_requests_on_artist_id", using: :btree

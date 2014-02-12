@@ -10,9 +10,12 @@
     <tr>
       <% if completed %>
         <th>Completed</th>
+      <% elsif search %>
+        <th>Created</th>
+        <th>ASI</th>
       <% else %>
         <th>Due</th>
-      <% end %>
+      <% end %>      
       <th>End Client</th>
       <th>Quote No.</th>
       <th>Requested By</th>
@@ -27,6 +30,9 @@
         <tr>
           <% if completed %>
             <td><%= v.completed_date_human %></td>
+          <% elsif search %>
+            <td><%= v.created_date_human %></td>
+            <td><%= v.asi_number %></td>
           <% else %>
             <td><%= v.due_date_human %></td>
           <% end %>

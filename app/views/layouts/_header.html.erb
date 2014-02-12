@@ -17,6 +17,24 @@
         </ul>
       <% end %>
     </section>
+    <section class="profile-small clickable">
+      <div>
+          <%= link_to image_tag(current_user.avatar_image), creative_user_path(current_user) %>
+      </div>
+      <%= link_to creative_user_path(current_user) do %>
+        <ul>
+          <li>Awards(0) Records(0)</li>
+          <li>|</li>
+          <li> <%= current_user.admin ? "Admin" : current_user.title %></li> 
+          <li> 
+            <%= current_user.name %>
+            <% if !current_user.in_queue %>
+              <%= image_tag "icons/asleep.png", class: "asleep-icon", alt: "Not in queue" %>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
+    </section>
   <% end %>
   <nav>
     <%= link_to image_tag('logos/logo-reversed.png'), root_path %>
