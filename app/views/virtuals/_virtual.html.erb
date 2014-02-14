@@ -24,12 +24,11 @@
           <p class="pad-top">
             <em>sent on</em> <%= v.sent_date %></br>
           </p>
-          <%= link_to "Resend", send_out_virtual_request_virtual_path(@virtual_request, v), method: :put, class: "email-btn margin-top margin-right" %>
-          <%= link_to "Delete", virtual_request_virtual_path(@virtual_request, v), method: :delete, data: { confirm: "Are you sure you want to delete this virtual? (this will not delete the request)" }, class: "delete-btn margin-top" %>
+          <%= link_to "Resend", send_out_virtual_request_virtual_path(@virtual_request, v), method: :put, class: "email-btn margin-top margin-right-small" %>
         <% else %>
-          <%= link_to "Edit #{v.version}.0", edit_virtual_request_virtual_path(@virtual_request, v), class: "edit-btn margin-right margin-top" %>
-          <%= link_to "Email", send_out_virtual_request_virtual_path(@virtual_request, v), method: :put, class: "email-btn margin-top" %>
-        <% end %>   
+          <%= link_to "Email", send_out_virtual_request_virtual_path(@virtual_request, v), method: :put, class: "email-btn margin-top margin-right-small" %>
+        <% end %> 
+        <%= link_to "Edit #{v.version}.0", edit_virtual_request_virtual_path(@virtual_request, v), class: "edit-btn margin-top" %>  
       <% end %>         
     </div>
     <div class="two-col pdf-box">

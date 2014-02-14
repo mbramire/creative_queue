@@ -7,8 +7,8 @@
   comments ||= false
 %>
 
-<h2>Virtual Details</h2>
-<div class="row pad-top pad-bottom-large">
+<h2 class="virtual-header">Virtual Details</h2>
+<div class="row pad-top">
   <div class="four-col">
     <%= f.label :end_client %>
     <%= f.text_field :end_client %>
@@ -26,8 +26,7 @@
     <%= f.text_field :budget %>
   </div>
 </div>
-<h2>Artwork</h2>
-<div class="row pad-top pad-bottom-large">
+<div class="row pad-bottom-large">
   <% if comments %>
     <div class="four-col">
       <%= f.label :comments %>

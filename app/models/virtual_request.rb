@@ -1,7 +1,12 @@
 class VirtualRequest < ActiveRecord::Base
-  validates_presence_of :contact_name, if: :jb_form?
-  validates_presence_of :contact_email, if: :jb_form?
-  validates_presence_of :contact_phone, if: :jb_form?
+  validates_presence_of :contact_name, if: :jb_form? || :require_company_info?
+  validates_presence_of :contact_email, if: :jb_form? || :require_company_info?
+  validates_presence_of :contact_phone, if: :jb_form? || :require_company_info?
+  validates_presence_of :contact_name, if: :require_company_info?
+  validates_presence_of :contact_email, if: :require_company_info?
+  validates_presence_of :contact_phone, if: :require_company_info?
+  validates_presence_of :asi_number, if: :require_company_info?
+  validates_presence_of :company, if: :require_company_info?
   validates_presence_of :quantity
   validates_presence_of :budget
   validates_presence_of :end_client
@@ -27,7 +32,7 @@ class VirtualRequest < ActiveRecord::Base
 
   default_scope { order('priority DESC, due_date ASC') }
 
-  attr_accessor  :unformatted_date
+  attr_accessor  :unformatted_date, :process
 
   def self.search(params)
     query = VirtualRequest.all
@@ -59,16 +64,6 @@ class VirtualRequest < ActiveRecord::Base
     end
 
     return query
-    # similar_ec = VirtualRequest.where("end_client LIKE ?", "%#{params[:search][:end_client]}%") unless params[:search][:end_client].blank?
-    # similar_co = VirtualRequest.where("end_client LIKE ?", "%#{params[:search][:end_client]}%") unless params[:search][:end_client].blank?
-    # exact = VirtualRequest.where(query)
-
-    # if similar.nil?
-    #   exact
-    # else
-    #   all = similar + exact
-    #   all.uniq { |v| v[:id] }
-    # end
   end
 
   def requested_by
@@ -166,6 +161,14 @@ class VirtualRequest < ActiveRecord::Base
 
   def jb_form
     @jb_form = true
+  end
+
+  def require_company_info
+    @company_info = true
+  end
+
+  def require_company_info?
+    @company_info
   end
 
   def make_copy(user)

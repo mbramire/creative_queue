@@ -45,11 +45,17 @@ class VirtualRequestsController < ApplicationController
   def update
     @virtual_request = VirtualRequest.find(params[:id])
     add_validations
+    process = params[:commit] == "Save & Process"
+
+    if process
+      @virtual_request.require_company_info
+    end
     
     if @virtual_request.update(virtual_params)
       @virtual_request.auto_assign!
       @virtual_request.apply_user
-      
+      @virtual_request.update_attributes(processed: true) if process
+
       flash[:success] = "Virtual request updated"
       if @virtual_request.processed
         redirect_to virtual_request_path(@virtual_request)

@@ -2,7 +2,7 @@ class VirtualsController < ApplicationController
   before_action :signed_in_user
   before_action :setup_nav_array
   before_action { |c| c.admin_or_current_user params[:virtual_request_id] }
-  before_action :virtual_editable?, only: [:edit, :update]
+  # before_action :virtual_editable?, only: [:edit, :update]
 
   def new 
     @virtual_request = VirtualRequest.find(params[:virtual_request_id])

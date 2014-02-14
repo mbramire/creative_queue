@@ -65,6 +65,11 @@ a {
   background-position: 8px -288px;
 }
 
+.process-btn {
+  @extend .icon-btn;
+  background-position: 8px -320px;
+}
+
 .edit-btn {
   @extend .icon-btn;
   background-position: 8px -128px;

@@ -47,3 +47,31 @@ textarea {
 .extend-field {
   width: 80%;
 }
+
+form {
+
+  h2 {
+  padding-left: 30px;
+  background-image: image-url('icons/form-sprite.png');
+  background-repeat: no-repeat;
+
+    &.quote-header {
+      height: 33px;
+      line-height: 43px;
+      background-position: 0px 10px;  
+    }
+
+    &.company-header {
+      height: 33px;
+      line-height: 43px;
+      background-position: 0px -32px; 
+    }
+
+    &.virtual-header {
+      height: 33px;
+      line-height: 43px;
+      background-position: 0px -72px; 
+    }
+  }
+}
+

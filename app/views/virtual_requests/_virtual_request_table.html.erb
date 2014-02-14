@@ -20,7 +20,7 @@
       <th>Quote No.</th>
       <th>Requested By</th>
       <th>Company</th>
-      <th>Creative</th>
+      <th>Virtual</th>
       <th>Quote</th>
     </tr>
   </thead>
@@ -32,7 +32,7 @@
             <td><%= v.completed_date_human %></td>
           <% elsif search %>
             <td><%= v.created_date_human %></td>
-            <td>asi pending</td>
+            <td><%= v.asi_number unless v.asi_number.nil? %></td>
           <% else %>
             <td><%= v.due_date_human %></td>
           <% end %>
