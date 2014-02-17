@@ -19,11 +19,13 @@
           <% end %>
         </p>
       </p>
+      <% if v.sent.present? %>
+        <p class="pad-top">
+          <em>sent on</em> <%= v.sent_date %></br>
+        </p>
+      <% end %>
       <% if current_user.artist_for?(@virtual_request) %>
         <% if v.sent.present? %>
-          <p class="pad-top">
-            <em>sent on</em> <%= v.sent_date %></br>
-          </p>
           <%= link_to "Resend", send_out_virtual_request_virtual_path(@virtual_request, v), method: :put, class: "email-btn margin-top margin-right-small" %>
         <% else %>
           <%= link_to "Email", send_out_virtual_request_virtual_path(@virtual_request, v), method: :put, class: "email-btn margin-top margin-right-small" %>

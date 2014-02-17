@@ -36,7 +36,7 @@ class Virtual < ActiveRecord::Base
 
   def version_display
     v = self.version - 1
-    "(#{v.ordinalize} revision)" unless v == 0
+    " (#{v.ordinalize} revision)" unless v == 0
   end
 
   private

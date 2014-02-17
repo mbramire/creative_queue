@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h2>Your virtual request #<%= @request.quote %> version <%= @virtual.version %> is ready.</h2>
+    <h2>Your virtual request #<%= @request.quote %><%= @virtual.version_display %> is ready.</h2>
     <p>
       <% if @virtual.artist_comments.blank? %>
         Attached are the virtuals you requested. Please let me know if you have any questions.

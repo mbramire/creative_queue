@@ -73,7 +73,7 @@
         <% elsif current_user.sales && !current_user.artist %>
           <p>No virtuals have been created for this request</p>
         <% else %>
-          <p class="virtual-notice">Move this virtual request to your queue to start working on it.</p>
+          <p class="virtual-notice">Move this virtual request to your queue to create a new virtual.</p>
         <% end %>
         <% @virtual_request.virtuals.each do |v| %>
           <%= render "/virtuals/virtual", v: v %>
