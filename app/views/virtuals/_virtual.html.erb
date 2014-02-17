@@ -1,7 +1,7 @@
 <div class="virtual-box">
   <div class="row">
     <div class="two-col pad-right">
-      <h2><%= @virtual_request.end_client %> - <%= v.version %>.0</h2>  
+      <h2><%= @virtual_request.end_client %> <%= v.version_display %></h2>  
       <em>recipients</em>
       <p class="comments">
         <% rec = v.recipients.split(",") %>

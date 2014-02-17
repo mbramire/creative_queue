@@ -24,12 +24,19 @@ class Virtual < ActiveRecord::Base
 
   mount_uploader :document, DocumentUploader
 
+  default_scope { order('created_at DESC') }
+
   def completed_date
     self.updated_at.strftime("%m/%d/%y")
   end
 
   def sent_date
     self.sent.strftime("%m/%d/%y at %l:%M %P")
+  end
+
+  def version_display
+    v = self.version - 1
+    "(#{v.ordinalize} revision)" unless v == 0
   end
 
   private
