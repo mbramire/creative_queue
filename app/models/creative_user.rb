@@ -132,6 +132,11 @@ class CreativeUser < ActiveRecord::Base
     unduped.sort_by &:due_date
   end
 
+  def recently_completed
+    all = self.requests_completed.limit(30) + self.vr_completed.limit(30)
+    all.uniq { |v| v[:id] }
+  end
+
   def virtual_totals
     art = VirtualRequest.where(artist_id: self.id, completed: false).count
     sales = VirtualRequest.where(creative_user_id: self.id, completed: false).count

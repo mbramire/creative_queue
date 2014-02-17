@@ -72,6 +72,18 @@ form {
       line-height: 43px;
       background-position: 0px -72px; 
     }
+
+    &.pass-header {
+      height: 33px;
+      line-height: 43px;
+      background-position: 0px -150px; 
+    }
+
+    &.attr-header {
+      height: 33px;
+      line-height: 43px;
+      background-position: 0px -110px; 
+    }
   }
 }
 

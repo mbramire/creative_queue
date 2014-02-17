@@ -29,6 +29,7 @@ class VirtualRequestsController < ApplicationController
 
   def quote_update
     @virtual_request = VirtualRequest.find(params[:id])
+    @virtual_request.need_quote if params["virtual_request"]["creative_user_id"] == current_user.id.to_s
     add_validations
 
     if @virtual_request.update(virtual_params)
@@ -114,7 +115,6 @@ class VirtualRequestsController < ApplicationController
   end
 
   def add_validations
-    @virtual_request.need_quote if @virtual_request.creative_user_id == current_user.id
     @virtual_request.need_due_date
     @virtual_request.cq_form
   end
