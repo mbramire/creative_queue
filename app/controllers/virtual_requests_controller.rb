@@ -30,11 +30,10 @@ class VirtualRequestsController < ApplicationController
   def quote_update
     @virtual_request = VirtualRequest.find(params[:id])
     @virtual_request.need_quote if params["virtual_request"]["creative_user_id"] == current_user.id.to_s
-    add_validations
+    @virtual_request.add_validations
 
     if @virtual_request.update(virtual_params)
-      @virtual_request.auto_assign!
-      @virtual_request.apply_user
+      @virtual_request.create_actions
       
       flash[:success] = "Quote added"
       redirect_to root_path
@@ -45,7 +44,7 @@ class VirtualRequestsController < ApplicationController
 
   def update
     @virtual_request = VirtualRequest.find(params[:id])
-    add_validations
+    @virtual_request.add_validations
     process = params[:commit] == "Save & Process"
 
     if process
@@ -53,9 +52,8 @@ class VirtualRequestsController < ApplicationController
     end
     
     if @virtual_request.update(virtual_params)
-      @virtual_request.auto_assign!
-      @virtual_request.apply_user
       @virtual_request.update_attributes(processed: true) if process
+      @virtual_request.create_actions
 
       flash[:success] = "Virtual request updated"
       if @virtual_request.processed
@@ -71,11 +69,10 @@ class VirtualRequestsController < ApplicationController
   def create
     @virtual_request = VirtualRequest.new(virtual_params)
     @virtual_request.need_quote if @virtual_request.creative_user_id == current_user.id
-    add_validations
-    @virtual_request.apply_user
-    @virtual_request.auto_assign!
+    @virtual_request.add_validations
 
     if @virtual_request.save
+      @virtual_request.create_actions
       flash[:success] = "Virtual has been created and is processing"
       redirect_to root_path
     else
@@ -112,11 +109,6 @@ class VirtualRequestsController < ApplicationController
     send_file(@virtual_request.art.url,
           disposition: 'attachment',
           url_based_filename: false)
-  end
-
-  def add_validations
-    @virtual_request.need_due_date
-    @virtual_request.cq_form
   end
 
   private

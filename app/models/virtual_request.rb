@@ -179,14 +179,27 @@ class VirtualRequest < ActiveRecord::Base
   end
 
   def check_priority
-    rules = Rule.all
-    clean_company = self.company.split(" ")[0].downcase
+    if self.processed 
+      rules = Rule.all
+      clean_company = self.company.split(" ")[0].downcase
 
-    rules.each do |r|
-      if r.company.downcase == clean_company || r.email.downcase == self.contact_email.downcase || r.name.downcase == contact_name.downcase
-        self.update_attributes(priority: true)
+      rules.each do |r|
+        if r.company.downcase == clean_company || r.email.downcase == self.contact_email.downcase || r.name.downcase == contact_name.downcase
+          self.update_attributes(priority: true)
+        end
       end
     end
+  end
+
+  def create_actions
+    self.check_priority
+    self.auto_assign!
+    self.apply_user
+  end
+
+  def add_validations
+    self.need_due_date
+    self.cq_form
   end
 
 private
