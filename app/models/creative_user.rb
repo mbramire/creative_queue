@@ -1,6 +1,6 @@
 class CreativeUser < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i 
-  TITLES = ["Apprentice", "CrackerJack", "Virtual Pro", "Maestro", "Visionary", "Czar", "Virtual Jedi"] 
+  TITLES = { 100 => "Apprentice", 300 => "CrackerJack", 600 => "Seasoned Pro", 1000 => "Maestro", 1400 => "Visionary", 2000 => "Overlord", 3000 => "Jedi Master" }
   
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, 
@@ -149,6 +149,13 @@ class CreativeUser < ActiveRecord::Base
 
   def name_requests
     "#{self.name} (#{self.requests_quoted.count})"
+  end
+
+  def title_update
+    TITLES.each do |t|
+      if self.vr_completed t[0]
+      end
+    end
   end
 
   private

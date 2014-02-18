@@ -8,10 +8,10 @@
   </td>
   <td><%= creative_user.email %></td>
   <td><%= creative_user.phone_number %></td>
-  <td><%= creative_user.in_queue ? "Yes" : "-" %></td>
-  <td><%= creative_user.admin ? "Yes" : "-" %></td>
-  <td><%= creative_user.artist ? "Yes" : "-" %></td>
-  <td><%= creative_user.sales ? "Yes" : "-" %></td>
-  <td><%= creative_user.external ? "Yes" : "-" %></td>
+  <td><%= creative_user.in_queue ? "<em>&#x2713;</em>".html_safe : "-" %></td>
+  <td><%= creative_user.admin ? "<em>&#x2713;</em>".html_safe : "-" %></td>
+  <td><%= creative_user.artist ? "<em>&#x2713;</em>".html_safe : "-" %></td>
+  <td><%= creative_user.sales ? "<em>&#x2713;</em>".html_safe : "-" %></td>
+  <td><%= creative_user.external ? "<em>&#x2713;</em>".html_safe : "-" %></td>
 </tr>
 
