@@ -6,9 +6,10 @@
       <p>You have achieved the following awards, keep up the good work!</p>
       <% awards.each do |a| %>
         <div class="award margin-top-large">
-          <%= image_tag a.icon %>
-          <h2><%= a.name %><h2>
+          <%= image_tag a.badge.icon %>
+          <h2><%= a.badge.name %> <%= ": #{current_user.title.name}" if a.badge.id == 1 %><h2>
         </div>
+        <% mark_notified(a) %>
       <% end %>
       <%= link_to "View Stats", creative_user_path(current_user), class: "button margin-top-large" %> 
     </div>
