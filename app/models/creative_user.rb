@@ -1,7 +1,5 @@
 class CreativeUser < ActiveRecord::Base
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i 
-  TITLES = { 100 => "Apprentice", 300 => "CrackerJack", 600 => "Seasoned Pro", 1000 => "Maestro", 1400 => "Visionary", 2000 => "Overlord", 3000 => "Jedi Master" }
-  
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i   
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX },
@@ -18,6 +16,7 @@ class CreativeUser < ActiveRecord::Base
 
   has_many :virtual_requests
   has_many :virtuals
+  belongs_to :title
   
   def CreativeUser.new_remember_token
     SecureRandom.urlsafe_base64
@@ -137,6 +136,10 @@ class CreativeUser < ActiveRecord::Base
     all.uniq { |v| v[:id] }
   end
 
+  def completed_stat
+    self.artist ? self.vr_completed.count : self.requests_completed.count
+  end
+
   def virtual_totals
     art = VirtualRequest.where(artist_id: self.id, completed: false).count
     sales = VirtualRequest.where(creative_user_id: self.id, completed: false).count
@@ -152,10 +155,28 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def title_update
-    TITLES.each do |t|
-      if self.vr_completed t[0]
-      end
+    competed = self.artist ? self.vr_completed : self.requests_completed
+
+    Title.all.each do |t|
+      if self.vr_completed.count >= t.value
+        new_title = t.id
+        self.update_attributes(title_id: new_title)
+      end 
     end
+  end
+
+  def next_title
+    nxt = self.title.id + 1
+    Title.find(nxt)
+  end
+
+  def prev_title
+    prev = self.title.id - 1
+    Title.find(prev)
+  end
+
+  def last_title?
+    self.title == Title.all.last
   end
 
   private

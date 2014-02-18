@@ -12,7 +12,7 @@
               <%= image_tag "icons/asleep.png", class: "asleep-icon", alt: "Not in queue" %>
             <% end %>
           </li>
-          <li> <%= current_user.admin ? "Admin" : current_user.title %></li>
+          <li> <%= current_user.admin ? "Admin #{current_user.title.name}" : current_user.title.name %></li>
           <li class="pad-top"> Awards(0) Records(0)</li> 
         </ul>
       <% end %>
@@ -25,7 +25,7 @@
         <ul>
           <li>Awards(0) Records(0)</li>
           <li>|</li>
-          <li> <%= current_user.admin ? "Admin" : current_user.title %></li> 
+          <li> <%= current_user.admin ? "Admin #{current_user.title.name}" : current_user.title.name %></li> 
           <li> 
             <%= current_user.name %>
             <% if !current_user.in_queue %>

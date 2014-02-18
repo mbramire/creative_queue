@@ -57,6 +57,12 @@ class VirtualsController < ApplicationController
     flash[:success] = "#{@virtual_request.end_client}#{@virtual.version_display} has been sent to #{@recipients}."
     @virtual.update_attributes(sent: Time.now)
     @virtual_request.update_attributes(completed: true)
+    if @virtual_request.creative_user == @virtual_request.artist
+      @virtual_request.artist.title_update
+    else
+      @virtual_request.creative_user.title_update
+      @virtual_request.artist.title_update
+    end
     redirect_to root_path
   end
 

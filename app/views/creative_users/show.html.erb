@@ -10,7 +10,7 @@
           <% end %>
           <%= @user.name %> 
         </h1>
-        <h3 class="pad-top"><%= @user.admin ? "Admin" : @user.title %> | <%= @user.email %></h3>
+        <h3 class="pad-top"><%= @user.admin ? "Admin #{@user.title.name}" : @user.title.name %> | <%= @user.email %></h3>
       </div>
       <div class="two-col">
         <% if current_user.admin || current_user?(@user) %>
@@ -28,12 +28,18 @@
         <p>Coming soon...</p>
       </div>
     </div>
-
     <div class="row pad-top-large">
       <h2>Title</h2>
-      <p>Coming soon...</p>
+      <p class="pull-right pad-top"><em><%= @user.last_title? ? "#{@user.title.name} (#{@user.title.value} virtuals)" : "#{@user.next_title.name} (#{@user.next_title.value} virtuals)" %></em></p>
+      <p class="pad-top"><em><%= @user.last_title? ? "#{@user.prev_title.name} (#{@user.prev_title.value} virtuals)" : "#{@user.title.name} (#{@user.title.value} virtuals)" %></em></p>
+      <div class="title-bar-container">
+        <% if @user.last_title? %>
+          <div class="title-bar-complete">Highest Rank Achieved!</div>
+        <% else %>
+          <div class="title-bar"><span id="counter" data-from="0" data-to="<%= @user.completed_stat %>"></span></div>
+        <% end %>
+      </div>
     </div>
-
   </div>
 </div>
 <% if @user.artist %>
@@ -43,3 +49,19 @@
   <%= render "statistics/request_stats_table", sales: @user, single_user: true, show_all: true%>
 <% end %>
 <%= render 'home/virtual_queue', user_page: true, user: @user %>
+
+<% unless @user.last_title? %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var difference = <%= @user.next_title.value %> - <%= @user.title.value %>,
+        done = <%= @user.completed_stat %> - <%= @user.title.value %>,
+        percent = done / difference * 100 + "%";
+
+      $('.title-bar').animate({width: percent}, 1000);  
+      console.log(percent);
+
+      $('#counter').countTo();
+    });
+  </script>
+<% end %>
+
