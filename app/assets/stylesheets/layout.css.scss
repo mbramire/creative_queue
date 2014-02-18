@@ -30,24 +30,22 @@ body {
   background: lighten($maroon, 10%);
 }
 
-/* Simple Grid */
-
 .white-box {
   width: 100%;
   padding: 30px;
   background: $tan-lightest;
   @include shadow;
   @include roundcorners;
+}
 
-  &.sign-in {
-    width: 420px;
-    margin: 150px auto 200px;
-    overflow: auto;
+.sign-in {
+  width: 420px;
+  margin: 150px auto 200px;
+  overflow: auto;
 
-    img {
-      padding-top: 10px;
-      width: 150px;
-    }
+  img {
+    padding-top: 10px;
+    width: 150px;
   }
 }
 
@@ -69,6 +67,8 @@ body {
 .border-right {
   border-right: 1px solid $maroon;
 }
+
+/* Simple Grid */
 
 .row {
   width: 100%;

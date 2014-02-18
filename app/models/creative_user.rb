@@ -16,6 +16,7 @@ class CreativeUser < ActiveRecord::Base
 
   has_many :virtual_requests
   has_many :virtuals
+  has_many :awarded_badges
   belongs_to :title
   
   def CreativeUser.new_remember_token

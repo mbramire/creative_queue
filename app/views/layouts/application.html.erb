@@ -9,6 +9,7 @@
   <link href='http://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
+  <%= render 'layouts/notification', awards: Badge.all %>
   <%= render 'layouts/header' %>
   <% flash.each do |key, value| %>
     <section class="alert-box-<%= key %> hide">
