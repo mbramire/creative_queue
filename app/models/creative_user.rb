@@ -16,6 +16,7 @@ class CreativeUser < ActiveRecord::Base
 
   has_many :virtual_requests
   has_many :virtuals
+  has_many :awarded_badges
   belongs_to :title
   
   def CreativeUser.new_remember_token
@@ -156,13 +157,17 @@ class CreativeUser < ActiveRecord::Base
 
   def title_update
     competed = self.artist ? self.vr_completed : self.requests_completed
-
+    award = false
+    
     Title.all.each do |t|
       if self.vr_completed.count >= t.value
+        award = true
         new_title = t.id
         self.update_attributes(title_id: new_title)
       end 
     end
+
+    AwardedBadge.create!(creative_user_id: self.id, badge_id: 1) if award
   end
 
   def next_title

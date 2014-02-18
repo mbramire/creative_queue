@@ -9,6 +9,9 @@
   <link href='http://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
+  <% if new_badges? %>
+    <%= render 'layouts/notification', awards: new_badges %>
+  <% end %>
   <%= render 'layouts/header' %>
   <% flash.each do |key, value| %>
     <section class="alert-box-<%= key %> hide">
