@@ -19,14 +19,18 @@
       </div>
     </div>
     <div class="row pad-top-large">
-      <div class="three-col">
-        <h2>Awards</h2>
-        <p>Coming soon...</p>
-      </div>
-      <div class="three-col">
-        <h2>Records</h2>
-        <p>Coming soon...</p>
-      </div>
+      <h2>Badges</h2>
+      <% @badges.each do |b| %>
+        <div class="three-col pad-top pad-right">
+          <% if @user.has_badge?(b) %>
+            <%= image_tag b.icon, class: "pull-left pad-right" %>
+          <% else %>
+            <%= image_tag b.icon, class: "pull-left pad-right not-earned" %>
+          <% end %>
+          <h3><%= b.name %> (0)</h3>
+          <p><%= b.description %></p>
+        </div>
+      <% end %>
     </div>
     <div class="row pad-top-large">
       <h2>Title</h2>
@@ -53,10 +57,8 @@
 <% unless @user.last_title? %>
   <script type="text/javascript">
     $(document).ready(function(){
-      var difference = <%= @user.next_title.value %> - <%= @user.title.value %>,
-        done = <%= @user.completed_stat %> - <%= @user.title.value %>,
-        percent = done / difference * 100 + "%";
-        
+      var percent = <%= @user.completed_stat %> / <%= @user.next_title.value %> * 100 + "%";
+
       $('.title-bar').animate({width: percent}, 1000);  
       $('#counter').countTo();
     });

@@ -5,9 +5,7 @@ module BadgesHelper
   end
 
   def new_badges
-    if current_user
-      AwardedBadge.where(creative_user_id: current_user.id, notified: false)
-    end
+    AwardedBadge.where(creative_user_id: current_user.id, notified: false)
   end
 
   def mark_notified(badge)

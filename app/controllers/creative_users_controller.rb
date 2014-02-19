@@ -13,6 +13,7 @@ class CreativeUsersController < ApplicationController
 
   def show
     @user = CreativeUser.find(params[:id])
+    @badges = Badge.all
   end
 
   def edit
