@@ -5,7 +5,7 @@
       <h1 class="pad-bottom">Congratulations!</h1>
       <p>You have achieved the following awards, keep up the good work!</p>
       <% awards.each do |a| %>
-        <div class="award margin-top-large">
+        <div class="award margin-top">
           <%= image_tag a.badge.icon %>
           <h2><%= a.badge.name %> <%= ": #{current_user.title.name}" if a.badge.id == 1 %><h2>
         </div>

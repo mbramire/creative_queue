@@ -56,10 +56,8 @@
       var difference = <%= @user.next_title.value %> - <%= @user.title.value %>,
         done = <%= @user.completed_stat %> - <%= @user.title.value %>,
         percent = done / difference * 100 + "%";
-
+        
       $('.title-bar').animate({width: percent}, 1000);  
-      console.log(percent);
-
       $('#counter').countTo();
     });
   </script>
