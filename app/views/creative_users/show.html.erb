@@ -21,14 +21,10 @@
     <div class="row pad-top-large">
       <h2>Badges</h2>
       <% @badges.each do |b| %>
-        <div class="three-col pad-top pad-right">
-          <% if @user.has_badge?(b) %>
-            <%= image_tag b.icon, class: "pull-left pad-right" %>
-          <% else %>
-            <%= image_tag b.icon, class: "pull-left pad-right not-earned" %>
-          <% end %>
-          <h3><%= b.name %> (0)</h3>
-          <p><%#= b.description %></p>
+        <div class="three-col pad-top pad-right badge-container">
+          <%= image_tag b.icon, class: "pull-left pad-right #{'not-earned' unless @user.has_badge?(b) }" %>
+          <h3><%= b.name %> (<%= @user.badge_count(b) %>)</h3>
+          <p class="small-font"><%= b.description %></p>
         </div>
       <% end %>
     </div>

@@ -13,7 +13,7 @@
             <% end %>
           </li>
           <li> <%= current_user.admin ? "Admin #{current_user.title.name}" : current_user.title.name %></li>
-          <li class="pad-top"> Awards(0) Records(0)</li> 
+          <li class="pad-top">Badges(<%= current_user.awarded_badges.count %>)</li> 
         </ul>
       <% end %>
     </section>
@@ -23,7 +23,7 @@
       </div>
       <%= link_to creative_user_path(current_user) do %>
         <ul>
-          <li>Awards(0) Records(0)</li>
+          <li>Badges(<%= current_user.awarded_badges.count %>)</li>
           <li>|</li>
           <li> <%= current_user.admin ? "Admin #{current_user.title.name}" : current_user.title.name %></li> 
           <li> 

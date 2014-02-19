@@ -185,7 +185,11 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def has_badge?(badge)
-    self.awarded_badges.where(badge_id: badge.id)
+    self.awarded_badges.where(badge_id: badge.id).any?
+  end
+
+  def badge_count(badge)
+    self.awarded_badges.where(badge_id: badge.id).count
   end
 
   private
