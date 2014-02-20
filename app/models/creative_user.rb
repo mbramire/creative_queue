@@ -123,7 +123,7 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def requests_ordered
-    VirtualRequest.where(artist_id: self.id, ordered: true) 
+    VirtualRequest.where(creative_user_id: self.id, ordered: true) 
   end
 
   def queued_requests
