@@ -9,6 +9,9 @@
       <% 
         quote_options = CreativeUser.in_queue.collect {|p| [ p.name_requests, p.id ] } 
         quote_options.unshift ["auto-assign", 0]
+        unless current_user.in_queue 
+          quote_options.unshift [current_user.name_requests, current_user.id]
+        end
       %>
     <% if quote_options[1].nil? %>
       None available
@@ -21,6 +24,9 @@
     <% 
       options = CreativeUser.artist_in_queue.collect {|p| [ p.name_vrs, p.id ] } 
       options.unshift ["auto-assign", 0]
+      unless current_user.in_queue && current_user.artist
+        options.unshift [current_user.name_requests, current_user.id]
+      end
     %>
     <% if options[1].nil? %>
       None available

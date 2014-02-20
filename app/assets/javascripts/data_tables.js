@@ -1,7 +1,7 @@
 $(document).ready(function(){
   
   $('table').each(function(){
-    var display = 15;
+    var display = 5;
     if ($(this).find('tr').length > display + 1){
       $(this).dataTable( {"iDisplayLength": display});
     }
@@ -17,6 +17,7 @@ $(document).ready(function(){
       tab.addClass("tab-on");
       tab.closest("div").find(".virtual-tbl").hide();
       $(table).show();
+      $('.dataTables_wrapper').toggle();
     };
   });
 

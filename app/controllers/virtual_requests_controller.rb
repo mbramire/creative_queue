@@ -96,6 +96,14 @@ class VirtualRequestsController < ApplicationController
     redirect_to virtual_request_path(@virtual_request)
   end
 
+  def complete
+    @virtual_request = VirtualRequest.find(params[:id])
+    @virtual_request.update_attributes(completed: true)
+
+    flash[:success] = "#{@virtual_request.end_client} marked as complete."
+    redirect_to root_path
+  end
+
   def duplicate
     @new_request = VirtualRequest.find(params[:id]).dup
     @new_request.make_copy(current_user)

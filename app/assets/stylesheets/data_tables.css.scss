@@ -10,6 +10,12 @@
 
 .dataTables_paginate {
   float: right;
+  position: relative; 
+  top: -10px;
+}
+
+.dataTables_wrapper {
+  padding-top: 1px;
 }
 
 .dataTables_filter {
@@ -17,11 +23,15 @@
 
   label {
     position: relative;
-    top: -10px;
+    top: -15px;
   }
 
   input[type=text] {
     margin-bottom: 0;
+  }
+
+  .search-results &{
+    display: none;
   }
 }
 

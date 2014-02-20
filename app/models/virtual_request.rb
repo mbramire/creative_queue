@@ -93,7 +93,7 @@ class VirtualRequest < ActiveRecord::Base
   end
 
   def completed_date_human
-    self.virtuals.last.sent.strftime("%m/%d/%y")
+    self.virtuals.last.updated_at.strftime("%m/%d/%y")
   end
 
   def created_date_human

@@ -85,6 +85,11 @@ a {
   background-position: 8px -192px;
 }
 
+.complete-btn {
+  @extend .icon-btn;
+  background-position: 8px -352px;
+}
+
 .email-btn {
   @extend .icon-btn;
   background-color: $orange;

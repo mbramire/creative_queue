@@ -13,6 +13,7 @@ end
 
 resources :virtual_requests do
   member do
+    put 'complete'
     put 'move'
     put 'duplicate'
     get 'add_quote'

@@ -5,6 +5,9 @@
     <% if current_user.artist && (!current_user.artist_for?(@virtual_request) || @virtual_request.completed) %>
       <%= link_to "Move to my queue", move_virtual_request_path, method: :put, class: "move-btn pull-right" %>
     <% end %>
+    <% if current_user.artist_for?(@virtual_request) && !@virtual_request.completed && @virtual_request.virtuals.any? %>
+      <%= link_to "Mark as completed", complete_virtual_request_path(@virtual_request), method: :put, class: "complete-btn pull-right" %>
+    <% end %>
     <h1>
       <%= @virtual_request.end_client %>
       <%= "(completed)" if @virtual_request.completed %>
