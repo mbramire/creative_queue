@@ -1,7 +1,7 @@
 $(document).ready(function(){
   
   $('table').each(function(){
-    var display = 5;
+    var display = 10;
     if ($(this).find('tr').length > display + 1){
       $(this).dataTable( {"iDisplayLength": display});
     }
