@@ -4,80 +4,82 @@
   completed   ||= false
   search      ||= false
 %>
-<table class="<%= elem_class %> virtual-tbl">
-  <thead>
-    <tr>
-      <% if completed %>
-        <th>Completed</th>
-      <% elsif search %>
-        <th>Created</th>
-        <th>ASI</th>
-      <% else %>
-        <th>Due</th>
-      <% end %>      
-      <th>End Client</th>
-      <th>Quote No.</th>
-      <th>Requested By</th>
-      <th>Company</th>
-      <th>Virtual</th>
-      <th>Quote</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% unless virtuals.empty? %>
-      <% virtuals.each do |v| %>
-        <tr>
-          <% if completed %>
-            <td><%= v.completed_date_human %></td>
-          <% elsif search %>
-            <td><%= v.created_date_human %></td>
-            <td><%= v.asi_number unless v.asi_number.nil? %></td>
-          <% else %>
-            <td><%= v.due_date_human %></td>
-          <% end %>
-          <td>
-            <% if v.quote.nil? %>
-              <%= link_to v.end_client, add_quote_virtual_request_path(v) %>
-            <% elsif v.processed %>
-              <%= link_to v.end_client, virtual_request_path(v) %>
-              <% unless v.virtuals.empty? %>
-                (<%= v.virtuals.count %>)
+<div class="<%= elem_class %> virtual-tbl-container">
+  <table class="virtual-tbl">
+    <thead>
+      <tr>
+        <% if completed %>
+          <th>Completed</th>
+        <% elsif search %>
+          <th>Created</th>
+          <th>ASI</th>
+        <% else %>
+          <th>Due</th>
+        <% end %>      
+        <th>End Client</th>
+        <th>Quote No.</th>
+        <th>Requested By</th>
+        <th>Company</th>
+        <th>Virtual</th>
+        <th>Quote</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% unless virtuals.empty? %>
+        <% virtuals.each do |v| %>
+          <tr>
+            <% if completed %>
+              <td><%= v.completed_date_human %></td>
+            <% elsif search %>
+              <td><%= v.created_date_human %></td>
+              <td><%= v.asi_number unless v.asi_number.nil? %></td>
+            <% else %>
+              <td><%= v.due_date_human %></td>
+            <% end %>
+            <td>
+              <% if v.quote.nil? %>
+                <%= link_to v.end_client, add_quote_virtual_request_path(v) %>
+              <% elsif v.processed %>
+                <%= link_to v.end_client, virtual_request_path(v) %>
+                <% unless v.virtuals.empty? %>
+                  (<%= v.virtuals.count %>)
+                <% end %>
+              <% else %>
+                <%= link_to "#{v.end_client} (processing)", edit_virtual_request_path(v) %> 
               <% end %>
-            <% else %>
-              <%= link_to "#{v.end_client} (processing)", edit_virtual_request_path(v) %> 
+            </td>
+            <% if v.updated_at < (Time.now - 1.day) && !v.processed && v.quote.present? %>
+              <td colspan="3"><em class='alert-text'>Unable to find quote <%= v.quote %> please check quote in covalent or process manually</em></td>
+            <% else %> 
+              <td><%= v.quote ? v.quote : "<em class='alert-text'>Quote Needed</em>".html_safe %></td>
+              <% if v.contact_name.present? %> 
+                <td>
+                  <%= v.contact_name %>
+                  <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
+                </td>
+                <td><%= "<span class='priority'>&#9733;</span>".html_safe if v.priority %> <%= v.company %></td>
+              <% else %>
+                <td>
+                  <em class='alert-text'>Pending</em>
+                </td>
+                <td>
+                  <em class='alert-text'>Pending</em>
+                </td>
+              <% end %>
             <% end %>
-          </td>
-          <% if v.updated_at < (Time.now - 1.day) && !v.processed && v.quote.present? %>
-            <td colspan="3"><em class='alert-text'>Unable to find quote <%= v.quote %> please check quote in covalent or process manually</em></td>
-          <% else %> 
-            <td><%= v.quote ? v.quote : "<em class='alert-text'>Quote Needed</em>".html_safe %></td>
-            <% if v.contact_name.present? %> 
-              <td>
-                <%= v.contact_name %>
-                <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
-              </td>
-              <td><%= "<span class='priority'>&#9733;</span>".html_safe if v.priority %> <%= v.company %></td>
-            <% else %>
-              <td>
-                <em class='alert-text'>Pending</em>
-              </td>
-              <td>
-                <em class='alert-text'>Pending</em>
-              </td>
-            <% end %>
+            <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.artist.name %></td>
+            <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.creative_user.name %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <% if search %>
+            <td colspan="8">no results</td>
+          <% else %>
+            <td colspan="8">no requests</td>
           <% end %>
-          <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.artist.name %></td>
-          <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.creative_user.name %></td>
         </tr>
       <% end %>
-    <% else %>
-      <tr>
-        <% if search %>
-          <td colspan="8">no results</td>
-        <% else %>
-          <td colspan="8">no requests</td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

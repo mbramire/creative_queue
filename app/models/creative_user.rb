@@ -51,7 +51,7 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def artist_for?(virtual)
-    self.id == virtual.artist_id
+    self.id == virtual.artist_id || self.admin
   end
 
   def requested?(virtual)

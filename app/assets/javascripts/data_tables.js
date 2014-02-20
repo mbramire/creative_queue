@@ -15,9 +15,8 @@ $(document).ready(function(){
     if (!tab.hasClass("tab-on")){
       tab.siblings("li").removeClass("tab-on")
       tab.addClass("tab-on");
-      tab.closest("div").find(".virtual-tbl").hide();
+      $(".virtual-tbl-container").hide();
       $(table).show();
-      $('.dataTables_wrapper').toggle();
     };
   });
 
