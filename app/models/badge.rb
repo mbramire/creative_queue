@@ -20,7 +20,7 @@ class Badge < ActiveRecord::Base
 
   #Badges
   def self.virtualocity(user)
-    if user.virtuals.today.count == 5 && !user.awarded_badges.where(badge_id: 2).today.any?
+    if user.virtuals.today.count == 10 && !user.awarded_badges.where(badge_id: 2).today.any?
       AwardedBadge.create!(badge_id: 2, creative_user_id: user.id)
     end
   end
