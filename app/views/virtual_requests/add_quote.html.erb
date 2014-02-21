@@ -4,7 +4,10 @@
     <div class="white-box">
       <h1 class="pad-bottom-large">Quote Virtual Request</h1>
       <%= render 'quote_fields', f: f %>
-      <%= render "form_fields", f: f %>
+      <% unless @virtual_request.contact_name.nil? %>
+        <%= render 'company_fields', f: f %>
+      <% end %>
+      <%= render "virtual_fields", f: f, comments: true %>
       <%= f.submit "Save", class: "save-btn margin-right" %>
       <%= link_to "Go Back", root_path, class: "prev-btn margin-right" %>
       <%= link_to "Delete Request", virtual_request_path(@virtual_request), 

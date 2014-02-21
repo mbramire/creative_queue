@@ -61,7 +61,7 @@
           <li class="<%= @nav[0] == 'rules' ? "selected" : "" %>">rules</li>
         <% end %>
         <%= link_to session_path(current_user), method: "delete" do %>
-          <li>log out</li>
+          <li class="pull-right">log out</li>
         <% end %>
       </ul>
     <% end %>

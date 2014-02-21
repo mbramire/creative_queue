@@ -49,23 +49,23 @@
               <% end %>
             </td>
             <% if v.updated_at < (Time.now - 1.day) && !v.processed && v.quote.present? %>
-              <td colspan="3"><em class='alert-text'>Unable to find quote <%= v.quote %> please check quote in covalent or process manually</em></td>
+              <td><em class='alert-text'>quote <%= v.quote %> not found</em></td>
             <% else %> 
               <td><%= v.quote ? v.quote : "<em class='alert-text'>Quote Needed</em>".html_safe %></td>
-              <% if v.contact_name.present? %> 
-                <td>
-                  <%= v.contact_name %>
-                  <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
-                </td>
-                <td><%= "<span class='priority'>&#9733;</span>".html_safe if v.priority %> <%= v.company %></td>
-              <% else %>
-                <td>
-                  <em class='alert-text'>Pending</em>
-                </td>
-                <td>
-                  <em class='alert-text'>Pending</em>
-                </td>
-              <% end %>
+            <% end %>
+            <% if v.contact_name.present? %> 
+              <td>
+                <%= v.contact_name %>
+                <%= image_tag "icons/jb.png", class: "small-tbl-icon" if v.user_id.present? %>
+              </td>
+              <td><%= "<span class='priority'>&#9733;</span>".html_safe if v.priority %> <%= v.company %></td>
+            <% else %>
+              <td>
+                <em class='alert-text'>Pending</em>
+              </td>
+              <td>
+                <em class='alert-text'>Pending</em>
+              </td>
             <% end %>
             <td class="<%= "highlight" if current_user.artist_for?(v) %>"><%= v.artist.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.artist.name %></td>
             <td class="<%= "highlight" if current_user.requested?(v) %>"><%= v.creative_user.nil? ? "<em class='alert-text'>Pending</em>".html_safe : v.creative_user.name %></td>

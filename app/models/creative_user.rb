@@ -51,6 +51,10 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def artist_for?(virtual)
+    self.id == virtual.artist_id
+  end
+
+  def artist_or_admin_for?(virtual)
     self.id == virtual.artist_id || self.admin
   end
 
@@ -63,15 +67,16 @@ class CreativeUser < ActiveRecord::Base
   end
   
   def self.artist_in_queue
-    CreativeUser.where(in_queue: true, artist: true)
+    CreativeUser.where(artist: true)
   end
 
   def self.sales_in_queue
-    CreativeUser.where(in_queue: true, sales: true) 
+    CreativeUser.where(sales: true) 
   end
 
   def self.in_queue
-    CreativeUser.where(in_queue: true)
+    all = CreativeUser.where(sales: true) + CreativeUser.where(artist: true)
+    all.uniq { |v| v[:id] }
   end
 
   def requests_with(artist)

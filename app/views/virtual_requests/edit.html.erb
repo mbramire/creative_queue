@@ -5,7 +5,7 @@
       <h1>Edit <%= @virtual_request.end_client %></h1>
       <%= render 'quote_fields', f: f %>
       <%= render 'company_fields', f: f %>
-      <%= render "form_fields", f: f, comments: true %>
+      <%= render "virtual_fields", f: f, comments: true %>
       <%= f.submit "Save", class: "save-btn margin-right" %>
       <% unless @virtual_request.processed %>
         <%= f.submit "Save & Process", class: "process-btn margin-right" %>
