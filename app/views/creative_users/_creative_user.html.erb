@@ -1,6 +1,6 @@
 <tr>
   <td class="avatar-td">
-    <%= image_tag creative_user.avatar_image, class: "small-avatar" %>
+    <%= link_to image_tag(creative_user.avatar_image, class: "small-avatar"), creative_user_path(creative_user) %>
     <%= link_to creative_user.short_name, creative_user_path(creative_user) %>
     <% unless creative_user.in_queue || !creative_user.artist %>
       <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
