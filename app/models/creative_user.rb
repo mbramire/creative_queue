@@ -153,11 +153,11 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def name_vrs
-    "#{self.name} (#{self.vr_assigned.count})"
+    "#{'(zzz) ' unless self.in_queue}#{self.name} (#{self.vr_assigned.count})"
   end
 
   def name_requests
-    "#{self.name} (#{self.requests_quoted.count})"
+    "#{'(zzz) ' unless self.in_queue}#{self.name} (#{self.requests_quoted.count})"
   end
 
   def title_update

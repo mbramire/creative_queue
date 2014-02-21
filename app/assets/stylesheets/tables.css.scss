@@ -24,10 +24,11 @@ table {
   .small-avatar {
     position: absolute;
     margin-top: -5px;
+    margin-left: -5px;
   }
 
   .avatar-td {
-    a {
+    a:nth-child(even) {
       padding-left: 35px;
     }
   }
@@ -67,7 +68,7 @@ table {
   padding-left: 4px;
   height: 10px;
   position: relative;
-  top: 2px;
+  top: -3px;
 }
 
 .tabs {
