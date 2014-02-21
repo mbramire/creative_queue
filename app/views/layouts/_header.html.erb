@@ -45,8 +45,10 @@
     <% end %>
     <% if current_user %>
       <ul class="navigation">
-        <%= link_to root_path do %>
-          <li class="<%= @nav[0] == 'home' ? "selected" : "" %>">my queue</li>
+        <% unless current_user.no_queue? %>
+          <%= link_to root_path do %>
+            <li class="<%= @nav[0] == 'home' ? "selected" : "" %>">my queue</li>
+          <% end %>
         <% end %>
         <%= link_to virtual_requests_path do %>
           <li class="<%= @nav[0] == 'search' ? "selected" : "" %>">search</li>

@@ -3,6 +3,9 @@ class HomeController < ApplicationController
 
   def index 
     if current_user
+      if current_user.no_queue?
+        redirect_to virtual_requests_path
+      end
       @artists = CreativeUser.where(artist: true)
       @sales = CreativeUser.where(sales: true)
     end

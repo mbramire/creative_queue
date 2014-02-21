@@ -65,6 +65,10 @@ class CreativeUser < ActiveRecord::Base
   def sales_and_artist
     self.sales && self.artist
   end
+
+  def no_queue?
+    !self.artist && !self.sales
+  end
   
   def self.artist_in_queue
     CreativeUser.where(artist: true)

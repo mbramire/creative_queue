@@ -12,7 +12,7 @@
   <%= render partial: "/virtual_requests/virtual_request_table", :locals => { virtuals: user.queued_requests, elem_class: "pending-table-art" } %>
   <%#= render partial: "/virtual_requests/virtual_request_table", :locals => { virtuals: user.vr_processing, elem_class: "processing-table-art hide" } %>
   <%= render partial: "/virtual_requests/virtual_request_table", :locals => { virtuals: user.recently_completed, elem_class: "completed-table-art hide", completed: true } %>
-  <% if user == current_user %>
+  <% unless user == !current_user || user.no_queue? %>
     <%= link_to "Add to Virtual Queue", new_virtual_request_path, class: "new-btn" %>
   <% end %>
 </div>
