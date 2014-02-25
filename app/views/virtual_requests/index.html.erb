@@ -70,7 +70,24 @@
 </div>
 <% if params[:search].present? %>
   <div class="row search-results">
-    <h1>Results</h1>
+    <h1><%= @virtual_requests.count %> Results</h1>
+    <p class="pad-top">
+      <% params[:search].each do |s| %>
+        <% if s[1].is_a? Hash %>
+          <% if s[1][:options] == "yes" || s[1][:options] == "no" %>
+            <%= "• #{s[0]}: #{s[1][:options]} " unless s[1][:options] == "no" %>  
+          <% else %>
+            <%  
+              desc = s[0] == "artist_id" ? "artist" : "sales" 
+              id = s[1][:options]
+              user = CreativeUser.find(id) unless id.empty?
+            %>
+            <%= "• #{desc}: #{user.name} " unless s[1][:options].blank? %>
+          <% end %>
+        <% else %>
+          <%= "• #{s[0]}: #{s[1]} " unless s[1].blank?  %>  
+        <% end %>
+      <% end %>
     <%= render 'virtual_request_table', virtuals: @virtual_requests, search: true %>
   </div>
 <% end %>
