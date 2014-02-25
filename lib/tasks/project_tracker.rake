@@ -63,7 +63,8 @@ namespace :project_tracker do
         ordered: ordered,
         quantity: "n/a",
         budget: "n/a",
-        art_website: "n/a"
+        art_website: "n/a",
+        comments: "This request was from an automated import"
         )
 
       puts "created virtual request for #{end_client}"
