@@ -7,7 +7,7 @@
   <div id="sales-select" class="four-col">
     <%= f.label :creative_user_id, "Quote" %>
       <% 
-        quote_options = CreativeUser.in_queue.collect {|p| [ p.name_requests, p.id ] } 
+        quote_options = CreativeUser.quoters.collect {|p| [ p.name_requests, p.id ] } 
         quote_options.unshift ["auto-assign", 0]
       %>
     <% if quote_options[1].nil? %>
@@ -19,7 +19,7 @@
   <div class="four-col">
     <%= f.label :artist_id, "Artist" %>
     <% 
-      options = CreativeUser.artist_in_queue.collect {|p| [ p.name_vrs, p.id ] } 
+      options = CreativeUser.artists.collect {|p| [ p.name_vrs, p.id ] } 
       options.unshift ["auto-assign", 0]
     %>
     <% if options[1].nil? %>

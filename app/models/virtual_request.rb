@@ -109,13 +109,13 @@ class VirtualRequest < ActiveRecord::Base
 
   def auto_assign!
     if self.artist_id == 0
-      artists = CreativeUser.artist_in_queue.collect {|p| [ p.id, p.vr_assigned.count ] } 
+      artists = CreativeUser.artists_in_queue.collect {|p| [ p.id, p.vr_assigned.count ] } 
       self.artist_id = artists.sort { |a,b| a[1] <=> b[1] }.first[0]
       self.save
     end
 
     if self.creative_user_id == 0
-      sales = CreativeUser.sales_in_queue.collect {|p| [ p.id, p.requests_quoted.count ] } 
+      sales = CreativeUser.quoters_in_queue.collect {|p| [ p.id, p.requests_quoted.count ] } 
       self.creative_user_id = sales.sort { |a,b| a[1] <=> b[1] }.first[0]
       self.save
     end

@@ -70,16 +70,30 @@ class CreativeUser < ActiveRecord::Base
     !self.artist && !self.sales
   end
   
-  def self.artist_in_queue
+
+  def self.artists
     CreativeUser.where(artist: true)
   end
 
-  def self.sales_in_queue
+  def self.sales
     CreativeUser.where(sales: true) 
   end
 
-  def self.in_queue
-    all = CreativeUser.where(sales: true) + CreativeUser.where(artist: true)
+  def self.quoters
+    all = CreativeUser.sales + CreativeUser.artists
+    all.uniq { |v| v[:id] }
+  end
+
+  def self.artists_in_queue
+    CreativeUser.where(artist: true, in_queue: true)
+  end
+
+  def self.sales_in_queue
+    CreativeUser.where(sales: true, in_queue: true)
+  end
+
+  def self.quoters_in_queue
+    all = CreativeUser.sales_in_queue + CreativeUser.artists_in_queue
     all.uniq { |v| v[:id] }
   end
 
