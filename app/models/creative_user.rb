@@ -140,11 +140,11 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def requests_completed
-    VirtualRequest.where(creative_user_id: self.id, completed: true) 
+    VirtualRequest.where(creative_user_id: self.id, completed: true).order("updated_at DESC")
   end
 
   def requests_needing_quote
-    VirtualRequest.where(creative_user_id: self.id, quote: nil) 
+    VirtualRequest.where(creative_user_id: self.id, quote: nil).order("updated_at DESC") 
   end
 
   def requests_ordered
