@@ -18,6 +18,8 @@ class CreativeUser < ActiveRecord::Base
   has_many :virtuals
   has_many :awarded_badges
   belongs_to :title
+
+  by_star_field :updated_at
   
   def CreativeUser.new_remember_token
     SecureRandom.urlsafe_base64
@@ -106,11 +108,11 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def vr_current_month
-    VirtualRequest.where(artist_id: self.id, completed: true).by_month(Time.new.strftime("%B"))
+    VirtualRequest.where(artist_id: self.id, completed: true, updated_at: Time.new.all_month)
   end
 
   def vr_ordered_current_month
-    VirtualRequest.where(artist_id: self.id, ordered: true).by_month(Time.new.strftime("%B"))
+    VirtualRequest.where(artist_id: self.id, ordered: true, updated_at: Time.new.all_month)
   end
 
   def vr_assigned
@@ -126,11 +128,11 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def requests_current_month
-    VirtualRequest.where(creative_user_id: self.id, completed: true).by_month(Time.new.strftime("%B"))
+    VirtualRequest.where(creative_user_id: self.id, completed: true, updated_at: Time.new.all_month)
   end
 
   def requests_ordered_current_month
-    VirtualRequest.where(creative_user_id: self.id, ordered: true).by_month(Time.new.strftime("%B"))
+    VirtualRequest.where(creative_user_id: self.id, ordered: true, updated_at: Time.new.all_month)
   end
 
   def requests_quoted
