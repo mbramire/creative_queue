@@ -24,7 +24,7 @@
           <tr>
             <td class="avatar-td align-left">
               <%= image_tag sales.avatar_image, class: "small-avatar" %>
-              <%= link_to sales.short_name, creative_user_path(sales) %>
+              <%= link_to sales.short_name, journalbooks_profile_path(sales) %>
             </td>
             <td><%= sales.requests_quoted.count %></td>
             <td><%= sales.requests_current_month.count %></td>
@@ -41,7 +41,7 @@
             <tr>
               <td class="avatar-td align-left">
                 <%= image_tag s.avatar_image, class: "small-avatar" %>
-                <%= link_to s.short_name, creative_user_path(s) %>
+                <%= link_to s.short_name, journalbooks_profile_path(s) %>
                 <% unless s.in_queue %>
                   <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
                 <% end %>

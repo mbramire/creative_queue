@@ -1,7 +1,7 @@
 .alert-box-error {
   padding: 15px;
   color: white;
-  background: $orange;
+  background: $secondary-color;
 
   li {
     font-size: 13px;
@@ -11,7 +11,7 @@
 
 .alert-box-success {
   @extend .alert-box-error;
-  background: $blue;
+  background: $success;
 }
 
 .alert-error {
@@ -26,9 +26,9 @@
 }
 
 .alert-text {
-  color: $red;
+  color: $alert;
 }
 
 .field_with_errors label {
-  color: $red;
+  color: $alert;
 }

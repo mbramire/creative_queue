@@ -15,7 +15,7 @@ table {
   }
   
   th {
-    background: $maroon;
+    background: $primary-color;
     color: white;
   }
 
@@ -32,7 +32,7 @@ table {
   }
 
   .priority {
-    color: $yellow;
+    color: $third-color;
   }
 }
 
@@ -58,7 +58,7 @@ table {
 
 .highlight {
   a {
-    color: $orange;
+    color: $secondary-color;
   }
 }
 
@@ -74,7 +74,7 @@ table {
     @include cursor;
   }
   .tab-on {
-    border-bottom: 4px solid $orange;
+    border-bottom: 4px solid $secondary-color;
     font-weight: bold;
   }
 }

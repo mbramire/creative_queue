@@ -1,6 +1,6 @@
 body {
   font-family: 'Alef', sans-serif;
-  color: $tan-dark;
+  color: $font-color;
   font-size: 13px;
 }
 
@@ -13,7 +13,7 @@ ul {
 }
 
 h1 {
-  color: $maroon;
+  color: $primary-color;
   font-size: 25px;
   font-weight: bold;
 }
@@ -45,12 +45,12 @@ h3 {
 }
 
 em {
-  color: $maroon;
+  color: $primary-color;
   font-weight: bold;
 }
 
 .highlight {
-  color: $yellow;
+  color: $third-color;
   font-weight: bold;
 }
 

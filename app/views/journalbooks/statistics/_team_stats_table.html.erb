@@ -18,7 +18,7 @@
           <tr>
             <td class="avatar-td align-left">
               <%= image_tag sales.avatar_image, class: "small-avatar" %>
-              <%= link_to sales.short_name, creative_user_path(sales) %>
+              <%= link_to sales.short_name, journalbooks_profile_path(sales) %>
             </td>
             <% artists.each do |a| %>
               <td><%=  sales.requests_with(a).count %></td>
@@ -31,7 +31,7 @@
             <tr>
               <td class="avatar-td align-left">
                 <%= image_tag s.avatar_image, class: "small-avatar" %>
-                <%= link_to s.short_name, creative_user_path(s) %>
+                <%= link_to s.short_name, journalbooks_profile_path(s) %>
               </td>
               <% artists.each do |a| %>
                 <td><%=  s.requests_with(a).count %></td>

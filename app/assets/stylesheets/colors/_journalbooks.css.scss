@@ -1,24 +1,26 @@
-$yellow-light:#f2db94;
-$yellow:      #f2b33d;
-$yellow-dark: #DF9203;
+/* maroon - background colors */
+$primary-color: #4F1C14;
 
-$maroon:      #4F1C14;
-$orange-light:#F38A64;
-$orange:      #f2622e;
-$red:         #CD3804;
+/* orange buttons - links */
+$secondary-color: #f2622e;
+$secondary-color-dark: darken($secondary-color, 10%);
 
-$green-light: #A2BF60;
-$green:       #768B46;
-$green-dark:  #5C6F33;
+/* yellow - buttons */
+$third-color: #f2b33d; 
+$third-color-light: lighten($third-color, 20%);
+$third-color-dark: darken($third-color, 10%);
 
-$tan-lightest:#FFFDF5;
-$tan-light:   #FFF3CA;
-$tan:         #E5AA60;
-$tan-med:     #B2A16D;
-$tan-dark:    #726846;
+/* form containers */
+$fourth-color: #FFFDF5;
 
-$blue: #043B58;
-/*$lightgray: #EEEBE8;
-$medgray: #D7CFC2;
-$gray: #C9C0B4;
-$darkgray: #746E68;*/
+/* other containers */
+$fifth-color: #FFF3CA;
+
+/* dark gray */
+$font-color: #726846;
+
+/* red */
+$alert: #CD3804;
+
+/* blue */
+$success: #043B58;

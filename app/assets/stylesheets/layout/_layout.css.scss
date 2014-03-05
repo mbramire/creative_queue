@@ -5,12 +5,10 @@
 }
 
 body {
-  background: $maroon;
+  background: $primary-color;
 }
 
 .primary-bg {
-  background: image-url('backgrounds/groovepaper.png') repeat;
-
   > .row {
     padding: 0 50px 70px;
   }
@@ -21,17 +19,17 @@ body {
 }
 
 .secondary-bg {
-  background: lighten($maroon, 20%);
+  background: lighten($primary-color, 20%);
 }
 
 .third-bg {
-  background: lighten($maroon, 10%);
+  background: lighten($primary-color, 10%);
 }
 
 .white-box {
   width: 100%;
   padding: 30px;
-  background: $tan-lightest;
+  background: $fourth-color;
   @include shadow;
   @include roundcorners;
 }
@@ -49,21 +47,21 @@ body {
 
 .red-box {
   @extend .white-box;
-  background: lighten($maroon, 20%);
+  background: lighten($primary-color, 20%);
 }
 
 .red-box-dark {
   @extend .white-box;
-  background: lighten($maroon, 10%);
+  background: lighten($primary-color, 10%);
 }
 
 .red-box-darkest {
   @extend .white-box;
-  background: $maroon;
+  background: $primary-color;
 }
 
 .border-right {
-  border-right: 1px solid $maroon;
+  border-right: 1px solid $primary-color;
 }
 
 /* Simple Grid */

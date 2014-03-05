@@ -2,8 +2,6 @@ nav {
   font-size: 18px;
   height: 100px;
   overflow: hidden;
-  background: image-url("backgrounds/nav_bg.png") repeat;
-  color: $orange;
   font-weight: bold;
 
   ul {
@@ -16,7 +14,7 @@ nav {
       color: white;
 
       &.selected {
-        color: $yellow;
+        color: $third-color;
       }
     } 
   }
@@ -46,7 +44,7 @@ nav {
 
 .profile{
   float: right;
-  background: $maroon;
+  background: $primary-color;
   color: white;
   font-size: 12px;
   @include cursor;
@@ -56,7 +54,7 @@ nav {
     width: 100px;
     float: left;
     overflow: hidden;
-    border-right: 2px solid $orange;
+    border-right: 2px solid $secondary-color;
     
     img {
       height: 100px;
@@ -76,7 +74,7 @@ nav {
     
     li:first-child {
       font-weight: bold;
-      color: $yellow;
+      color: $third-color;
       font-size: 15px;
     }
   }
@@ -90,7 +88,7 @@ nav {
     width: 50px;
     float: right;
     overflow: hidden;
-    border-left: 2px solid $orange;
+    border-left: 2px solid $secondary-color;
 
     img {
       height: 50px;
@@ -106,12 +104,12 @@ nav {
   }
 
   li:first-child {
-    color: $yellow;
+    color: $third-color;
     font-weight: bold;
   }
 }
 
 .profile-list {
-  color: $maroon;
+  color: $primary-color;
   font-weight: bold;
 }
