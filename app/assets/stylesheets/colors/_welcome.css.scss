@@ -1,0 +1,26 @@
+/* maroon - background colors */
+$primary-color: #4F1C14;
+
+/* orange buttons - links */
+$secondary-color: #f2622e;
+$secondary-color-dark: darken($secondary-color, 10%);
+
+/* yellow - buttons */
+$third-color: #f2b33d; 
+$third-color-light: lighten($third-color, 20%);
+$third-color-dark: darken($third-color, 10%);
+
+/* form containers */
+$fourth-color: #FFFDF5;
+
+/* other containers */
+$fifth-color: #FFF3CA;
+
+/* dark gray */
+$font-color: #726846;
+
+/* red */
+$alert: #CD3804;
+
+/* blue */
+$success: #043B58;
