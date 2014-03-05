@@ -1,0 +1,51 @@
+.dataTables_length, .dataTables_info {
+  display: none;
+}
+
+.dataTables_paginate {
+  float: right;
+  position: relative; 
+  top: -10px;
+}
+
+.dataTables_wrapper {
+  padding-top: 1px;
+}
+
+.dataTables_filter {
+  float: right;
+
+  label {
+    position: relative;
+    top: -15px;
+  }
+
+  input[type=text] {
+    margin-bottom: 0;
+  }
+
+  .search-results &{
+    display: none;
+  }
+}
+
+.sorting {
+  @include cursor;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.sorting_asc {
+  @extend .sorting;
+  padding-left: 30px;
+  background-image: image-url('icons/sorting-arrow-up.png');
+  background-repeat: no-repeat;
+  background-position: 8px 13px;
+}
+
+.sorting_desc {
+  @extend .sorting_asc;
+  background-image: image-url('icons/sorting-arrow-down.png');
+}

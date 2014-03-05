@@ -1,0 +1,49 @@
+.ui-datepicker {
+  @include roundcorners;
+  @include shadow;
+  padding: 10px;
+  margin-top: 15px;
+  background: white;
+  display: none;
+}
+
+
+.ui-datepicker-calendar {
+  margin: 0;
+  font-size: 12px;
+  
+  td, th {
+    padding: 4px;
+  }
+
+  .ui-datepicker-week-end {
+    color: $yellow-light;
+  }
+}
+
+.ui-datepicker-next {
+  float: right;
+  font-size: 9px;
+  @include cursor;
+}
+
+.ui-datepicker-prev {
+  float: left;
+  font-size: 9px;
+  @include cursor;
+}
+
+.ui-datepicker-header {
+  padding-bottom: 5px;
+}
+
+.ui-datepicker-title {
+  text-align: center;
+  font-weight: bold;
+  color: $maroon;
+  padding-bottom: 5px;
+}
+
+.ui-datepicker-unselectable {
+  color: $yellow-light;
+}

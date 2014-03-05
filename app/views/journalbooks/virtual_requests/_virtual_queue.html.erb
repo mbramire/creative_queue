@@ -1,0 +1,18 @@
+<% 
+  user ||= current_user
+%>
+
+<div class="row">
+  <h1 class="tbl-header margin-right-large">Virtual Queue (<%= user.vr_assigned.count %>)</h1>
+  <ul class="tabs">
+    <li class="pull-left margin-right-large tab-on" data-table="pending-table-art">queued</li>
+    <!-- <li class="pull-left margin-right-large" data-table="processing-table-art">processing</li> -->
+    <li class="pull-left" data-table="completed-table-art">recently completed</li>
+  </ul>
+  <%= render partial: "journalbooks/virtual_requests/virtual_request_table", :locals => { virtuals: user.queued_requests, elem_class: "pending-table-art" } %>
+  <%#= render partial: "/virtual_requests/virtual_request_table", :locals => { virtuals: user.vr_processing, elem_class: "processing-table-art hide" } %>
+  <%= render partial: "journalbooks/virtual_requests/virtual_request_table", :locals => { virtuals: user.recently_completed, elem_class: "completed-table-art hide", completed: true } %>
+  <% unless user == !current_user || user.no_queue? %>
+    <%= link_to "Add to Virtual Queue", new_journalbooks_virtual_request_path, class: "new-btn" %>
+  <% end %>
+</div>

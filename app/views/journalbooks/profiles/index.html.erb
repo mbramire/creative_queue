@@ -1,0 +1,25 @@
+<div class="row">
+  <h1 class="tbl-header">Users</h1>
+  <table class="artist-tbl">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone number</th>
+        <th>In Queue?</th>
+        <th>Admin</th>
+        <th>Artist</th>
+        <th>Sales</th>
+        <th>External</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <%= render 'journalbooks/profiles/profile', creative_user: user %>
+      <% end %>
+    </tbody>
+  </table>
+  <% if current_user.admin %>
+    <%= link_to "User", new_creative_user_path, class: "new-btn margin-right" %>
+  <% end %>
+</div>

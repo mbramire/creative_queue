@@ -14,7 +14,7 @@
       </div>
       <div class="two-col">
         <% if current_user.admin || current_user?(@user) %>
-          <%= link_to "Edit Profile", edit_creative_user_path(@user), class: "edit-btn pull-right margin-right" %>
+          <%= link_to "Edit Profile", edit_journalbooks_profile_path(@user), class: "edit-btn pull-right margin-right" %>
         <% end %>
       </div>
     </div>

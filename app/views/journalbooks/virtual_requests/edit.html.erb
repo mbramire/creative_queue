@@ -1,0 +1,22 @@
+<%= form_for(@virtual_request, url: journalbooks_virtual_request_path) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="row pad-all-large">
+    <div class="white-box">
+      <h1>Edit <%= @virtual_request.end_client %></h1>
+      <%= render 'quote_fields', f: f %>
+      <%= render 'company_fields', f: f %>
+      <%= render "virtual_fields", f: f, comments: true %>
+      <% if @virtual_request.processed %>
+        <%= f.submit "Save", class: "save-btn margin-right" %>
+      <% else %>
+        <%= f.submit "Save & Process", class: "process-btn margin-right" %>
+      <% end %>
+      <%= link_to "Go Back", "/#", class: "prev-btn margin-right" %>
+      <%= link_to "Delete Request", journalbooks_virtual_request_path(@virtual_request), 
+        method: :delete, 
+        data: { confirm: "Are you sure you want to delete #{@virtual_request.company}?" },
+        class: "delete-btn" %>
+    </div>
+  </div>
+<% end %>
+

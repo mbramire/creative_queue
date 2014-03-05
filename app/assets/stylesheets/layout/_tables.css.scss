@@ -1,0 +1,80 @@
+table {
+  @include roundcorners;
+  margin: 20px 0 30px;
+  width: 100%;
+  text-align: left;
+  
+  tr:nth-child(odd) {
+    td {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  th, td{
+    padding: 15px;
+  }
+  
+  th {
+    background: $maroon;
+    color: white;
+  }
+
+  .small-avatar {
+    position: absolute;
+    margin-top: -5px;
+    margin-left: -5px;
+  }
+
+  .avatar-td {
+    a:nth-child(even) {
+      padding-left: 35px;
+    }
+  }
+
+  .priority {
+    color: $yellow;
+  }
+}
+
+.virtual-tbl-container {
+  padding-top: 1px;
+}
+
+.reverse-tbl {
+  margin-bottom: 0;
+  
+  a {
+    color: white;
+  }
+
+  th {
+    background: none;
+  }
+
+  td {
+    color: white;
+  }
+}
+
+.highlight {
+  a {
+    color: $orange;
+  }
+}
+
+.small-tbl-icon {
+  padding-left: 4px;
+  height: 10px;
+  position: relative;
+  top: -3px;
+}
+
+.tabs {
+  li {
+    @include cursor;
+  }
+  .tab-on {
+    border-bottom: 4px solid $orange;
+    font-weight: bold;
+  }
+}

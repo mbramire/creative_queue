@@ -1,0 +1,49 @@
+<footer class="row pad-top-large pad-bottom-large">
+  <ul class="footer-list">
+    <li>
+      <div class="">
+        <h1>Statistics</h1>
+        <ul>
+          <li><%= link_to "virtual stastics", journalbooks_statistics_path %></li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="">
+        <h1>Requests</h1>
+        <ul>
+          <li><%= link_to "my queue", root_path %></li>
+          <li><%= link_to "all virtuals", journalbooks_virtual_requests_path %></li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="">
+        <h1>Profile</h1>
+        <ul>
+          <li><%= link_to "my profile", creative_user_path(current_user) %></li>
+          <li><%= link_to "edit profile", edit_creative_user_path(current_user) %></li>
+          <li><%= link_to "all profiles", creative_users_path %></li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div>
+        <%= image_tag 'logos/logo-footer.png' %>
+        <p>
+          &copy; 2014 CreativeQueue<br/> 
+          All rights reserved.
+        </p>
+      </div>
+    </li>
+    <li>
+      <div class="">
+        <%= image_tag 'logos/jb-logo-footer.png' %>
+        <p>
+          &copy; 2014 JournalBooks<br/> 
+          All rights reserved.
+        </p>
+      </div>
+    </li>
+  </ul>
+</footer>

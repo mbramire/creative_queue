@@ -1,0 +1,117 @@
+nav {
+  font-size: 18px;
+  height: 100px;
+  overflow: hidden;
+  background: image-url("backgrounds/nav_bg.png") repeat;
+  color: $orange;
+  font-weight: bold;
+
+  ul {
+    line-height: 18px;
+
+    li {
+      height: 100px;
+      float: left;
+      padding: 40px 20px 0;
+      color: white;
+
+      &.selected {
+        color: $yellow;
+      }
+    } 
+  }
+  
+  img {
+    float: left;
+    height: 85px;
+    padding: 15px 15px 0;
+  }
+}
+
+.navigation {
+  
+  li:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  li {
+    font-size: 14px;
+    @include cursor;
+  }
+}
+
+.nav-container {
+  @include shadow;
+}
+
+.profile{
+  float: right;
+  background: $maroon;
+  color: white;
+  font-size: 12px;
+  @include cursor;
+  
+  div {
+    height: 100px;
+    width: 100px;
+    float: left;
+    overflow: hidden;
+    border-right: 2px solid $orange;
+    
+    img {
+      height: 100px;
+    }
+  }
+
+  ul:hover {
+    background: rgba(255, 255, 255, 0.2)
+  }
+  
+  ul {
+    height: 100px;
+    padding: 15px 20px 0;
+    float: left;
+    line-height: 18px;
+    color: white;
+    
+    li:first-child {
+      font-weight: bold;
+      color: $yellow;
+      font-size: 15px;
+    }
+  }
+}
+
+.profile-small {
+  display: none;
+
+  div {
+    height: 50px;
+    width: 50px;
+    float: right;
+    overflow: hidden;
+    border-left: 2px solid $orange;
+
+    img {
+      height: 50px;
+    }
+  }
+
+  li {
+    margin-right: 10px;
+    float: right;
+    line-height: 50px;
+    color: white;
+    font-weight: normal;
+  }
+
+  li:first-child {
+    color: $yellow;
+    font-weight: bold;
+  }
+}
+
+.profile-list {
+  color: $maroon;
+  font-weight: bold;
+}

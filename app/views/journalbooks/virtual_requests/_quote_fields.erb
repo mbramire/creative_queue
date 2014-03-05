@@ -1,0 +1,31 @@
+<h2 class="quote-header">Quote & Artist Information</h2>
+<div class="row pad-top pad-bottom-large">
+  <div id="quote-field" class="four-col">
+    <%= f.label :quote, "Quote No." %>
+    <%= f.text_field :quote %>
+  </div>
+  <div id="sales-select" class="four-col">
+    <%= f.label :creative_user_id, "Quote" %>
+      <% 
+        quote_options = CreativeUser.quoters.collect {|p| [ p.name_requests, p.id ] } 
+        quote_options.unshift ["auto-assign", 0]
+      %>
+    <% if quote_options[1].nil? %>
+      None available
+    <% else %>
+      <%= f.select :creative_user_id, quote_options, include_blank: true %>
+    <% end %> 
+  </div>
+  <div class="four-col">
+    <%= f.label :artist_id, "Artist" %>
+    <% 
+      options = CreativeUser.artists.collect {|p| [ p.name_vrs, p.id ] } 
+      options.unshift ["auto-assign", 0]
+    %>
+    <% if options[1].nil? %>
+      None available
+    <% else %>
+      <%= f.select :artist_id, options, include_blank: true %> 
+    <% end %>
+  </div>
+</div>

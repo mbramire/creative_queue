@@ -1,29 +1,15 @@
-<% if current_user %>
-  <%= render 'virtual_queue' %>
-  <%= render "statistics/artist_stats_table", artists: current_user, single_user: true if current_user.artist %>
-  <%= render "statistics/request_stats_table", sales: current_user, single_user: true if current_user.sales %>
+<div class="row">
+  <section class="white-box sign-in">
+    <%= image_tag "logos/logo.png", class: "pull-left pad-top" %> 
+    <%= form_for :session, url: sessions_path, :html => { :class => "pull-right" }  do |f| %>
 
-  <%# if current_user.requests_needing_quote.count > 0 %>
-    <!-- <div class="row">
-      <h1 class="tbl-header margin-right-large">Need Quote (<%= current_user.requests_needing_quote.count %>)</h1>
-      <%#= render partial: "/virtual_requests/virtual_request_table", :locals => { :virtuals => current_user.requests_needing_quote, :show_artists => true, need_quote: true } %>
-    </div> -->
-  <%# end %>
+      <%= f.label :email %>
+      <%= f.text_field :email %><br />
 
-<% else %>
-  <div class="row">
-    <section class="white-box sign-in">
-      <%= image_tag "logos/logo.png", class: "pull-left pad-top" %> 
-      <%= form_for :session, url: sessions_path, :html => { :class => "pull-right" }  do |f| %>
+      <%= f.label :password %>
+      <%= f.password_field :password %><br />
 
-        <%= f.label :email %>
-        <%= f.text_field :email %><br />
-
-        <%= f.label :password %>
-        <%= f.password_field :password %><br />
-
-        <%= f.submit "Sign in", class: "button" %>
-      <% end %>
-    </section>
-  </div>
-<% end %>
+      <%= f.submit "Sign in", class: "button" %>
+    <% end %>
+  </section>
+</div>

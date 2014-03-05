@@ -1,0 +1,87 @@
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=url],
+input[type=number],
+input[type=tel],
+input[type=file], {
+  margin: 10px 0 20px;
+  padding: 7px;
+  @include roundcorners;
+  width: 175px;
+  -moz-box-shadow:    none;
+  -webkit-box-shadow: none;
+  box-shadow:         none;
+  -moz-box-shadow:    inset 0 0 10px rgba(100, 35, 0, 0.2);
+  -webkit-box-shadow: inset 0 0 10px rgba(100, 35, 0, 0.2);
+  box-shadow:         inset 0 0 10px rgba(100, 35, 0, 0.2);
+  border: none;
+
+  &:focus {
+    outline: none;
+    background: $yellow-light;
+  }
+}
+
+select {
+  margin: 10px 0 20px;
+}
+
+input[type=checkbox] {
+  margin: 10px 0 20px;  
+}
+
+label {
+  color: $maroon;
+  font-weight: bold;
+  display: block;
+}
+
+textarea {
+  @extend input[type=text];
+  height: 88px;
+}
+
+.extend-field {
+  width: 80%;
+}
+
+form {
+
+  h2 {
+  padding-left: 30px;
+  background-image: image-url('icons/form-sprite.png');
+  background-repeat: no-repeat;
+
+    &.quote-header {
+      height: 33px;
+      line-height: 43px;
+      background-position: 0px 10px;  
+    }
+
+    &.company-header {
+      height: 33px;
+      line-height: 43px;
+      background-position: 0px -32px; 
+    }
+
+    &.virtual-header {
+      height: 33px;
+      line-height: 43px;
+      background-position: 0px -72px; 
+    }
+
+    &.pass-header {
+      height: 33px;
+      line-height: 43px;
+      background-position: 0px -150px; 
+    }
+
+    &.attr-header {
+      height: 33px;
+      line-height: 43px;
+      background-position: 0px -110px; 
+    }
+  }
+}
+

@@ -4,6 +4,7 @@ CreativeQueue::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
 root 'home#index'
+resources :sessions, only: [:new, :create, :destroy]
 
 resources :creative_users do
   member do
@@ -11,33 +12,40 @@ resources :creative_users do
   end
 end
 
-resources :virtual_requests do
-  member do
-    put 'complete'
-    put 'move'
-    put 'duplicate'
-    get 'add_quote'
-    patch 'quote_update' 
-  end
-  
-  collection do
-    get 'artist_new'
-    post 'artist_create'
-  end
-
-  resources :virtuals do 
+namespace :journalbooks do
+  resources :profiles do
     member do
-      put 'send_out'
+      post 'update_password'
     end
   end
-  get 'art', action: "download_file"
+
+  resources :virtual_requests do
+    member do
+      put 'complete'
+      put 'move'
+      put 'duplicate'
+      get 'add_quote'
+      patch 'quote_update' 
+    end
+    
+    collection do
+      get 'artist_new'
+      post 'artist_create'
+    end
+
+    resources :virtuals do 
+      member do
+        put 'send_out'
+      end
+    end
+    get 'art', action: "download_file"
+  end
+
+  resources :rules
+
+  get 'statistics', to:'statistics#index'
+  get 'search', to: 'search#index'
 end
-
-resources :sessions, only: [:new, :create, :destroy]
-
-resources :rules
-
-get 'statistics', to:'statistics#index'
 
 #get 'session/destroy', to: 'session#destroy', as: :sessions
 

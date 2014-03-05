@@ -1,0 +1,3 @@
+<%= render 'virtual_queue' %>
+<%= render "journalbooks/statistics/artist_stats_table", artists: current_user, single_user: true if current_user.artist %>
+<%= render "journalbooks/statistics/request_stats_table", sales: current_user, single_user: true if current_user.sales %>

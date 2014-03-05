@@ -1,0 +1,64 @@
+<% 
+  single_user ||= false 
+  show_all ||= false
+%>
+<div class="row">
+  <div class="red-box">
+    <h1 class="tbl-header reverse">Virtuals</h1>
+    <table class="reverse-tbl align-center">
+      <thead>
+        <tr>
+          <th class="align-left">Artist</th>
+          <th>Queued</th>
+          <th>Completed <%= Time.new.strftime("%B") %></th>
+          <th>Converted <%= Time.new.strftime("%B") %></th>
+          <% unless single_user && !show_all %>
+            <th>Completed total</th>
+            <th>Converted total</th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% if single_user %>
+
+          <tr>
+            <td class="avatar-td align-left">
+              <%= link_to image_tag(artists.avatar_image, class: "small-avatar"), creative_user_path(artists) %>
+              <%= link_to artists.short_name, creative_user_path(artists) %>
+              <% unless artists.in_queue %>
+                <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
+              <% end %>
+            </td>
+            <td><%= artists.vr_assigned.count %></td>
+            <td><%= artists.vr_current_month.count %></td>
+            <td><%= artists.vr_ordered_current_month.count %></td>
+            <% if show_all %>
+              <td><%= artists.vr_completed.count %></td>
+              <td><%= artists.vr_ordered.count %></td>
+            <% end %>
+          </tr>
+        
+        <% else %>
+
+          <% artists.each do |a| %>
+            <tr>
+              <td class="avatar-td align-left">
+                <%= link_to image_tag(a.avatar_image, class: "small-avatar"), creative_user_path(a) %>
+                <%= link_to a.short_name, creative_user_path(a) %>
+                <% unless a.in_queue %>
+                  <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
+                <% end %>
+              </td>
+              <td><%= a.vr_assigned.count %></td>
+              <td><%= a.vr_current_month.count %></td>
+              <td><%= a.vr_ordered_current_month.count %></td>
+              <td><%= a.vr_completed.count %></td>
+              <td><%= a.vr_ordered.count %></td>
+            </tr>
+          <% end %>
+
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

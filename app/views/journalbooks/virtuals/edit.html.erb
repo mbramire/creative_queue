@@ -1,0 +1,11 @@
+<%= form_for(@virtual, url: journalbooks_virtual_request_virtual_path(@virtual_request.id, @virtual.id)) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+  <div class="row pad-all-large">
+    <div class="white-box">
+      <h1>Edit <%= @virtual_request.end_client %> <%= @virtual.version_display %></h1>
+      <%= render "form_fields", f: f %>
+      <%= link_to "Go Back", "/#", class: "prev-btn margin-right" %>  
+      <%= link_to "Delete Virtual", journalbooks_virtual_request_virtual_path(@virtual_request.id, @virtual.id), method: :delete, data: { confirm: "Are you sure you want to delete this virtual? (this will not delete the request)" }, class: "delete-btn" %>
+    </div>
+  </div>
+<% end %>

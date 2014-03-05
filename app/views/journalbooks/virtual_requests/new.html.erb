@@ -1,0 +1,13 @@
+<%= form_for(@virtual_request, url: journalbooks_virtual_requests_path) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="row pad-all-large">
+    <div class="white-box">
+      <h1 class="pad-bottom-large">Create Virtual Request</h1>
+      <%= render 'quote_fields', f: f %>
+      <%= render "virtual_fields", f: f %>
+      <%= f.submit "Create Virtual Request", class: "save-btn margin-right" %>
+      <%= link_to "Go Back", "/#", class: "prev-btn margin-right" %>
+    </div>
+  </div>
+<% end %>
+

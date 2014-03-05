@@ -21,6 +21,13 @@ class CreativeUser < ActiveRecord::Base
 
   by_star_field :updated_at
   
+  def homepage
+    case self.account_type
+    when "Journalbooks"
+      journalbooks_virtual_requests_path
+    end
+  end
+
   def CreativeUser.new_remember_token
     SecureRandom.urlsafe_base64
   end
