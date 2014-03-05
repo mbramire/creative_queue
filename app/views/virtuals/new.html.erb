@@ -1,9 +1,0 @@
-<%= form_for(@virtual, url: virtual_request_virtual_path(@virtual_request.id, @virtual.id)) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
-  <div class="row pad-all-large">
-    <div class="white-box">
-      <h1>Create Virtual for <%= @virtual_request.company %></h1>
-      <%= render "form_fields", f: f %>    
-    </div>
-  </div>
-<% end %>
