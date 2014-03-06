@@ -1,0 +1,31 @@
+<%= form_for(@user, url: admin_creative_user_path) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="row pad-all-large">
+    <div class="white-box">
+      <h1 class="pad-bottom-large">Edit Profile for <%= @user.name %></h1>
+      <h2 class="quote-header">User Info</h2>
+      <%= render 'creative_user_fields', f: f %>
+
+      <h2 class="attr-header">Attributes</h2>
+      <%= render 'attributes_fields', f: f %> 
+
+      <h2 class="pass-header">Password</h2>
+      <div class="row pad-top pad-bottom-large">
+        <div class="four-col">
+          <%= f.label :password, "New Password" %>
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+
+        <div class="four-col">
+          <%= f.label :password_confirmation, "Confirmation" %>
+          <%= f.password_field :password_confirmation %>
+        </div>
+      </div>
+
+      <%= f.submit "Save Changes", class: "save-btn margin-right" %>
+      <%= link_to "Go Back", "/#", class: "prev-btn margin-right" %>
+      <%= link_to "Delete #{@user.name}", admin_creative_user_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete #{@user.name}?" }, class: "delete-btn" %>
+    </div>
+  </div>
+<% end %>

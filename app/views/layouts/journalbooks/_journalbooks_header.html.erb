@@ -1,0 +1,28 @@
+<div class="nav-container">
+  <%= render 'shared/profile' %>
+  <nav>
+    <%= link_to image_tag('logos/logo-reversed.png'), journalbooks_virtual_requests_path %>
+    <ul class="navigation">
+      <% unless current_user.no_queue? %>
+        <%= link_to journalbooks_virtual_requests_path do %>
+          <li class="<%= @nav[0] == 'home' ? "selected" : "" %>">my queue</li>
+        <% end %>
+      <% end %>
+      <%= link_to journalbooks_search_path do %>
+        <li class="<%= @nav[0] == 'search' ? "selected" : "" %>">search</li>
+      <% end %>
+      <%= link_to journalbooks_statistics_path do %>
+        <li class="<%= @nav[0] == 'statistics' ? "selected" : "" %>">stats</li>
+      <% end %>
+      <%= link_to journalbooks_profiles_path do %>
+        <li class="<%= @nav[0] == 'profiles' ? "selected" : "" %>">profiles</li>
+      <% end %>
+      <%= link_to journalbooks_rules_path do %>
+        <li class="<%= @nav[0] == 'rules' ? "selected" : "" %>">rules</li>
+      <% end %>
+      <%= link_to session_path(current_user), method: "delete" do %>
+        <li class="pull-right">log out</li>
+      <% end %>
+    </ul>
+  </nav>
+</div>

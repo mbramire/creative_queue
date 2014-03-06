@@ -1,0 +1,41 @@
+<div class="row pad-top pad-bottom">
+  <div class="four-col pad-right-large">
+    <%= f.check_box :in_queue, class: 'pull-left' %>
+    <%= f.label :in_queue %>
+    <p>Allow the auto-assign feature to assign quotes/art to this user.</p>
+  </div>
+  <div class="four-col pad-right-large">
+    <%= f.check_box :journalbooks, class: 'pull-left' %>
+    <%= f.label :journalbooks %>
+    <p>Allows user access to journalbooks queue.</p>
+  </div>
+  <div class="four-col pad-right-large">
+    <%= f.check_box :trimark, class: 'pull-left' %>
+    <%= f.label :trimark %>
+    <p>Allows user access to TPL queue.</p>
+  </div>
+  <div class="four-col pad-right-large">
+    <%= f.check_box :pcna, class: 'pull-left' %>
+    <%= f.label :pcna, "PCNA" %>
+    <p>Allows user access to PCNA queue.</p>
+  </div>
+</div>
+<div class="row pad-top pad-bottom-large">
+  <div class="four-col pad-right-large">
+    <%= f.check_box :artist, class: 'pull-left' %>
+    <%= f.label :artist %>
+    <p>User will be selecteable as an artist, and will have thier statistics reflect that role.</p>
+  </div>
+  <div class="four-col pad-right-large">
+    <%= f.check_box :sales, class: 'pull-left' %>
+    <%= f.label :sales %>
+    <p>User will not be selecteable as an artist, and thier stats will reflect that role.</p>
+  </div>
+  <% if @user != current_user %>
+    <div class="four-col pad-right-large">
+      <%= f.check_box :admin, class: 'pull-left' %>
+      <%= f.label :admin %>
+      <p>Give user admin priveledges</p>
+    </div>
+  <% end %>
+</div>

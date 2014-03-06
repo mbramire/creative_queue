@@ -1,0 +1,14 @@
+<div class="nav-container">
+  <%= render 'shared/profile' %>
+  <nav>
+    <%= link_to image_tag('logos/logo-reversed.png'), journalbooks_virtual_requests_path %>
+    <ul class="navigation">
+      <%= link_to admin_creative_users_path do %>
+        <li class="<%= @nav[0] == 'creative_users' ? "selected" : "" %>">users</li>
+      <% end %>
+      <%= link_to session_path(current_user), method: "delete" do %>
+        <li class="pull-right">log out</li>
+      <% end %>
+    </ul>
+  </nav>
+</div>

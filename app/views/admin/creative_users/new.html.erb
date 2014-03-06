@@ -1,0 +1,29 @@
+<%= form_for(@user) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="row pad-all-large">
+    <div class="white-box">
+      
+      <h1 class="pad-bottom-large">Create User</h1>
+      <h2 class="quote-header">User Info</h2>
+      <%= render 'creative_user_fields', f: f %>
+      
+      <h2 class="attr-header">Attributes</h2>
+      <%= render 'attributes_fields', f: f %> 
+      
+      <h2 class="pass-header">Password</h2>
+      <div class="row pad-top pad-bottom">
+        <div class="four-col">
+          <%= f.label :password %>
+          <%= f.password_field :password %>
+        </div>
+        <div class="four-col">
+          <%= f.label :password_confirmation, "Confirmation" %>
+          <%= f.password_field :password_confirmation %>
+        </div>
+      </div>
+      
+      <%= f.submit "Create User", class: "save-btn margin-right" %>
+      <%= link_to "Go Back", "/#", class: "prev-btn margin-right" %>
+    </div>
+  </div>
+<% end %>

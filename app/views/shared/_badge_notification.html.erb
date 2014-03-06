@@ -1,0 +1,18 @@
+<div class="curtain">
+  <div class="row pad-top-large">
+    <div class="white-box award-box">
+      <i class="close">X</i>
+      <h1 class="pad-bottom">Congratulations!</h1>
+      <p class="pad-bottom">You earned the following badges, keep up the good work!</p>
+      <% awards.each do |a| %>
+        <div class="award margin-top">
+          <%= image_tag a.badge.icon %>
+          <h2><%= a.badge.name %></h2>
+          <p class="small-font"><%= a.badge.description %></p>
+        </div>
+        <% mark_notified(a) %>
+      <% end %>
+      <%= link_to "View Stats", journalbooks_profile_path(current_user), class: "button margin-top-large" %> 
+    </div>
+  </div>
+</div>
