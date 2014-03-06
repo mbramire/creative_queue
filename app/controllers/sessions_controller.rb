@@ -6,10 +6,8 @@ class SessionsController < ApplicationController
   def create
     user = CreativeUser.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
-      homepage = case user.account_type
-      when "Journalbooks"
-        journalbooks_virtual_requests_path
-      end
+      homepage = journalbooks_virtual_requests_path
+      homepage = admin_dashboard_path if user.admin
       
       sign_in user
       flash[:success] = "Welcome to Creative Queue #{current_user.first_name}!"

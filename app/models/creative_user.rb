@@ -20,13 +20,6 @@ class CreativeUser < ActiveRecord::Base
   belongs_to :title
 
   by_star_field :updated_at
-  
-  def homepage
-    case self.account_type
-    when "Journalbooks"
-      journalbooks_virtual_requests_path
-    end
-  end
 
   def CreativeUser.new_remember_token
     SecureRandom.urlsafe_base64
@@ -78,7 +71,14 @@ class CreativeUser < ActiveRecord::Base
   def no_queue?
     !self.artist && !self.sales
   end
+
+  def requests_with(artist)
+    self.virtual_requests.find_all { |a| a.artist_id == artist.id }
+  end
   
+  def avatar_image 
+    self.avatar.present? ? self.avatar : "profile/avatar.png"
+  end
 
   def self.artists
     CreativeUser.where(artist: true)
@@ -106,12 +106,12 @@ class CreativeUser < ActiveRecord::Base
     all.uniq { |v| v[:id] }
   end
 
-  def requests_with(artist)
-    self.virtual_requests.find_all { |a| a.artist_id == artist.id }
+  def name_vrs
+    "#{'(zzz) ' unless self.in_queue}#{self.name} (#{self.vr_assigned.count})"
   end
-  
-  def avatar_image 
-    self.avatar.present? ? self.avatar : "profile/avatar.png"
+
+  def name_requests
+    "#{'(zzz) ' unless self.in_queue}#{self.name} (#{self.requests_quoted.count})"
   end
 
   def vr_current_month
@@ -179,14 +179,7 @@ class CreativeUser < ActiveRecord::Base
     art + sales
   end
 
-  def name_vrs
-    "#{'(zzz) ' unless self.in_queue}#{self.name} (#{self.vr_assigned.count})"
-  end
-
-  def name_requests
-    "#{'(zzz) ' unless self.in_queue}#{self.name} (#{self.requests_quoted.count})"
-  end
-
+  #badges methods
   def title_update
     completed = self.artist ? self.vr_completed.count : self.requests_completed.count
 

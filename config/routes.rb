@@ -6,12 +6,6 @@ CreativeQueue::Application.routes.draw do
 root 'home#index'
 resources :sessions, only: [:new, :create, :destroy]
 
-resources :creative_users do
-  member do
-    post 'update_password'
-  end
-end
-
 namespace :journalbooks do
   resources :profiles do
     member do
@@ -45,6 +39,16 @@ namespace :journalbooks do
 
   get 'statistics', to:'statistics#index'
   get 'search', to: 'search#index'
+end
+
+namespace :admin do
+  get 'dashboard', to: 'dashboard#index'
+  
+  resources :creative_users do
+    member do
+      post 'update_password'
+    end
+  end
 end
 
 #get 'session/destroy', to: 'session#destroy', as: :sessions

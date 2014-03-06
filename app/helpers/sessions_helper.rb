@@ -34,8 +34,14 @@ module SessionsHelper
 
   def admin_user
     unless current_user.admin
-      store_location
       flash[:error] = "Requires admin privledges."
+      redirect_to root_path
+    end
+  end
+
+  def journalbooks_user
+    unless current_user.journalbooks
+      flash[:error] = "Requires Journalbooks privledges."
       redirect_to root_path
     end
   end

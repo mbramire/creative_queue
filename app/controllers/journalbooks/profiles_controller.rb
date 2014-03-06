@@ -21,7 +21,7 @@ class Journalbooks::ProfilesController < Journalbooks::BaseController
     @user = CreativeUser.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
-      redirect_to creative_user_path(@user)
+      redirect_to journalbooks_profile_path(@user)
     else
       render 'edit'
     end
