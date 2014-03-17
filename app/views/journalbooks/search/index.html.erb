@@ -18,7 +18,7 @@
 <div class="row pad-all-large">
   <div class="white-box">
     <h1>Search</h1>
-    <%= form_tag journalbooks_virtual_requests_path, method: :get do %>
+    <%= form_tag journalbooks_search_path, method: :get do %>
       <div class="row pad-top pad-bottom">
         <div class="four-col">
           <%= label "search[asi_number]", "Customer Number"  %>
@@ -51,7 +51,7 @@
           <%= select "search[creative_user_id]", :options, sales_options, {include_blank: true, selected: sales_selected} %>
         </div>
       </div>
-      <div class="row padded-bottom">
+      <div class="row pad-bottom">
         <div class="four-col">
           <%= label "search[ordered]", "Only Ordered Virtuals" %>
           <%= check_box "search[ordered]", :options, { checked: orders_checked }, "yes", "no" %>
@@ -63,7 +63,7 @@
       </div>
       <%= submit_tag "Search", class: "button margin-right" %>
       <% if params[:search].present? %>
-        <%= link_to "New Search", virtual_requests_path, class: "button margin-right" %>
+        <%= link_to "New Search", journalbooks_search_path, class: "button margin-right" %>
       <% end %>
     <% end %>
   </div>
@@ -88,6 +88,6 @@
           <%= "• #{s[0]}: #{s[1]} " unless s[1].blank?  %>  
         <% end %>
       <% end %>
-    <%= render 'virtual_request_table', virtuals: @virtual_requests, search: true %>
+    <%= render '/journalbooks/virtual_requests/virtual_request_table', virtuals: @virtual_requests, search: true %>
   </div>
 <% end %>
