@@ -11,7 +11,7 @@
   <body>
     <% if current_user %>
       <% if new_badges? %>
-        <%= render 'layouts/journalbooks/badge_notification', awards: new_badges %>
+        <%= render 'shared/badge_notification', awards: new_badges %>
       <% end %>
     <% end %>
     <%= render 'layouts/journalbooks/journalbooks_header' %>
