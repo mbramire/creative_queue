@@ -42,7 +42,7 @@
               <% elsif v.processed %>
                 <%= link_to v.end_client, journalbooks_virtual_request_path(v) %>
                 <%= "(#{v.virtuals.count})" unless v.virtuals.empty? %>
-                <%= "<span class='priority'>&#9733;</span>".html_safe if v.ordered %>
+                <%= "<span class='priority'>&#9733;</span> #{v.ordered_date_human}".html_safe if v.ordered %>
               <% else %>
                 <%= link_to "#{v.end_client} (processing)", edit_journalbooks_virtual_request_path(v) %> 
               <% end %>

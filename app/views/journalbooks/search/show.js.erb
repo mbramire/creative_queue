@@ -1,0 +1,3 @@
+$("[data='loading']").hide();
+$(".search-results").html("<%= escape_javascript(render 'results') %>");
+$('table').dataTable({"iDisplayLength": 10, bDestroy: true});

@@ -19,6 +19,4 @@ $(document).ready(function(){
       $(table).show();
     };
   });
-
-  $("#virtual_request_unformatted_date").datepicker({beforeShowDay: $.datepicker.noWeekends, minDate: 0});
 });

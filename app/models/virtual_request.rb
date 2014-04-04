@@ -34,38 +34,6 @@ class VirtualRequest < ActiveRecord::Base
 
   attr_accessor  :unformatted_date, :process
 
-  def self.search(params)
-    query = VirtualRequest.all
-
-    params[:search].each do |s|
-      if s[1].is_a? Hash
-        if s[1]["options"] == "yes"
-          q = {}
-          q[s[0]] = true
-          found = VirtualRequest.where(q)
-          query.merge!(found) unless found.nil?
-        else
-          unless s[1]["options"].blank? || s[1]["options"] == "no"
-            q = {}
-            q[s[0]] = s[1]["options"]
-            found = VirtualRequest.where(q)
-            query.merge!(found) unless found.nil?
-          end
-        end
-      else
-        unless s[1].blank?
-          key = s[0]
-          value = s[1]
-          found = VirtualRequest.where("#{key} LIKE ?", "%#{value}%")
-          query.merge!(found) unless found.nil?
-        end
-      end
-
-    end
-
-    return query
-  end
-
   def requested_by
     self.creative_user_id.present? ? self.creative_user.name : self.contact_name
   end
@@ -99,6 +67,10 @@ class VirtualRequest < ActiveRecord::Base
 
   def created_date_human
     self.created_at.strftime("%m/%d/%y")
+  end
+
+  def ordered_date_human
+    self.ordered_on.strftime("%m/%d/%y") unless self.ordered_on.nil?
   end
 
   def apply_user

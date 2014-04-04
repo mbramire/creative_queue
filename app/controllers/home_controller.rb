@@ -1,7 +1,10 @@
 class HomeController < ApplicationController
   before_action :setup_nav_array
 
-  def index 
+  def index
+    if current_user
+      send_home(current_user)
+    end 
   end
 
   private

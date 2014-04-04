@@ -119,7 +119,11 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def vr_ordered_current_month
-    VirtualRequest.where(artist_id: self.id, ordered: true, updated_at: Time.new.all_month)
+    VirtualRequest.where(artist_id: self.id, ordered: true, ordered_on: Time.new.all_month)
+  end
+
+  def vr_ordered_current_week
+    VirtualRequest.where(artist_id: self.id, ordered: true, ordered_on: Time.new.all_week)
   end
 
   def vr_assigned
@@ -139,7 +143,11 @@ class CreativeUser < ActiveRecord::Base
   end
 
   def requests_ordered_current_month
-    VirtualRequest.where(creative_user_id: self.id, ordered: true, updated_at: Time.new.all_month)
+    VirtualRequest.where(creative_user_id: self.id, ordered: true, ordered_on: Time.new.all_month)
+  end
+
+  def requests_ordered_current_week
+    VirtualRequest.where(creative_user_id: self.id, ordered: true, ordered_on: Time.new.all_week)
   end
 
   def requests_quoted

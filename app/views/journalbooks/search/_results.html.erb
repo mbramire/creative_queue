@@ -1,0 +1,12 @@
+<h1><%= @search[:query].try(:count) %> Results</h1>
+<p class="pad-top">
+  <label>searched for: </label>
+  <%= @search[:text] %>
+</p>
+<% if @search[:query].nil? %>
+  <p>Please select at least one critera above.</p>
+<% elsif @search[:query].count == 0 %>
+  <p>Nothing found</p>
+<% else %>
+  <%= render '/journalbooks/virtual_requests/virtual_request_table', virtuals: @search[:query], search: true %>
+<% end %>

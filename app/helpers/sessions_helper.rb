@@ -65,6 +65,14 @@ module SessionsHelper
     session.delete(:return_to)
   end
 
+  def send_home(user)
+    homepage = journalbooks_virtual_requests_path if user.journalbooks
+    homepage ||= admin_dashboard_path if user.admin
+    homepage ||= root_path
+
+    redirect_to homepage
+  end
+
   def store_location
     session[:return_to] = request.url
   end

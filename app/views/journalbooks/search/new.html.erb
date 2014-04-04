@@ -1,0 +1,74 @@
+<% 
+  artist_options = CreativeUser.artists.collect {|p| [ p.name, p.id ] } 
+  sales_options = CreativeUser.quoters.collect {|p| [ p.name, p.id ] } 
+%>
+
+<div class="row pad-all-large">
+  <div class="white-box">
+    <h1>Search</h1>
+    <%= form_for(@search, url: journalbooks_search_results_path, method: :get, remote: true) do |f| %>
+      <div class="row pad-top pad-bottom">
+        <div class="four-col">
+          <%= f.label :asi_number, "Customer Number"  %>
+          <%= f.text_field :asi_number %>
+        </div>
+        <div class="four-col">
+          <%= f.label :end_client, "End Client" %>
+          <%= f.text_field :end_client %>
+        </div>
+        <div class="four-col">
+          <%= f.label :company, "Company"  %>
+          <%= f.text_field :company %>
+        </div>
+        <div class="four-col">
+          <%= f.label :contact_name, "Requested by"  %>
+          <%= f.text_field :contact_name %>
+        </div>
+      </div>
+      <div class="row pad-bottom">
+        <div class="four-col">
+          <%= f.label :quote, "Virtual/Quote No."  %>
+          <%= f.text_field :quote %>
+        </div>
+        <div class="four-col">
+          <%= f.label :artist_id, "Artist" %>
+          <%= f.select :artist_id, artist_options, include_blank: true %>
+        </div>
+        <div class="four-col">
+          <%= f.label :creative_user_id, "Sales" %>
+          <%= f.select :creative_user_id, sales_options, include_blank: true %>
+        </div>
+        <div class="four-col">
+          <%= f.label "date[unformatted_date]", "Date Range (mm/dd/yyyy)" %>
+          <%= f.text_field :unformatted_date_start, style: "width: 85px;" %> 
+          to
+          <%= f.text_field :unformatted_date_end, style: "width: 85px;" %> 
+        </div>
+      </div>
+      <div class="row pad-bottom">
+        <div class="four-col">
+          <%= f.label :ordered, "Only Ordered Virtuals" %>
+          <%= f.check_box :ordered %>
+        </div>
+        <div class="four-col">
+          <%= f.label :completed, "Only Completed Virtuals" %>
+          <%= f.check_box :completed %>
+        </div>
+      </div>
+      <%= submit_tag "Search", class: "button margin-right" %>
+      <%= link_to "Clear Form", journalbooks_search_path, class: "button margin-right" %>
+    <% end %>
+  </div>
+  <%= image_tag "icons/loading.gif", style: "width: 65px;", class: "hide", data: "loading" %>
+</div>
+<div class="row search-results">
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.button').on('click', function(){
+      $(".search-results").html('');
+      $("[data='loading']").show();
+    })
+  });
+</script>

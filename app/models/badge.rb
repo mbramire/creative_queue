@@ -39,11 +39,11 @@ class Badge < ActiveRecord::Base
 
   def self.cha_ching(user)
     if user.sales
-      if user.requests_ordered.by_week.count == 2 && !user.awarded_badges.where(badge_id: 5).by_week.any?
+      if user.requests_ordered_current_week.count == 2 && !user.awarded_badges.where(badge_id: 5).by_week.any?
         AwardedBadge.create!(badge_id: 5, creative_user_id: user.id)
       end
     else
-      if user.vr_ordered.by_week.count == 2 && !user.awarded_badges.where(badge_id: 5).by_week.any?
+      if user.vr_ordered_current_week.count == 2 && !user.awarded_badges.where(badge_id: 5).by_week.any?
         AwardedBadge.create!(badge_id: 5, creative_user_id: user.id)
       end
     end
@@ -51,11 +51,11 @@ class Badge < ActiveRecord::Base
 
   def self.closer(user)
     if user.sales
-      if user.requests_ordered.by_month.count == 6 && !user.awarded_badges.where(badge_id: 6).by_month.any?
+      if user.requests_ordered_current_month.count == 6 && !user.awarded_badges.where(badge_id: 6).by_month.any?
         AwardedBadge.create!(badge_id: 6, creative_user_id: user.id)
       end
     else
-      if user.vr_ordered.by_month.count == 6 && !user.awarded_badges.where(badge_id: 6).by_month.any?
+      if user.vr_ordered_current_month.count == 6 && !user.awarded_badges.where(badge_id: 6).by_month.any?
         AwardedBadge.create!(badge_id: 6, creative_user_id: user.id)
       end
     end

@@ -13,4 +13,6 @@ $(document).ready(function(){
       $('#sales-select').show(); 
     }
   }
+
+  $("#virtual_request_unformatted_date").datepicker({beforeShowDay: $.datepicker.noWeekends, minDate: 0});
 });

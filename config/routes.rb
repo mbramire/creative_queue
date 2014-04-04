@@ -38,7 +38,8 @@ namespace :journalbooks do
   resources :rules
 
   get 'statistics', to:'statistics#index'
-  get 'search', to: 'search#index'
+  get 'search', to: 'search#new'
+  get 'search_results', to: 'search#show'
 end
 
 namespace :admin do
