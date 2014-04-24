@@ -31,7 +31,7 @@ production:
   pool: 5
   username: cq
   password: Lenhom62 
-  host: durga.int
+  host: 192.168.132.233
   port: 3306
 #  socket: /var/run/mysqld/mysqld.sock
 
