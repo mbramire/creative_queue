@@ -8,9 +8,9 @@
     <%= f.label :company, "Distributor" %>
     <%= f.text_field :company %>
   </div>
-  <div class="four-col">
-    <%= f.label :contact_email, "Contact Email" %>
-    <%= f.text_field :contact_email %>
+  <div class="four-col">  
+    <%= f.label :asi_number, "Customer Number" %>
+    <%= f.text_field :asi_number %>
   </div>
   <div class="four-col">
     <%= f.label :contact_phone, "Contact Phone" %>
@@ -18,8 +18,12 @@
   </div>
 </div>
 <div class="row pad-bottom-large">
-  <div class="four-col">  
-    <%= f.label :asi_number, "Customer Number" %>
-    <%= f.text_field :asi_number %>
+  <div class="four-col">
+    <%= f.label :contact_email, "Contact Email" %>
+    <%= f.text_field :contact_email %>
+  </div>
+  <div class="four-col">
+    <%= f.label :add_emails, "Additional Email Addresses" %>
+    <%= f.text_area :add_emails %>
   </div>
 </div>

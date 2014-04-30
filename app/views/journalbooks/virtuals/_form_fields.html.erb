@@ -1,4 +1,4 @@
-<% @email_addresses ||= f.object.errors.any? ? params[:recipients] : @virtual_request.contact_email %>
+<% @email_addresses ||= f.object.errors.any? ? params[:recipients] : @virtual_request.all_contact_emails %>
 
 <div class="row pad-bottom-large pad-top">
   <div class="three-col">

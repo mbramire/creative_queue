@@ -8,7 +8,7 @@ class Virtual < ActiveRecord::Base
     emails.each do |email|
       self.errors.add(:recipients, "has an invalid email address or is missing a comma") unless email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i  
     end
-    self.recipients = emails.join(",")
+    self.recipients = emails.join(", ")
   end
 
   validates_presence_of :virtual_request_id

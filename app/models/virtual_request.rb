@@ -30,6 +30,15 @@ class VirtualRequest < ActiveRecord::Base
   before_save :update_art_attributes
   before_save :format_date, if: :need_due_date?
 
+  before_validation do
+    emails = self.add_emails.downcase.split(/[\s,]+/)
+
+    emails.each do |email|
+      self.errors.add(:add_emails, " field has an invalid email address or is missing a comma") unless email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i  
+    end
+    self.add_emails = emails.join(", ")
+  end
+
   default_scope { order('priority DESC, due_date ASC') }
 
   attr_accessor  :unformatted_date, :process
@@ -175,6 +184,9 @@ class VirtualRequest < ActiveRecord::Base
     self.cq_form
   end
 
+  def all_contact_emails
+    self.contact_email + ", " + self.add_emails
+  end
 private
 
   def update_art_attributes
