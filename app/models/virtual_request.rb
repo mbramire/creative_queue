@@ -187,7 +187,7 @@ class VirtualRequest < ActiveRecord::Base
   end
 
   def all_contact_emails
-    self.contact_email + ", " + self.add_emails
+    self.add_emails.nil? ? self.contact_email : self.contact_email + ", " + self.add_emails
   end
 private
 
