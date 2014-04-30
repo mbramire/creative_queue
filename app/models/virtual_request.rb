@@ -31,12 +31,14 @@ class VirtualRequest < ActiveRecord::Base
   before_save :format_date, if: :need_due_date?
 
   before_validation do
-    emails = self.add_emails.downcase.split(/[\s,]+/)
+    unless self.add_emails.nil?
+      emails = self.add_emails.downcase.split(/[\s,]+/)
 
-    emails.each do |email|
-      self.errors.add(:add_emails, " field has an invalid email address or is missing a comma") unless email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i  
+      emails.each do |email|
+        self.errors.add(:add_emails, " field has an invalid email address or is missing a comma") unless email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i  
+      end
+      self.add_emails = emails.join(", ")
     end
-    self.add_emails = emails.join(", ")
   end
 
   default_scope { order('priority DESC, due_date ASC') }
