@@ -1,7 +1,8 @@
+<% path = current_user.admin ? edit_admin_creative_user_path(creative_user) : journalbooks_profile_path(creative_user) %>
 <tr>
   <td class="avatar-td">
-    <%= link_to image_tag(creative_user.avatar_image, class: "small-avatar"), journalbooks_profile_path(creative_user) %>
-    <%= link_to creative_user.short_name, journalbooks_profile_path(creative_user) %>
+    <%= link_to image_tag(creative_user.avatar_image, class: "small-avatar"), path %>
+    <%= link_to creative_user.short_name, path %>
     <% unless creative_user.in_queue || !creative_user.artist %>
       <%= image_tag "icons/asleep.png", class: "small-tbl-icon", alt: "Not in queue" %>
     <% end %>

@@ -23,12 +23,12 @@
 <div class="row pad-top pad-bottom-large">
   <div class="four-col pad-right-large">
     <%= f.check_box :artist, class: 'pull-left' %>
-    <%= f.label :artist %>
+    <%= f.label :artist, "Artist & Sales" %>
     <p>User will be selecteable as an artist, and will have thier statistics reflect that role.</p>
   </div>
   <div class="four-col pad-right-large">
     <%= f.check_box :sales, class: 'pull-left' %>
-    <%= f.label :sales %>
+    <%= f.label :sales, "Sales only" %>
     <p>User will not be selecteable as an artist, and thier stats will reflect that role.</p>
   </div>
   <% if @user != current_user %>
